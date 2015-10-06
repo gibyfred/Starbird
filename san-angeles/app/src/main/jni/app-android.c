@@ -17,6 +17,9 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the files
  * LICENSE-LGPL.txt and LICENSE-BSD.txt for more details.
  */
+
+#ifdef BUILD_SANANG
+
 #include <jni.h>
 #include <sys/time.h>
 #include <time.h>
@@ -135,3 +138,4 @@ Java_com_example_SanAngeles_DemoRenderer_nativeRender( JNIEnv*  env )
 
     appRender(curTime, sWindowWidth, sWindowHeight);
 }
+#endif

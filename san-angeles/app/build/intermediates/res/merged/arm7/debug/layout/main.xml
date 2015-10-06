@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <!-- Here is where we put the SurfaceView, in a frame so that we can
+         stack other views on top of it. -->
+
+<!-- Demonstrates changing view visibility. See corresponding Java code. -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <!-- Here is where we put the SurfaceView, in a frame so that we can
+         stack other views on top of it. -->
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="1">
+
+<!--         <android.opengl.GLSurfaceView 
+      -->
+        <com.giby.StarBird.DemoGLSurfaceView
+            android:id="@+id/glsurfaceview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+  
+        <LinearLayout android:id="@+id/hidecontainer"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:background="@drawable/translucent_background"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <Button android:id="@+id/backtogame"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    android:text="@string/back_to_game"/>
+            
+            <Button android:id="@+id/backtotitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    android:text="@string/back_to_title"/>
+            
+            <Button android:id="@+id/quitgame"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    android:text="@string/quit_game"/>
+            
+            <Button android:id="@+id/toggleDebugFlag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    android:text="@string/toggle_debug_flag"/>
+            
+                    
+        </LinearLayout>
+        
+        
+    </FrameLayout>
+<!-- 
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+        <Button android:id="@+id/vis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="vis1"/>
+
+        <Button android:id="@+id/invis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="invis1"/>
+
+        <Button android:id="@+id/gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="gone1"/>
+
+    </LinearLayout>
+-->
+</LinearLayout>
+
+<!--         
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+
+
+  <TextView
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:text="Starting StarBird..."
+    />
+  
+  
+  </LinearLayout>
+-->
+ 
+ <!-- From: file:/Users/gbtest/Documents/deve/StarbirdAtGitHub/Starbird/san-angeles/app/src/main/res/layout/main.xml -->

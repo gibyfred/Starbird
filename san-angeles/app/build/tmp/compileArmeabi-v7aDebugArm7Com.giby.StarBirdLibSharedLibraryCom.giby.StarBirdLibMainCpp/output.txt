@@ -1,0 +1,44 @@
+See file:///Users/gbtest/Documents/deve/StarbirdAtGitHub/Starbird/san-angeles/app/build/tmp/compileArmeabi-v7aDebugArm7Com.giby.StarBirdLibSharedLibraryCom.giby.StarBirdLibMainCpp/output.txt for all output for compileArmeabi-v7aDebugArm7Com.giby.StarBirdLibSharedLibraryCom.giby.StarBirdLibMainCpp.
+compiling DrawEnd.cpp successful.
+
+compiling Draw.cpp successful.
+
+compiling Bound.cpp successful.
+
+compiling DrawInit.cpp successful.
+/Users/gbtest/Documents/deve/StarbirdAtGitHub/Starbird/san-angeles/app/src/main/jni/sbSrc/DrawInit.cpp: In function 'void vDrawPrtMesg()':
+/Users/gbtest/Documents/deve/StarbirdAtGitHub/Starbird/san-angeles/app/src/main/jni/sbSrc/DrawInit.cpp:218:44: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+    Draw_Engine.drawMessage(x, y, -2, 6, "+");
+                                            ^
+
+compiling Dream.cpp successful.
+
+compiling ObjMake.cpp successful.
+/Users/gbtest/Documents/deve/StarbirdAtGitHub/Starbird/san-angeles/app/src/main/jni/sbSrc/ObjMake.cpp:962:1: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+ };
+ ^
+/Users/gbtest/Documents/deve/StarbirdAtGitHub/Starbird/san-angeles/app/src/main/jni/sbSrc/ObjMake.cpp:962:1: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+/Users/gbtest/Documents/deve/StarbirdAtGitHub/Starbird/san-angeles/app/src/main/jni/sbSrc/ObjMake.cpp:962:1: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+/Users/gbtest/Documents/deve/StarbirdAtGitHub/Starbird/san-angeles/app/src/main/jni/sbSrc/ObjMake.cpp:962:1: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+/Users/gbtest/Documents/deve/StarbirdAtGitHub/Starbird/san-angeles/app/src/main/jni/sbSrc/ObjMake.cpp:962:1: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+/Users/gbtest/Documents/deve/StarbirdAtGitHub/Starbird/san-angeles/app/src/main/jni/sbSrc/ObjMake.cpp:962:1: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+/Users/gbtest/Documents/deve/StarbirdAtGitHub/Starbird/san-angeles/app/src/main/jni/sbSrc/ObjMake.cpp:962:1: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+/Users/gbtest/Documents/deve/StarbirdAtGitHub/Starbird/san-angeles/app/src/main/jni/sbSrc/ObjMake.cpp:962:1: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+/Users/gbtest/Documents/deve/StarbirdAtGitHub/Starbird/san-angeles/app/src/main/jni/sbSrc/ObjMake.cpp:962:1: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+/Users/gbtest/Documents/deve/StarbirdAtGitHub/Starbird/san-angeles/app/src/main/jni/sbSrc/ObjMake.cpp:962:1: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+/Users/gbtest/Documents/deve/StarbirdAtGitHub/Starbird/san-angeles/app/src/main/jni/sbSrc/ObjMake.cpp:962:1: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+/Users/gbtest/Documents/deve/StarbirdAtGitHub/Starbird/san-angeles/app/src/main/jni/sbSrc/ObjMake.cpp:962:1: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+/Users/gbtest/Documents/deve/StarbirdAtGitHub/Starbird/san-angeles/app/src/main/jni/sbSrc/ObjMake.cpp:962:1: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+/Users/gbtest/Documents/deve/StarbirdAtGitHub/Starbird/san-angeles/app/src/main/jni/sbSrc/ObjMake.cpp:962:1: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+/Users/gbtest/Documents/deve/StarbirdAtGitHub/Starbird/san-angeles/app/src/main/jni/sbSrc/ObjMake.cpp:962:1: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+/Users/gbtest/Documents/deve/StarbirdAtGitHub/Starbird/san-angeles/app/src/main/jni/sbSrc/ObjMake.cpp:962:1: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+
+compiling DrawPlay.cpp successful.
+
+compiling System.cpp successful.
+
+compiling DError.cpp successful.
+
+compiling DGL.cpp successful.
+
+Finished compileArmeabi-v7aDebugArm7Com.giby.StarBirdLibSharedLibraryCom.giby.StarBirdLibMainCpp, see full log file:///Users/gbtest/Documents/deve/StarbirdAtGitHub/Starbird/san-angeles/app/build/tmp/compileArmeabi-v7aDebugArm7Com.giby.StarBirdLibSharedLibraryCom.giby.StarBirdLibMainCpp/output.txt.

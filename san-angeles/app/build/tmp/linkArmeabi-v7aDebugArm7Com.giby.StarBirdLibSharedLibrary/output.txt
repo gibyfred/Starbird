@@ -1,0 +1,4 @@
+See file:///Users/gbtest/Documents/deve/StarbirdAtGitHub/Starbird/san-angeles/app/build/tmp/linkArmeabi-v7aDebugArm7Com.giby.StarBirdLibSharedLibrary/output.txt for all output for linkArmeabi-v7aDebugArm7Com.giby.StarBirdLibSharedLibrary.
+linking libcom.giby.StarBirdLib.so successful.
+
+Finished linkArmeabi-v7aDebugArm7Com.giby.StarBirdLibSharedLibrary, see full log file:///Users/gbtest/Documents/deve/StarbirdAtGitHub/Starbird/san-angeles/app/build/tmp/linkArmeabi-v7aDebugArm7Com.giby.StarBirdLibSharedLibrary/output.txt.

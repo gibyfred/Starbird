@@ -1,0 +1,18 @@
+See file:///Users/gbtest/Documents/deve/StarbirdAtGitHub/Starbird/san-angeles/app/build/tmp/compileArmeabi-v7aDebugArm7Com.giby.StarBirdLibSharedLibraryCom.giby.StarBirdLibMainC/output.txt for all output for compileArmeabi-v7aDebugArm7Com.giby.StarBirdLibSharedLibraryCom.giby.StarBirdLibMainC.
+compiling app-android.c successful.
+
+compiling importgl.c successful.
+
+compiling MainAndroid.c successful.
+
+compiling Events.c successful.
+
+compiling freeglut_stroke_mono_roman.c successful.
+
+compiling freeglut_stroke_roman.c successful.
+
+compiling demo.c successful.
+
+compiling events_trackball.c successful.
+
+Finished compileArmeabi-v7aDebugArm7Com.giby.StarBirdLibSharedLibraryCom.giby.StarBirdLibMainC, see full log file:///Users/gbtest/Documents/deve/StarbirdAtGitHub/Starbird/san-angeles/app/build/tmp/compileArmeabi-v7aDebugArm7Com.giby.StarBirdLibSharedLibraryCom.giby.StarBirdLibMainC/output.txt.

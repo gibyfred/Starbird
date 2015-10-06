@@ -1,13 +1,12 @@
 apply plugin: 'com.android.model.application'
-
 model {
     android {
         compileSdkVersion = 19
         buildToolsVersion = "22.0.1"
 
         defaultConfig.with {
-            applicationId = "com.example.SanAngeles"
-            minSdkVersion.apiLevel    = 17
+            applicationId = "com.giby.Starbird"
+            minSdkVersion.apiLevel = 17
             targetSdkVersion.apiLevel = 19
             versionCode = 1
             versionName = "1.0"
@@ -24,12 +23,12 @@ model {
     }
 
     compileOptions.with {
-        sourceCompatibility=JavaVersion.VERSION_1_7
-        targetCompatibility=JavaVersion.VERSION_1_7
+        sourceCompatibility = JavaVersion.VERSION_1_7
+        targetCompatibility = JavaVersion.VERSION_1_7
     }
 
     android.ndk {
-        moduleName = "sanangeles"
+        moduleName = "com.giby.StarBirdLib"
         CFlags += "-DANDROID_NDK"
         CFlags += "-DDISABLE_IMPORTGL"
         ldLibs += ["GLESv1_CM", "dl", "log"]
@@ -53,7 +52,7 @@ model {
     }
     android.buildTypes {
         release {
-            minifyEnabled=false
+            minifyEnabled = false
             proguardFiles += file('proguard-rules.txt')
             ndk.with {
                 debuggable = true
@@ -61,13 +60,13 @@ model {
         }
     }
     android.productFlavors {
-        create ("arm7") {
+        create("arm7") {
             ndk.abiFilters += "armeabi-v7a"
         }
-        create ("arm8") {
+        create("arm8") {
             ndk.abiFilters += "arm64-v8a"
         }
-        create ("x86-32") {
+        create("x86-32") {
             ndk.abiFilters += "x86"
         }
         // for detailed abiFilter descriptions, refer to "Supported ABIs" @
@@ -75,4 +74,8 @@ model {
         // build one including all productFlavors
         create("fat")
     }
+}
+
+dependencies {
+    compile 'com.android.support:support-v4:23.0.1'
 }
