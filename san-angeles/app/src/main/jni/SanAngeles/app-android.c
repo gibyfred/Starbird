@@ -18,7 +18,7 @@
  * LICENSE-LGPL.txt and LICENSE-BSD.txt for more details.
  */
 
-#ifdef BUILD_SANANG
+#ifdef BUILD_SANANG     // build either it or Starbird
 
 #include <jni.h>
 #include <sys/time.h>

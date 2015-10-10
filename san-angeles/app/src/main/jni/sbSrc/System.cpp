@@ -953,6 +953,8 @@ void SBDrawMain(long tick) //, int width, int height)
 	{
 //		return;
 	}
+#else
+
 #endif
 
 //	vGlutReshape(width,height);

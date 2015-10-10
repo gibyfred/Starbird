@@ -32,9 +32,15 @@
 //---------------------------------------------------------
 void vDrawTitle(int state)
 {
+#ifdef SB_ANDROID
+	char mesg[] = "TOUCH TO START";
+	char mesg2[] = "use MENU button to change settings";
+#else
 	char mesg[] = "PUSH SPACE BAR TO START";
-	char title[] = "STAR BIRD";
 	char mesg2[] = "use right mouse button to change settings";
+#endif
+	char title[] = "STAR BIRD";
+
 	static float x = 0.0, y = 0.0, z = -10.0;
 	static float r_x = 0.0, r_y = 0.0, r_z = -10.0;
 	static float xang = 0.0, yang = 90.0, zang = 0.0;

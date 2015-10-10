@@ -32,9 +32,9 @@ extern "C" {
 
 
 #include <GLES/gl.h>
-#ifndef ANDROID_NDK
-#include <GLES/egl.h>
-#endif /* !ANDROID_NDK */
+//#ifndef ANDROID_NDK
+//#include <GLES/egl.h>
+//#endif /* !ANDROID_NDK */
 
 /* Dynamically fetches pointers to the egl & gl functions.
  * Should be called once on application initialization.
