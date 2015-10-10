@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-<string name="app_name">StarBird AlphaTest</string>
+<string name="app_name">StarBird - AlphaTest</string>
 <string name="quit_game">Quit</string>
 <string name="back_to_game">Back To Game</string>
 <string name="back_to_title">Back To Title</string>

@@ -53,7 +53,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
-import android.os.Build;			//e.g.: if (Build.VERSION.SDK_INT >= 17) {
 import android.view.WindowManager;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -74,13 +73,7 @@ import android.util.Log;
 
 // for testing texture with colors
 //import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Rect;
-
-import android.R.*;	// need this for AndroidStudio
 
 
 final class RotationGestureDetector {
@@ -251,7 +244,7 @@ public class StarBirdActivity extends Activity {
     @Override
     protected void onRestart() {
         super.onRestart();
-    	Log.v( TAG, "Activity.onRestart()" );
+    	Log.v(TAG, "Activity.onRestart()");
     }
 
     @Override
@@ -259,12 +252,9 @@ public class StarBirdActivity extends Activity {
         super.onPause();
     	Log.v( TAG, "Activity.onPause()" );
 
-    	// pause the game
-        mGLView.onPause();
-        DemoGLSurfaceView.nativePause(true);
-        
-		// show the PauseView
-        setVisibility(true);
+		if (!isFinishing()) {   // use this check when Quit button is pushed
+			pauseAll();
+		}
     }
 
     @Override
@@ -275,7 +265,7 @@ public class StarBirdActivity extends Activity {
         
 //        if (mPauseViewVisibility)
         {
-    		setVisibility(mPauseViewVisibility);
+    		setMenuVisibility(mPauseViewVisibility);
         }
     }
 
@@ -291,44 +281,62 @@ public class StarBirdActivity extends Activity {
 	{
 		if ( keyCode == KeyEvent.KEYCODE_BACK )
 		{
-			//use system default
+			pauseAll();
+			return true;
 		}
 		else if ( keyCode == KeyEvent.KEYCODE_MENU )
 		{
-            onPause();
-			//toggle light
+			pauseAll();
+			//DEBUG: toggle light
 //			DemoGLSurfaceView.nativeOnVirtualGameKeyEvent( DemoGLSurfaceView.VirtualGameKey.TOGGLE_LIGHT.getValue(), (char)1 );
 		}
-		
+
+		//use system default
 		return super.onKeyDown(keyCode, event);
 	}
 
     OnClickListener mGoneListener = new OnClickListener() {
-        public void onClick(View v) {
-    		setVisibility(false);
+        public void onClick(View v)
+        {
+    		setMenuVisibility(false);
 
         	if ( v==mVictim1 || v==mVictim2 )
         	{                
-                if (v==mVictim1)
+                if (v==mVictim1) // Back to current State
                 {
+					// unpause it
                 	DemoGLSurfaceView.nativePause(false);
                 }
-                else
+                else // move to Title
                 {
                     DemoGLSurfaceView.nativeOnVirtualGameKeyEvent( DemoGLSurfaceView.VirtualGameKey.GO_TITLE.getValue(), (char)1 );
                 }
                 onResume();        		
         	}
-        	else if (v==mVictim3)
+        	else if (v==mVictim3) // QUIT
         	{
+				// unpause it
+				//DemoGLSurfaceView.nativePause(false);
+
+				// move to Title
                 DemoGLSurfaceView.nativeOnVirtualGameKeyEvent( DemoGLSurfaceView.VirtualGameKey.GO_TITLE.getValue(), (char)1 );
         		finish();  // it just stops the activity! instead of killing the activity!
         	}
         }
     };
 
-    private void setVisibility(boolean v)
+    private void pauseAll() {
+        // pause the game
+        mGLView.onPause();
+        DemoGLSurfaceView.nativePause(true);
+
+        // show the PauseMenu
+        setMenuVisibility(true);
+    }
+
+    private void setMenuVisibility(boolean v)
     {
+		Log.d(TAG, "setVIs: vis:" + v );
     	final int state = v ? View.VISIBLE : View.GONE;
 		mVictim1.setVisibility( state );
         mVictim2.setVisibility( state );
@@ -578,7 +586,7 @@ class DemoGLSurfaceView extends GLSurfaceView {
             	//return true;
             }
         }
-		return super.onKeyDown(keyCode, event);
+		return super.onKeyUp(keyCode, event);
 	}
 
 	//====//====// gesture
