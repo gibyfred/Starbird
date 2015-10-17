@@ -267,6 +267,7 @@ public class StarBirdActivity extends Activity {
 //        if (mPauseViewVisibility)
         {
     		setMenuVisibility(mPauseViewVisibility);
+			DemoGLSurfaceView.nativePause(mPauseViewVisibility);
         }
     }
 
@@ -336,7 +337,7 @@ public class StarBirdActivity extends Activity {
 
     private void setMenuVisibility(boolean v)
     {
-		Log.d(TAG, "setVIs: vis:" + v );
+		Log.d(TAG, "setMenuVIs: vis:" + v );
     	final int state = v ? View.VISIBLE : View.GONE;
 		mVictim1.setVisibility( state );
         mVictim2.setVisibility( state );
