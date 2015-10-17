@@ -251,6 +251,7 @@ public class StarBirdActivity extends Activity {
     protected void onPause() {
         super.onPause();
     	Log.v( TAG, "Activity.onPause()" );
+		mGLView.onPause();
 
 		if (!isFinishing()) {   // use this check when Quit button is pushed
 			pauseAll();
@@ -301,19 +302,19 @@ public class StarBirdActivity extends Activity {
     		setMenuVisibility(false);
 
         	if ( v==mVictim1 || v==mVictim2 )
-        	{                
+        	{
                 if (v==mVictim1) // Back to current State
                 {
-					// unpause it
+					// unpause the core
                 	DemoGLSurfaceView.nativePause(false);
                 }
-                else // move to Title
+                else // Move to Title
                 {
                     DemoGLSurfaceView.nativeOnVirtualGameKeyEvent( DemoGLSurfaceView.VirtualGameKey.GO_TITLE.getValue(), (char)1 );
                 }
-                onResume();        		
+                onResume();
         	}
-        	else if (v==mVictim3) // QUIT
+        	else if (v==mVictim3) // Quit
         	{
 				// unpause it
 				//DemoGLSurfaceView.nativePause(false);
@@ -326,8 +327,7 @@ public class StarBirdActivity extends Activity {
     };
 
     private void pauseAll() {
-        // pause the game
-        mGLView.onPause();
+        // pause the core
         DemoGLSurfaceView.nativePause(true);
 
         // show the PauseMenu
@@ -803,7 +803,7 @@ class DemoRenderer implements GLSurfaceView.Renderer {
     }
     
     //
-    long startTime; 
+    long startTime;
     Bitmap mBitmap;
 
     //
