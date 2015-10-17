@@ -115,7 +115,7 @@ extern int Screen_H;
 extern int Scene_State;		// = SCENE_TITLE;	
 extern int Sub_State;		// = SUB_STATE0
 
-extern int s_touchPadMode;		// 0: flick/fling  1:stick  2:absolutePosition
+extern int s_touchPadMode;		// 0: flick/fling  1:gamePad  2:absolutePosition
 extern bool s_isTouchDown;
 
 

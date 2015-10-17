@@ -245,6 +245,12 @@ bool SBOnTouchEvent( unsigned short x, unsigned short y, unsigned short state )
 		break;
 	}
 
+	if ( game_paused )
+	{
+		return true;
+	}
+
+	//---// update virtual gamePad
 	if ( s_touchPadMode == 0 )
 	{
 		float TOUCH_OFFSET = 3.0f;
@@ -903,7 +909,12 @@ static void onPauseChanged()
 {
 	if ( game_paused )
 	{
-		Speed_Bkup = Speed;
+		// if we have backup, don't backup again...
+		if ( Speed != 0 )  //buggy check
+		{
+			Speed_Bkup = Speed;
+		}
+
 //		setMainMessage("touch to continue or push 'p' to continue");
 		setMainMessage("touch to continue");
 	}
