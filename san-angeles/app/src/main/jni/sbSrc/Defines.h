@@ -156,13 +156,13 @@
 #define RING_SCALE  0.3
 #define RING_RADIUS	(RING_SCALE*RING_X)
 
-#define SPARK_CIR_RADIUS	0.9
+#define SPARK_CIR_RADIUS	0.2
 #define SPARK_X		0.3
 #define SPARK_Y		0.3
 #define SPARK_Z		0.3
-#define SPARK_NUM		4
+#define SPARK_NUM		8
 #define SPARK_PERIOD	50
-#define SPARK_SP		0.08
+#define SPARK_SP		0.06
 
 #define VPLANE_Y		CHAN_Y        /* vertical plane */
 #define VPLANE_Z		(CHAN_Z/2.0)

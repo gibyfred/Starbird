@@ -245,7 +245,7 @@ bool SBOnTouchEvent( unsigned short x, unsigned short y, unsigned short state )
 		break;
 	}
 
-	if ( game_paused )
+	if ( game_paused  || Game_Time < 10 )
 	{
 		return true;
 	}
@@ -509,7 +509,7 @@ bool SBOnVirtualGameKeyEvent( int key, unsigned short state )
 //	dbg_msg("SBOnGameKeyEvent(): key:%d  %d \n", key, state);
 	enum
 	{
-		ROTATE_LEFT,
+		ROTATE_LEFT=0,
 		ROTATE_RIGHT,
 		GO_TITLE,
 		TOGGLE_LIGHT,
@@ -1006,7 +1006,7 @@ void SBDrawMain(long tick) //, int width, int height)
 
 	case SCENE_END:
 		//TODOA2 CLEAN: remove these two variables
-		if ( Is_GameOver == TRUE )			// Game over
+		if ( Is_GameOver )			// Game over
 			Sub_State = SUB_STATE0;
 		else if ( Is_GameCleared == TRUE )	// Game Clear
 		{

@@ -9,7 +9,7 @@
 
 Game logic
 - current state of Dream
-- includes boundary checking and simulation of polygon detection
+- includes boundary checking and simulation of collision detection
 
 =====================================*/
 
@@ -128,10 +128,6 @@ deduct energy according to the current game's difficulty
 ----------------------------------------------------------------------*/
 int deduct_energy(float eng)
 {
-#ifdef SB_ANDROID
-	//return Energy;
-#endif
-
 	Energy -= (int) ceil(fabs(eng * Diffi));
 	#ifdef DTEST
 		printf(" eng -= %f\n", eng * Diffi);
@@ -164,7 +160,7 @@ printf("hi, Obx = %f\n", Obx[Act_Turn]);
 }
 
 /*----------------------------------------------------------------------
-check vertical and horizontal constrains
+check vertical or horizontal constrains
 ----------------------------------------------------------------------*/
 void chk_vcons(float *pos, float *dis, int axis)
 {
@@ -357,15 +353,22 @@ float deg2r(float ang)
 
 /*----------------------------------------------------------------------
 check collision with objects such as pillar
+ @param angle       angle of pillar
+ @return minus value if it collids
 ----------------------------------------------------------------------*/
 int collide(float pt[3], float x, float y, float z, float sizex, float sizey, float sizez, float ang)
 {
+	if ( Is_GameOver )
+	{
+		return 0;
+	}
+
 	float d=0, b=0;
 	float dis = fabs(z - Drz);
 	float tmp=0;
 	float er = fabs(deg2r(Drang+90.0-ang));
 
-	// for 1st two cases
+	// for 1st two cases (when ang is )
 	if ( ang == 0.0 )
 		return collide2(pt,x,y,z,sizex,sizey,sizez);
 	else if ( ang == 90.0 )
@@ -394,11 +397,11 @@ int collide(float pt[3], float x, float y, float z, float sizex, float sizey, fl
 
             if ( d != 0.0 && fabs(d) > 1.0 )
             {
-                tmp =  (float) Eng_Deduct_Rate ;
+                tmp = (float) Eng_Deduct_Rate;
             }
             else
             {
-                tmp =  (float) Eng_Deduct_Rate;
+                tmp = (float) Eng_Deduct_Rate;
             }
             deduct_energy(tmp);
             return -1.0;
@@ -446,7 +449,7 @@ int collide2(float pt[3], float x, float y, float z, float sizex, float sizey, f
 		}
 		else
 		{
-				return (int) d;
+			return (int) d;
 		}
 	}
 	else

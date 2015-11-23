@@ -172,9 +172,9 @@ void vDrawScene()
 	int oldEnergy = Energy;
 
 	if ( Game_Time + 300 >= END_TIME )
-		glClearColor(1,1,1,1);   // sky color
+		glClearColor(1,1,1,1);    // sky color
 	else
-	   glClearColor(0,0,0,1);    // dark tunnel
+		glClearColor(0,0,0,1);    // dark tunnel
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -297,59 +297,85 @@ void setup_lig2()
 //---------------------------------------
 //
 //---------------------------------------
+void drawOneSpark(float x, float y, float z)
+{
+glPushMatrix();
+glLoadIdentity();
+glTranslatef(x,y,z);
+glScalef(SPARK_X, SPARK_Y, SPARK_Z);
+vDrawObj(OBJ_SPARK);		//glCallList
+glPopMatrix();
+}
+
 void vDrawSparks(float pt[3], int time)
 {
-	static double x[SPARK_NUM], y[SPARK_NUM], z[SPARK_NUM];
+	static float x[SPARK_NUM], y[SPARK_NUM], z[SPARK_NUM];
 	int i;
-
 	int j;
 	static int re_time = 0;
-		
+
 	for ( i=0; i<1; i++ )
 	{
-		if ( time != 0 )
+		if ( time > 0 )
 		{
+			// initialize
 			re_time = SPARK_PERIOD;
-			for ( j=0; j<SPARK_NUM; j++)
+			//dbg_msg("Sparks: init: (%f, %f, %f)\n", pt[0],pt[1],pt[2]);
+
+			for ( j=0; j<SPARK_NUM; j+=4)
 			{
-				x[j] = ((float) j / (float) SPARK_NUM - 0.5) * SPARK_CIR_RADIUS + pt[0];
-				y[j] = sqrt(-x[j]*x[j] + SPARK_CIR_RADIUS*SPARK_CIR_RADIUS);
+				float offset = ((float) (j*4) / (float) SPARK_NUM) * SPARK_CIR_RADIUS;
+				x[j+2] = x[j] = offset + pt[0];
+				x[j+3] = x[j+1] = pt[0] - offset;
+
+				y[j+3] = y[j] = offset + pt[1];
+				y[j+2] = y[j+1] = pt[1] - offset;
 			}
+
 			for ( j=0; j<SPARK_NUM; j++)
 				z[j] = pt[2];
+
+			for ( j=0; j<SPARK_NUM; j++)
+				drawOneSpark(x[j],y[j],z[j]);
+
+//			j=2;dbg_msg("Sparks init:       time:%d  j=%d  (%f, %f, %f)\n", re_time, j,x[j],y[j],z[j]);
 		}
 
 		if ( re_time != 0 )
 		{
 			re_time--;
+//			j=2;dbg_msg("Sparks:       time:%d  j=%d  (%f, %f, %f)\n", re_time, j,x[j],y[j],z[j]);
 
-			for (j=0; j<SPARK_NUM; j++)
+			for (j=0; j<SPARK_NUM; j+=4)
 			{
-				#ifdef DE_SPARK
-					printf(" j =%d,  (%f, %f, %f)\n", j,x[j],y[j],z[j]);
-				#endif
-				glPushMatrix();
-				glLoadIdentity();
-				glTranslatef(x[j],y[j],z[j]);
-				glScalef(SPARK_X, SPARK_Y, SPARK_Z);
-				vDrawObj(OBJ_SPARK);		//glCallList
-				glPopMatrix();
-				if ( x[j] >= 0.0 ) 
-					x[j] += SPARK_SP;
-				else
-					x[j] -= SPARK_SP;
-					
-				if ( y[j] >= 0.0 ) 
-					y[j] += SPARK_SP;
-				else
-					y[j] -= SPARK_SP;
+				x[j]   += SPARK_SP;
+				x[j+2] += SPARK_SP;
+				x[j+3] -= SPARK_SP;
+				x[j+1] -= SPARK_SP;
+
+				y[j+3] += SPARK_SP;
+				y[j]   += SPARK_SP;
+				y[j+2] -= SPARK_SP;
+				y[j+1] -= SPARK_SP;
 			}
+
+#if 0
+			if ( re_time > SPARK_PERIOD - 5 )
+			{
+				j=2;
+				//if (j<=0)
+					dbg_msg("Sparks:       time:%d  j=%d  (%f, %f, %f)\n", re_time, j,x[j],y[j],z[j]);
+			}
+#endif
+
+			for ( j=0; j<SPARK_NUM; j++)
+				drawOneSpark(x[j],y[j],z[j]);
 		}
 	}
 }
 
 //---------------------------------------
-// draw one pillar
+// update and draw one pillar
 //---------------------------------------
 void vDrawPillar(float x, float y, float z, float ang)
 {
@@ -362,13 +388,15 @@ void vDrawPillar(float x, float y, float z, float ang)
 	//lmdef(DEFMATERIAL, OBJ_DREAM, 5, stick_mat);
 	glColor3fv(fGrayVec);
 	glTranslatef(x, y, z);
+
+	// if collides, initialize sparks
 	if ( tmp < 0 )
-		vDrawSparks(colli_pt, Game_Time);
+		vDrawSparks(colli_pt, Game_Time);   // initialize sparks
 	else
-		vDrawSparks(colli_pt, 0);      // being called too many times for a draw !!
+		vDrawSparks(colli_pt, 0);           // being called many times for a draw !!
 
 	glRotatef(ang, 0,0,1);
-	glScalef(PILLAR_X, PILLAR_Y, PILLAR_Z); 
+	glScalef(PILLAR_X, PILLAR_Y, PILLAR_Z);
 	vDrawObj(OBJ_CUBE1);		//glCallList
 	glPopMatrix();
 }

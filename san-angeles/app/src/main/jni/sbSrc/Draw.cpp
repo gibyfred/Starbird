@@ -136,8 +136,8 @@ int Act_Turn = -1;						// current turn/corner id
 //---------------------------------------//
 // static int mainmenu, sets, lights, diff;
 
-char Is_GameOver = FALSE;			// if game is over
-char Is_GameCleared = FALSE;		// if game is cleared
+bool Is_GameOver = FALSE;			// if game is over
+bool Is_GameCleared = FALSE;		// if game is cleared
 //int Input_win = -1;
 int ch_lplane = FALSE;				// on/off for bound checking: left side
 int ch_rplane = FALSE;				// on/off for bound checking: right side

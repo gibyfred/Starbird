@@ -180,7 +180,7 @@ void vDrawPrtMesg()
 		Draw_Engine.drawMessage(-len*2.6f, -55, -1, 6, Main_Mesg);		// 2.6: half of estimated font width
 		Draw_Engine.endDraw2D();
 	}
-	else if ( Is_GameOver == FALSE )
+	else if ( !Is_GameOver )
 	{
 #ifdef SB_BUILD_VIRTUAL_PAD
 		if (s_touchPadMode == 1 && !s_isTouchDown)
@@ -483,6 +483,11 @@ void DrawEngine::init()
 	Sp_Eng  = FULL_SPENG;
 	Light_On = TRUE;
 	Diffi = BABY;
+
+	for ( int i=UP; i <= RIGHT; i++ )
+	{
+		Last_Actions[i] = false;
+	}
 
 	//
 	Turn_Mode = FALSE;					// true if dream is turning corner

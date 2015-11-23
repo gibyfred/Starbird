@@ -146,8 +146,8 @@ extern char Main_Mesg[128];
 
 //--------------------
 // for DrawPlay.c
-extern char Is_GameOver;
-extern char Is_GameCleared;
+extern bool Is_GameOver;
+extern bool Is_GameCleared;
 //extern int Input_win;
 extern int ch_lplane, ch_rplane;
 extern float Eval_Angle;
