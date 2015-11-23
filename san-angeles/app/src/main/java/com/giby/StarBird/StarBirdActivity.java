@@ -311,7 +311,7 @@ public class StarBirdActivity extends Activity {
                 }
                 else // Move to Title
                 {
-                    DemoGLSurfaceView.nativeOnVirtualGameKeyEvent( DemoGLSurfaceView.VirtualGameKey.GO_TITLE.getValue(), (char)1 );
+                    DemoGLSurfaceView.nativeOnVirtualGameKeyEvent( DemoGLSurfaceView.VirtualGameKey.GO_TITLE.getValue(), (char)1 );   // 1: state
                 }
                 onResume();
         	}
