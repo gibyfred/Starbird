@@ -128,14 +128,19 @@ deduct energy according to the current game's difficulty
 ----------------------------------------------------------------------*/
 int deduct_energy(float eng)
 {
-	Energy -= (int) ceil(fabs(eng * Diffi));
-	#ifdef DTEST
-		printf(" eng -= %f\n", eng * Diffi);
-		printf(" walls:  %f %f %f %f   Drx: %f   Ob_Yang: %f\n", Boundx,Boundx2,Boundy,Boundy2,Drx,Ob_Yang);
-	#endif
+	int dbgBreakTimeS=180;
+	int dbgBreakTimeE=270;
 
+	if ( Game_Time < dbgBreakTimeS || Game_Time > dbgBreakTimeE )
+	{
+		dbgBreakTimeE=630;
+	}
+
+	Energy -= (int) ceil(fabs(eng * Diffi));
 	Shake = TRUE;
 
+	dbg_msg(" GameTime:%d  engDiff:%f   Energy:%d \n", Game_Time, eng * Diffi, Energy);
+	dbg_msg(" walls:  %f %f %f %f   Drx: %f   Ob_Yang: %f\n", Boundx,Boundx2,Boundy,Boundy2,Drx,Ob_Yang);
 	return Energy;
 }
 
@@ -240,8 +245,8 @@ Return a value for controlling the angle between Dream's wings.
 float set_sp(float limit)
 {
 	static float climit = -1.0;
-	static int reset = FALSE;
-	static int reset_sp = FALSE;
+	static int reset = FALSE;       // reset Sp_Eng back to normal or not
+	static int reset_sp = FALSE;    // reset Speed back to normal or not
 	static int st_time = -1;    // start time
 
 	if ( limit != -1.0 ) /* && Speed == NOR_SPEED */
@@ -264,6 +269,7 @@ float set_sp(float limit)
 			climit = -1;
 		}
 	}
+
 	if ( fabs(climit - MIN_SPEED) <= 0.01 )
 	{
 		if ( Speed > MIN_SPEED )
@@ -279,8 +285,9 @@ float set_sp(float limit)
 		}
 	}
 
+
 //
-int	debug_rate = 3.0;	// ONLY for debug
+int	debug_rate = 3.0;	// ONLY for debug   //TOREMOVE
 	if ( st_time != -1 &&  st_time + SPEED_PERIOD*debug_rate <= Game_Time )
 	{
 		// reset speed
@@ -368,6 +375,12 @@ int collide(float pt[3], float x, float y, float z, float sizex, float sizey, fl
 	float tmp=0;
 	float er = fabs(deg2r(Drang+90.0-ang));
 
+	static int dbgBreakTime=280;
+	if ( Game_Time > dbgBreakTime )
+	{
+		tmp=0;
+	}
+
 	// for 1st two cases (when ang is )
 	if ( ang == 0.0 )
 		return collide2(pt,x,y,z,sizex,sizey,sizez);
@@ -421,6 +434,7 @@ int collide2(float pt[3], float x, float y, float z, float sizex, float sizey, f
 	float d=0, b=0; 
 	float dis = fabs(z - Drz);
 	float tmp=0;
+	float dbg0=0;
 
 	if ( dis <= 1.0 )
 	{
@@ -444,6 +458,12 @@ int collide2(float pt[3], float x, float y, float z, float sizex, float sizey, f
 			{
 				tmp = (float) Eng_Deduct_Rate;
 			}
+
+//			if ( Game_Time > dbgBreakTime && collide < 0 )
+			{
+//				dbg0=0;
+			}
+
 			deduct_energy(tmp);
 			return -tmp;
 		}
@@ -487,6 +507,7 @@ int collide3(float pt[3], float x, float y, float z, float sizex, float sizey, f
 			{
 				tmp =  (float) Eng_Deduct_Rate;
 			}
+
 			deduct_energy(tmp);
 			return -tmp;
 		}

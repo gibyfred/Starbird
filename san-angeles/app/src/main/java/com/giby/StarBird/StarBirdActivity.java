@@ -649,13 +649,14 @@ class DemoGLSurfaceView extends GLSurfaceView {
     	{
             final float mRotationFactor = detector.getAngle();
             
-            //Log.d(DEBUG_TAG, "onRotation: mRotationFactor:" + mRotationFactor );
-            
-            if ( Math.abs(mRotationFactor) < 0.7 )
+            Log.d(DEBUG_TAG, "onRotation: mRotationFactor:" + mRotationFactor );
+
+			float strength = Math.abs(mRotationFactor);
+            if ( strength < 0.3f )
             	return true;
 
             VirtualGameKey key = mRotationFactor > 0 ? VirtualGameKey.ROTATE_LEFT : VirtualGameKey.ROTATE_RIGHT;
-            DemoGLSurfaceView.nativeOnVirtualGameKeyEvent( key.getValue(), (char)0 );
+            DemoGLSurfaceView.nativeOnVirtualGameKeyEvent( key.getValue(), (char)((strength<0.7f)?1:0) );		//0:keydown, 1: keyup
 
             m_NoInputCounter=0;
             return true;
@@ -668,11 +669,20 @@ class DemoGLSurfaceView extends GLSurfaceView {
             	m_NoInputCounter++;
         		return;
         	}
- 
+
+			Log.d(DEBUG_TAG, "onNoInput: " );
+
+			//TEMP: prevent bug
+			boolean isResetDone = true;
+			if (isResetDone)
+				return;
+
         	//release keys
             DemoGLSurfaceView.nativeOnVirtualGameKeyEvent( VirtualGameKey.ROTATE_LEFT.getValue(), (char)1 );
             DemoGLSurfaceView.nativeOnVirtualGameKeyEvent( VirtualGameKey.ROTATE_RIGHT.getValue(), (char)1 );
             DemoGLSurfaceView.nativeOnVirtualGameKeyEvent( VirtualGameKey.SPEED_DOWN.getValue(), (char)1 );	// 0:keydown
+
+			//we reset m_NoInputCounter in onRotation()
         }
         //DemoGLSurfaceView mNativeWrapper;
         private int m_NoInputCounter;
@@ -691,8 +701,7 @@ class DemoGLSurfaceView extends GLSurfaceView {
     	TOGGLE_LIGHT(3),
     	SPEED_DOWN(4);
     	//QUIT_APP
-    	
-        private final int value;
+
         private VirtualGameKey(int value) {
             this.value = value;
         }
@@ -700,6 +709,8 @@ class DemoGLSurfaceView extends GLSurfaceView {
         public int getValue() {
             return value;
         }
+
+		private final int value;
     };
 
 

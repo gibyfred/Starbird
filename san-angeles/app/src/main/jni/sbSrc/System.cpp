@@ -151,7 +151,10 @@ void displayOnScreenMessage(const char* message)
 #endif
 }
 
-
+bool isGamePaused()
+{
+	return game_paused;
+}
 
 
 //---------------------------------------------------------------//
@@ -213,7 +216,7 @@ bool SBOnTouchEvent( unsigned short x, unsigned short y, unsigned short state )
 	switch ( Scene_State )
 	{
 	case SCENE_TITLE:
-//		if ( key == ' ' || key == 62 )
+		if ( !game_paused )
 		{
 			Sub_State++;
 			return true;
@@ -245,7 +248,7 @@ bool SBOnTouchEvent( unsigned short x, unsigned short y, unsigned short state )
 		break;
 	}
 
-	if ( game_paused  || Game_Time < 10 )
+	if ( game_paused || Game_Time < 10 )        //dirty: don't accept input when time < 10
 	{
 		return true;
 	}
@@ -369,6 +372,8 @@ bool SBOnTouchEvent( unsigned short x, unsigned short y, unsigned short state )
 		{
 			s_isTouchDown = false;
 		}
+
+		dbg_msg("onTouch():  input:%d%d \n", Last_Actions[LTURN], Last_Actions[RTURN] );
 	}
 #endif
 	return true;
@@ -409,6 +414,10 @@ enum
 };
 
 
+/*
+ * key      code of the keyboard key
+ * state    up or down
+ */
 bool SBOnKeyEvent( int key, unsigned short state )
 {
 	dbg_msg("SBOnKeyEvent(): key:%d  %d \n", key, state);
@@ -460,20 +469,23 @@ bool SBOnKeyEvent( int key, unsigned short state )
 #ifdef SB_ANDROID
 
 	//WSAD
-	switch (key)
+	if ( !game_paused )
 	{
-	_CASE_ON_KEY(51,UP);		// android.view.KeyEvent.KEYCODE_W
-	_CASE_ON_KEY(33,UP);		// KEYCODE_E
-	_CASE_ON_KEY(47,DOWN);
-	_CASE_ON_KEY(52,DOWN);
-	_CASE_ON_KEY(54,DOWN);
-	_CASE_ON_KEY(29,LEFT);
-	_CASE_ON_KEY(32,RIGHT);
-	_CASE_ON_KEY(38,SPUP);
-	_CASE_ON_KEY(41,SPDOWN);
-	_CASE_ON_KEY(42,LTURN);
-	_CASE_ON_KEY(105,RTURN);
-	_CASE_ON_KEY(66,FIRE);		// KEYCODE_ENTER
+		switch (key)
+		{
+		_CASE_ON_KEY(51,UP);		// android.view.KeyEvent.KEYCODE_W
+		_CASE_ON_KEY(33,UP);		// KEYCODE_E
+		_CASE_ON_KEY(47,DOWN);
+		_CASE_ON_KEY(52,DOWN);
+		_CASE_ON_KEY(54,DOWN);
+		_CASE_ON_KEY(29,LEFT);
+		_CASE_ON_KEY(32,RIGHT);
+		_CASE_ON_KEY(38,SPUP);
+		_CASE_ON_KEY(41,SPDOWN);
+		_CASE_ON_KEY(42,LTURN);
+		_CASE_ON_KEY(105,RTURN);
+		_CASE_ON_KEY(66,FIRE);		// KEYCODE_ENTER
+		}
 	}
 #endif
 
@@ -504,10 +516,16 @@ bool SBOnKeyEvent( int key, unsigned short state )
 	return false;
 }
 
+/*
+ * key      key code of the VirtualGameKey
+ * state    up or down
+ */
 bool SBOnVirtualGameKeyEvent( int key, unsigned short state )
 {
 //	dbg_msg("SBOnGameKeyEvent(): key:%d  %d \n", key, state);
-	enum
+
+	//dirty5: this enum is also on the Java side :(
+	enum VirtualGameKey
 	{
 		ROTATE_LEFT=0,
 		ROTATE_RIGHT,
@@ -518,24 +536,24 @@ bool SBOnVirtualGameKeyEvent( int key, unsigned short state )
 
 	//----// Dream's action
 #ifdef SB_ANDROID
-	bool oldAction = 2;	// DEBUGonly!
+	bool oldActionVal = 2;	// DEBUGonly!
 
 	// map key input to game key (and toggle the other game key)
 #define _CASE_ON_KEY2(_key, _action, _toResetAction) \
 	case _key: \
-		oldAction = Last_Actions[_action]; \
+		oldActionVal = Last_Actions[_action]; \
 		Last_Actions[_action] = (state != KEY_UP); \
-		if ( Last_Actions[_action] )  \
+		if ( Last_Actions[_action] && Last_Actions[_toResetAction] )  \
+			Last_Actions[_action] = Last_Actions[_toResetAction] = false; /*turn back to normal*/  \
+		else if ( Last_Actions[_action] )  \
 			Last_Actions[_toResetAction] = false;  \
+	dbg_msg("SBOnVirtualGameKeyEvent():    _action:%d  %d -> %d   \n", _action, oldActionVal, Last_Actions[_action] );   \
 		break;
 
-//	dbg_msg("SBOnGameKeyEvent():      last:%d  ->  res:%d   \n", oldAction, Last_Actions[_action] );   \
 
-	//WSAD
+	// special key
 	switch (key)
 	{
-	_CASE_ON_KEY2(ROTATE_LEFT, LTURN, RTURN );
-	_CASE_ON_KEY2(ROTATE_RIGHT, RTURN, LTURN );
 	case GO_TITLE:
 //		if ( Scene_State == SCENE_END )
 		{
@@ -543,13 +561,23 @@ bool SBOnVirtualGameKeyEvent( int key, unsigned short state )
 		}
 		break;
 
-	//
+	//debug
 	case TOGGLE_LIGHT:
 		Light_On = !Light_On;
 		break;
+	}
 
-	//case SPEED_DOWN:
-	_CASE_ON_KEY(SPEED_DOWN, SPDOWN);
+	// controller for dream
+	if ( !game_paused )
+	{
+		switch (key)
+		{
+		_CASE_ON_KEY2(ROTATE_LEFT, LTURN, RTURN );
+		_CASE_ON_KEY2(ROTATE_RIGHT, RTURN, LTURN );
+
+		//case SPEED_DOWN:
+		_CASE_ON_KEY(SPEED_DOWN, SPDOWN);
+		}
 	}
 #endif
 	return false;
@@ -915,7 +943,7 @@ static void onPauseChanged()
 			Speed_Bkup = Speed;
 		}
 
-//		setMainMessage("touch to continue or push 'p' to continue");
+//		setMainMessage("push 'p' to continue");
 		setMainMessage("touch to continue");
 	}
 	else
@@ -1002,6 +1030,8 @@ void SBDrawMain(long tick) //, int width, int height)
 		{
 			Game_Time++;
 		}
+
+	    clearLastActionsAfterUpdate(); // reset those input after we referenced it
 		break;
 
 	case SCENE_END:

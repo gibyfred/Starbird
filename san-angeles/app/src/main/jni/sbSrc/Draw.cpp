@@ -187,6 +187,15 @@ void clearLastActions()
 	memset(Last_Actions, 0, DR_NUM_BUT);
 }
 
+void clearLastActionsAfterUpdate()
+{
+#ifdef SB_ANDROID
+	Last_Actions[SPUP] = FALSE;
+	Last_Actions[SPDOWN] = FALSE;
+#endif
+}
+
+
 //---------------------------------------------------------
 // Draw Light at (x,y,z) with light id be ligId
 // i is not used in windows version.

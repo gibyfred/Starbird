@@ -175,6 +175,7 @@ void vDrawPrtMesg()
 
 	if ( len >= 1 )
 	{
+		// print main message
 		Draw_Engine.beginDraw2D();
 		glColor3fv(fCyanVec);
 		Draw_Engine.drawMessage(-len*2.6f, -55, -1, 6, Main_Mesg);		// 2.6: half of estimated font width
@@ -230,7 +231,7 @@ void vDrawPrtMesg()
 		}
 #endif
 
-		//----// draw messages on screen
+		//----// draw game status on screen
 		Draw_Engine.beginDraw2D();
 
 		if ( Energy > 20 )
@@ -250,7 +251,13 @@ void vDrawPrtMesg()
 		Draw_Engine.drawMessage(-60, -80, -1, 6, str);
 
 		Dsprintf(str, "Speed: %.3d    SpEng: %d/%d\n", int(Speed*100), Sp_Eng/FULL_SPENG*10, 10);
-		Draw_Engine.drawMessage(-60, -87, -1, 6, str);		
+		Draw_Engine.drawMessage(-60, -87, -1, 6, str);
+
+#if 0
+//#ifdef SB_DEBUG
+		Dsprintf(str, "t: %.5d  p:%d  input:%d%d \n", Game_Time, isGamePaused(), Last_Actions[LTURN], Last_Actions[RTURN] );
+		Draw_Engine.drawMessage(-60, -94, -1, 6, str);
+#endif
 
 		Draw_Engine.endDraw2D();
 	}	
@@ -484,7 +491,7 @@ void DrawEngine::init()
 	Light_On = TRUE;
 	Diffi = BABY;
 
-	for ( int i=UP; i <= RIGHT; i++ )
+	for ( int i=UP; i <= SPDOWN; i++ )
 	{
 		Last_Actions[i] = false;
 	}

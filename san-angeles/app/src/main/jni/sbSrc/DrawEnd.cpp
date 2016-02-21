@@ -348,8 +348,8 @@ void vDrawGameClearScene()
 	//		Dstrcpy(m2, "push 'q' to quit");
 			Dstrcpy(m2, "please touch the MENU button to proceed");
     }
-	else if ( Game_Time > END_TIME + 1400 )
-			Dstrcpy(m1, "THE END");
+//	else if ( Game_Time > END_TIME + 1400 )
+//			Dstrcpy(m1, "THE END");
 
 	//---------------------------------
 	// init env

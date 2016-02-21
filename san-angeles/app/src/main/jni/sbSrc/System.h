@@ -27,12 +27,8 @@ extern "C" {
 typedef unsigned char bool;
 #endif
 
-//extern vOpenWindow(char *name, int w, int h, int i);
-extern void mySysSwapBuffers();
-extern void reportError(const char * _Format, ...);
-extern void displayOnScreenMessage(const char* message);
 
-// main call to StarBird system
+// main call to StarBird system from Java
 extern void SBInitApp();
 extern void SBInit();
 extern void SBDeinit();
@@ -44,6 +40,13 @@ extern void SBOnPause( bool isPause );
 extern void SBOnTogglePause();
 extern void SBDrawMain(long tick);//, int width, int height);
 extern void SBOnResizeViewport( int width, int height );
+
+// functions for other cpp modules
+//extern vOpenWindow(char *name, int w, int h, int i);
+extern void mySysSwapBuffers();
+extern void reportError(const char * _Format, ...);
+extern void displayOnScreenMessage(const char* message);
+extern bool isGamePaused();
 
 #ifdef __cplusplus
 }

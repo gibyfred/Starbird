@@ -118,7 +118,7 @@ static CGMaterial black_mat = // full black
 	{0},					//SHININESS, 
 };
 
-static CGMaterial red_mat = // full black
+static CGMaterial red_mat =
 {
 	{1, 0, 0, 1},		//DIFFUSE, 
 	{1, 0, 0, 1},		//AMBIENT, 
@@ -530,6 +530,7 @@ void vMakeSpark()
 		0, 1, 2,  2, 3, 0 };
 
 	glColor3fv(fRedVec);
+	vChangeMat(red_mat);
 
 	glVertexPointer( 3, GL_FLOAT, 0, v );
 	glEnableClientState( GL_VERTEX_ARRAY );
@@ -555,6 +556,7 @@ make a yellow rectangle for for generic use and put it into display list
 void vMakeRect()
 {
 	const float UNIT =  0.5;	// these 0.01 offsets are not necessary for iris version.
+
 #ifdef SB_GLES
 	float v[4][3] =	{
 		{ -UNIT, 0.0, 0.0 },
@@ -595,6 +597,7 @@ void vMakeRect()
     glVertex3fv(v4);
     glVertex3fv(v3);
     glEnd();
+
     glEndList();
 #endif
 }
@@ -1019,7 +1022,7 @@ static void vMakeFloorTexture(void)
 	}
 }
 
-extern void vDrawObj(unsigned short id)
+void vDrawObj(unsigned short id)
 {
 #ifdef SB_GLES
 	switch(id)

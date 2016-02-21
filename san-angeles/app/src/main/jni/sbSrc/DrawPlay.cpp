@@ -80,6 +80,11 @@ static float s_xang = 0.0, s_yang = 0.0, s_zang = 0.0;
 static float s_wang = 0.0;
 
 
+typedef float Vec3[3];
+
+static void vDrawSparks(Vec3* pt, int time);
+
+
 //
 void initInternalStates()
 {
@@ -209,6 +214,11 @@ void vDrawScene()
 		vDrawBg();
 		vDrawPillars1();
 		vDrawPillars2();
+
+		//
+		vDrawSparks(NULL, 0);           // being called many times for a draw !!
+
+		//
 		vDrawChkPts();
     	vDrawPrtMesg();					//
 	}
@@ -299,41 +309,53 @@ void setup_lig2()
 //---------------------------------------
 void drawOneSpark(float x, float y, float z)
 {
-glPushMatrix();
-glLoadIdentity();
-glTranslatef(x,y,z);
-glScalef(SPARK_X, SPARK_Y, SPARK_Z);
-vDrawObj(OBJ_SPARK);		//glCallList
-glPopMatrix();
+	int dbgBreakTimeS=180;
+	int dbgBreakTimeE=280;
+
+	if ( Game_Time < dbgBreakTimeS || Game_Time > dbgBreakTimeE )
+	{
+		dbgBreakTimeE=630;
+	}
+
+	glPushMatrix();
+	glLoadIdentity();
+	glTranslatef(x,y,z);
+	glScalef(SPARK_X, SPARK_Y, SPARK_Z);
+	vDrawObj(OBJ_SPARK);		//glCallList
+	glPopMatrix();
 }
 
-void vDrawSparks(float pt[3], int time)
+
+// move it here from vDrawSparks() in order to prevent bug
+//static int re_time2 = 0;
+
+void vDrawSparks(Vec3* pt, int time)
 {
 	static float x[SPARK_NUM], y[SPARK_NUM], z[SPARK_NUM];
 	int i;
 	int j;
-	static int re_time = 0;
+	static int re_time2 = 0;
 
-	for ( i=0; i<1; i++ )
+//	for ( i=0; i<1; i++ )
 	{
 		if ( time > 0 )
 		{
 			// initialize
-			re_time = SPARK_PERIOD;
-			//dbg_msg("Sparks: init: (%f, %f, %f)\n", pt[0],pt[1],pt[2]);
+			re_time2 = SPARK_PERIOD;
+			dbg_msg("Sparks: init: (%f, %f, %f)   GameTime:%d  Energy:%d  chk:%d \n", pt[0],pt[1],pt[2], time, Energy, re_time2 );
 
 			for ( j=0; j<SPARK_NUM; j+=4)
 			{
 				float offset = ((float) (j*4) / (float) SPARK_NUM) * SPARK_CIR_RADIUS;
-				x[j+2] = x[j] = offset + pt[0];
-				x[j+3] = x[j+1] = pt[0] - offset;
+				x[j+2] = x[j] = offset + (*pt)[0];
+				x[j+3] = x[j+1] = (*pt)[0] - offset;
 
-				y[j+3] = y[j] = offset + pt[1];
-				y[j+2] = y[j+1] = pt[1] - offset;
+				y[j+3] = y[j] = offset + (*pt)[1];
+				y[j+2] = y[j+1] = (*pt)[1] - offset;
 			}
 
 			for ( j=0; j<SPARK_NUM; j++)
-				z[j] = pt[2];
+				z[j] = (*pt)[2];
 
 			for ( j=0; j<SPARK_NUM; j++)
 				drawOneSpark(x[j],y[j],z[j]);
@@ -341,9 +363,9 @@ void vDrawSparks(float pt[3], int time)
 //			j=2;dbg_msg("Sparks init:       time:%d  j=%d  (%f, %f, %f)\n", re_time, j,x[j],y[j],z[j]);
 		}
 
-		if ( re_time != 0 )
+		if ( re_time2 > 0 )
 		{
-			re_time--;
+			re_time2--;
 //			j=2;dbg_msg("Sparks:       time:%d  j=%d  (%f, %f, %f)\n", re_time, j,x[j],y[j],z[j]);
 
 			for (j=0; j<SPARK_NUM; j+=4)
@@ -360,11 +382,13 @@ void vDrawSparks(float pt[3], int time)
 			}
 
 #if 0
-			if ( re_time > SPARK_PERIOD - 5 )
+			if ( re_time2 > SPARK_PERIOD - 5
+			     || re_time2 < 5
+			     || re_time2 == 0 )
 			{
 				j=2;
 				//if (j<=0)
-					dbg_msg("Sparks:       time:%d  j=%d  (%f, %f, %f)\n", re_time, j,x[j],y[j],z[j]);
+					dbg_msg("Sparks:       time:%d  j=%d  (%f, %f, %f)  chk:%d \n", re_time2, j,x[j],y[j],z[j], re_timeXX);
 			}
 #endif
 
@@ -389,16 +413,31 @@ void vDrawPillar(float x, float y, float z, float ang)
 	glColor3fv(fGrayVec);
 	glTranslatef(x, y, z);
 
-	// if collides, initialize sparks
-	if ( tmp < 0 )
-		vDrawSparks(colli_pt, Game_Time);   // initialize sparks
-	else
-		vDrawSparks(colli_pt, 0);           // being called many times for a draw !!
+	//old: DrakwSparks here
 
+	//
 	glRotatef(ang, 0,0,1);
 	glScalef(PILLAR_X, PILLAR_Y, PILLAR_Z);
 	vDrawObj(OBJ_CUBE1);		//glCallList
 	glPopMatrix();
+
+	//----// new DrawSparks here
+
+	// if collides, initialize sparks
+	if ( tmp < 0 )
+	{
+		int dbgBreakTimeS=180;
+		int dbgBreakTimeE=270;
+
+		if ( Game_Time < dbgBreakTimeS || Game_Time > dbgBreakTimeE )
+		{
+			dbgBreakTimeE=630;
+		}
+
+		vDrawSparks(&colli_pt, Game_Time);   // initialize sparks
+	}
+//	else
+//		vDrawSparks(colli_pt, 0);           // being called many times for a draw !!
 }
 
 //---------------------------------------
@@ -717,13 +756,15 @@ void vDrawDREAM()
 		printf("   DrawDr: %f*%f  %f %f %d \n", r_x, r_y , x, y);
 	#endif
 
+	if(!isGamePaused())
+	{
 		reset_view_co(&s_r_y);
 		reset_view_co(&s_r_x);
 		reset_turn(&s_xang, 'x');
 		reset_turn(&s_yang, 'y');
 		reset_turn(&s_zang, 'z');
 		reset_turn(&s_wang, 'w');
-		
+
 		if ( Last_Actions[UP] == TRUE )
 		{
 			s_y -= SENSI;
@@ -762,7 +803,7 @@ void vDrawDREAM()
 		}
 
 		// check bounding case
-		if ( Last_Actions[LEFT] == TRUE ||  Last_Actions[RIGHT] == TRUE 
+		if ( Last_Actions[LEFT] == TRUE ||  Last_Actions[RIGHT] == TRUE
 			|| Turn_Mode == TRUE )
 			chk_vcons(&s_x, &s_r_x, MOV_X);
 
@@ -804,9 +845,10 @@ void vDrawDREAM()
 		{
 			s_wang -= TURN_WSENSI;
 		}
-		chk_tcons(&s_wang, 'w');
 
-	shake(&s_xang);
+		chk_tcons(&s_wang, 'w');
+		shake(&s_xang);
+	}
 
 
 	#ifdef DE_DREAM

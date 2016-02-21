@@ -87,6 +87,7 @@ extern void set_diffi(int deg);
 extern void set_light(int on);
 extern void setMainMessage(const char* s);
 extern void clearLastActions();
+extern void clearLastActionsAfterUpdate();
 
 //--------------------
 // func in DrawPlay.cpp
