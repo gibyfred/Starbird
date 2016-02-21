@@ -2,18 +2,18 @@
 <items version="2" >
 
     <item
-        jar="/Users/gbtest/Documents/deve/StarbirdAtGitHub/Starbird/san-angeles/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
-        <dex dex="/Users/gbtest/Documents/deve/StarbirdAtGitHub/Starbird/san-angeles/app/build/intermediates/pre-dexed/arm7/debug/classes-b9cf62a6cbaaa6fa72f75fba0f6348b2cdb98848.jar" />
-    </item>
-    <item
         jar="/Users/gbtest/app/android-sdk-macosx/extras/android/m2repository/com/android/support/support-annotations/23.0.1/support-annotations-23.0.1.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
         <dex dex="/Users/gbtest/Documents/deve/StarbirdAtGitHub/Starbird/san-angeles/app/build/intermediates/pre-dexed/arm7/debug/support-annotations-23.0.1-cfa02894b972ada58a986c251fda6567a72fbd95.jar" />
+    </item>
+    <item
+        jar="/Users/gbtest/Documents/deve/StarbirdAtGitHub/Starbird/san-angeles/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
+        <dex dex="/Users/gbtest/Documents/deve/StarbirdAtGitHub/Starbird/san-angeles/app/build/intermediates/pre-dexed/arm7/debug/classes-b9cf62a6cbaaa6fa72f75fba0f6348b2cdb98848.jar" />
     </item>
     <item
         jar="/Users/gbtest/Documents/deve/StarbirdAtGitHub/Starbird/san-angeles/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/libs/internal_impl-23.0.1.jar"
