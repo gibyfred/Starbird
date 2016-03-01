@@ -31,8 +31,8 @@
 #undef TARGET_HOST_POSIX_X11
 
 //#include <GL/freeglut.h>
-//#include "DGL.h"
 #include <GLES/gl.h>
+//#include "../DLib/DGL.h"
 #include "freeglut_internal.h"
 
 /* char: 0x20 */

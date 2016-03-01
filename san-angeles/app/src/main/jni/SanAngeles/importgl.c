@@ -22,6 +22,9 @@
  * $Revision: 1.4 $
  */
 
+#ifdef BUILD_SANANG     // build either it or Starbird
+
+
 #undef WIN32
 #undef LINUX
 #ifdef _MSC_VER
@@ -166,3 +169,5 @@ void importGLDeinit()
 #endif
 #endif /* DISABLE_IMPORTGL */
 }
+
+#endif //#ifdef BUILD_SANANG     // build either it or Starbird

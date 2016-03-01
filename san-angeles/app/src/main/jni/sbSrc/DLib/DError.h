@@ -28,5 +28,6 @@ extern void traceGLStack();
 extern bool GetOpenGLError();
 
 #ifdef __cplusplus
+//extern bool GetOpenGLError();
 }
 #endif

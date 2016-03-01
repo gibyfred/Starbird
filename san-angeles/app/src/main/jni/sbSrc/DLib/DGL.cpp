@@ -138,6 +138,8 @@ void gluLookAt(
 	glhLookAtf2(matrix, eyePosition3D, center3D, upVector3D);
 #endif
 }
+
+
 #endif
 
 

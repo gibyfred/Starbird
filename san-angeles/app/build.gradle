@@ -32,6 +32,7 @@ model {
         CFlags += "-DANDROID_NDK"
         CFlags += "-DDISABLE_IMPORTGL"
         ldLibs += ["GLESv1_CM", "dl", "log"]
+//  ldLibs += ["android", "EGL", "GLESv2", "OpenSLES", "dl", "log"]
     }
     android.sources {
 

@@ -22,6 +22,8 @@
  * $Revision: 1.10 $
  */
 
+#ifdef BUILD_SANANG     // build either it or Starbird
+
 #include <stdlib.h>
 #include <math.h>
 #include <float.h>
@@ -790,3 +792,6 @@ void appRender(long tick, int width, int height)
     // Draw fade quad over whole window (when changing cameras).
     drawFadeQuad();
 }
+
+
+#endif // #ifdef BUILD_SANANG     // build either it or Starbird

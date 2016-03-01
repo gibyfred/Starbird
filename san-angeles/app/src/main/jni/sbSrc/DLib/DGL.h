@@ -41,6 +41,8 @@
 
 #ifdef SB_ANDROID
 
+#define SB_GLES1        // use GL ES v1.x
+
 #elif defined(SB_WIN)
 
 
@@ -77,16 +79,25 @@
 //----------------------------------------// include headers and "simulate" common functions not in GLES
 
 #ifdef SB_ANDROID
+
+#ifdef SB_GLES1
+// use OGL ES 1
 #include <GLES/gl.h>
 //#include <GLES/glext.h>
-//#include <GLES2/gl2.h>
+//#pragma message (">hello a1")
+#else
+// use OGL ES 2.x
+//#include <EGL/egl.h>
+#include <GLES2/gl2.h>
 //#include <GLES2/gl2ext.h>
-#include "DError.h"
+#endif
+
 #else
 #include <gl/gl.h>			// Include the standard OpenGL headers
 #include <gl/glu.h>			// Include the OpenGL utility library
-#include "DError.h"
 #endif // SB_ANDROID
+
+#include "DError.h"
 
 
 //----------------------------------------//
@@ -117,7 +128,12 @@ inline void dglOrtho(GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, G
 #ifdef SB_WIN
 	glOrtho(left, right, bottom, top, zNear, zFar);
 #else
+#ifdef SB_GLES1
 	glOrthof(left, right, bottom, top, zNear, zFar);
+#else
+	//use GLM library instead??
+	//TODOGLES2?
+#endif
 #endif
 }
 
@@ -142,7 +158,10 @@ void glutStrokeCharacter( void* fontID, int character );
 
 inline void glColor3fv(DFloats v)
 {
+#ifdef SB_GLES1
 	glColor4f(v[0], v[1], v[2], 1.0f );
+#else
+#endif
 }
 
 extern void gluPerspective( GLfloat fovy, GLfloat aspect, GLfloat zNear, GLfloat zFar );
