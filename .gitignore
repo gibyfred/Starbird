@@ -27,6 +27,11 @@
 *.sql
 *.sqlite
 
+# Android Studio Intermediate files
+######################
+san-angeles/app/build/**
+san-angeles/build/**
+
 # OS generated files #
 ######################
 .DS_Store
@@ -36,3 +41,7 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+san-angeles/build/intermediates/dex-cache/cache.xml
+
+san-angeles/build/intermediates/gradle_project_sync_data.bin
