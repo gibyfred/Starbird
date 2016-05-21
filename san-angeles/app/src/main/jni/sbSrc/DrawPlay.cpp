@@ -162,18 +162,21 @@ bool DrawEngine::drawPlayScene(int state)
 			// show simple message
 			if ( Game_Time > 50 && Game_Time < 180 )
 			{
-//				setMainMessage("use one finger to move");
-				setHelpMessage("use 2 fingers to rotate:  ↑↓ or ↓↑ ");
+				setHelpMessage("use ONE finger to move:¥n¥r  ←　→");
 			}
 			else if ( Game_Time > 310 && Game_Time < 450 )
 			{
-				setHelpMessage("use 3 fingers to speed down: ↓↓↓ ");
+				setHelpMessage("use TWO fingers to rotate:¥n¥r  ↑ ↓ or ↓ ↑ ");
 			}
-			else if ( Game_Time > 470 && Game_Time < 600 )
+			else if ( Game_Time > 510 && Game_Time < 650 )
+			{
+				setHelpMessage("use THREE fingers to speed down:¥n¥r  ↓ ↓ ↓ ");
+			}
+			else if ( Game_Time > 670 && Game_Time < 800 )
 			{
 				setHelpMessage("(but you can only change speed when the speed gauge is full)");
 			}
-			else if ( Game_Time > 670 && Game_Time < 800 )
+			else if ( Game_Time > 870 && Game_Time < 1000 )
 			{
 				setHelpMessage("Enjoy flying!");
 			}

@@ -433,11 +433,15 @@ public class StarBirdActivity extends Activity {
         mPauseViewVisibility = v;
 
 		//Popup
+		if (_popupWindow !=null)
+			_activity.showUI(!v);
+/*
 		if (_label!=null)
 		{
 			final int state2 = v ? View.GONE:View.VISIBLE;
 			_label.setVisibility(state2);
 		}
+ */
     }
 
 	/*
@@ -463,6 +467,8 @@ public class StarBirdActivity extends Activity {
 	static PopupWindow _popupWindow;
 	static TextView _label;
 
+//	static int countDismiss = 0;
+
 	void showUI(boolean isVis)
 	{
 		if ( isVis )
@@ -473,15 +479,13 @@ public class StarBirdActivity extends Activity {
 				{
 					Log.d( TAG, "createPopupMessageUI: showAsDropDown: ");
 
-					View view = getWindow().getDecorView();
+					View view = getWindow().getDecorView();	// should we use it?
 					//View view = findViewById(R.layout.main);
-					//R.layout.popup_message
-					_popupWindow.showAsDropDown(view);		// view: it is ok to use it???
+					_popupWindow.showAtLocation(view, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 0, 0);
 				}
 			}
 			else
 			{
-				//showUIOld();
 				createPopupMessageUI(this, new Point(0,0));
 			}
 		}
@@ -489,10 +493,12 @@ public class StarBirdActivity extends Activity {
 		{
 			if(_popupWindow !=null && _popupWindow.isShowing())
 			{
+//				countDismiss++;
+
 				Log.d( TAG, "createPopupMessageUI: dimiss: ");
 				//we dont do it because of an unknown bug!
 				// BUT, since we set empty stringin UpdateMessage(), we don't need to close the window...
-//				_popupWindow.dismiss();
+				_popupWindow.dismiss();
 			}
 		}
 	}
@@ -515,11 +521,11 @@ public class StarBirdActivity extends Activity {
 		LinearLayout viewGroup = null;
 
 		LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View layout = layoutInflater.inflate(R.layout.popup_message, viewGroup);
+		View layout = layoutInflater.inflate(R.layout.popup_message, viewGroup);		// is null ok???
 
 		// Creating the PopupWindow
 		PopupWindow changeSortPopUp = new PopupWindow(context);
-		changeSortPopUp.setContentView(layout);
+		changeSortPopUp.setContentView(layout);		// is this correct?
 		changeSortPopUp.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
 		changeSortPopUp.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
 		changeSortPopUp.setTouchable(false);
@@ -552,13 +558,15 @@ public class StarBirdActivity extends Activity {
 		_label = (TextView) layout.findViewById(R.id.textViewPopUp);
 		_label.setMinimumWidth(300);
 
-		//
+		/*
+		//temp: try to call shoAsDropDown after create it
 		View view = getWindow().getDecorView();
 		//View view = findViewById(R.layout.main);
 		//R.layout.popup_message
 		_popupWindow.showAsDropDown(view);
+		*/
 	}
-
+/*
 	// copied from teapot sample
 	@SuppressLint("InflateParams")
 	public void showUIOld()
@@ -609,6 +617,7 @@ public class StarBirdActivity extends Activity {
 			}
 		});
 	}
+	*/
 
 /*
 	public static void updateFPS(final float fFPS)
@@ -647,43 +656,39 @@ public class StarBirdActivity extends Activity {
 			}
 		}
 
-//		Log.d(TAG, "updateMessage: begin: " + _activity + " " + str + "" );		//+ _label + "");
 
+		//
 		_activity.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
 
+				if (mPauseViewVisibility)
+				{
+					return;
+				}
+
+				//
+				//Log.d(TAG, "updateMessage: begin: " + _activity + " " + str + "" );		//+ _label + "");
+
 				if (str.isEmpty()) {
 					_label.setText("");
 //					_label.setBackgroundColor(0x0);
-					//_label.setVisibility(View.GONE);
-					//				_popupWindow.dismiss();
-
 
 					if (isMethod1)
 						_activity.showUI(false);
 					else {
-						//testing
-//						_popupWindow = null;
-//						_label = null;
 					}
 				} else {
 					if (_label == null)
 						return;
 
-					_activity.showUI(true);
+					if (isMethod1)
+						_activity.showUI(true);
 
-					_label.setText(String.format("            %s            ", str));
+					_label.setText(String.format("    %s    ", str));
 					//				_label.setBackgroundColor(0x0F0F0F0F);
 					//_label.setVisibility(View.VISIBLE);
-
-					//
-//					_popupWindow.getContentView().setVisibility(View.VISIBLE);
-	//				_popupWindow.update();
 				}
-
-//				_label.setTextSize(60);
-//						setTextColor
 			}
 		});
 	}

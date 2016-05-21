@@ -492,6 +492,7 @@ void DrawEngine::init()
 	Sp_Eng  = FULL_SPENG;
 	Light_On = TRUE;
 	Diffi = BABY;
+	setHelpMessage("");
 
 	for ( int i=UP; i <= SPDOWN; i++ )
 	{

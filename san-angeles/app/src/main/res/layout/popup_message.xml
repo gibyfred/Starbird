@@ -4,13 +4,29 @@
               android:layout_height="match_parent"
               android:gravity="top"
               android:orientation="vertical" >
-
+    <!--dummy-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:background="#00000000"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/white" />
+    <!--main text-->
     <TextView
         android:id="@+id/textViewPopUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="end"
         android:text="@string/popup_message"
+        android:background="#00000000"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/white" />
+    <!--dummy-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
         android:background="#00000000"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@android:color/white" />

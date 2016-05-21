@@ -9,7 +9,6 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="mview" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="BookmarkManager">
@@ -39,16 +38,49 @@
       <file leaf-file-name="StarBirdActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/giby/StarBird/StarBirdActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.53758544">
-              <caret line="488" column="9" selection-start-line="488" selection-start-column="9" selection-end-line="488" selection-end-column="9" />
+            <state vertical-scroll-proportion="2.3485193">
+              <caret line="683" column="0" selection-start-line="683" selection-start-column="0" selection-end-line="683" selection-end-column="0" />
               <folding>
-                <marker date="1463802354000" expanded="true" signature="1652:3025" placeholder="..." />
-                <marker date="1463802354000" expanded="true" signature="10069:10122" placeholder="//..." />
-                <marker date="1463802354000" expanded="true" signature="14710:16580" placeholder="{...}" />
-                <marker date="1463802354000" expanded="true" signature="18242:18586" placeholder="{...}" />
-                <marker date="1463802354000" expanded="true" signature="18449:18581" placeholder="{...}" />
-                <marker date="1463802354000" expanded="true" signature="18485:18577" placeholder="{...}" />
+                <element signature="e#3371#3372#0" expanded="false" />
+                <element signature="e#3394#3395#0" expanded="false" />
+                <element signature="e#5587#5588#0" expanded="false" />
+                <element signature="e#5615#5616#0" expanded="false" />
+                <element signature="e#5995#5996#0" expanded="false" />
+                <element signature="e#6028#6029#0" expanded="false" />
+                <element signature="e#8689#8690#0" expanded="false" />
+                <element signature="e#8726#8727#0" expanded="false" />
+                <element signature="e#23125#23126#0" expanded="false" />
+                <element signature="e#23144#23145#0" expanded="false" />
+                <element signature="e#23229#23230#0" expanded="false" />
+                <element signature="e#23247#23248#0" expanded="false" />
+                <element signature="e#31170#31171#0" expanded="false" />
+                <element signature="e#31212#31213#0" expanded="false" />
+                <element signature="e#31245#31246#0" expanded="false" />
+                <element signature="e#31281#31282#0" expanded="false" />
+                <element signature="e#31795#31796#0" expanded="false" />
+                <element signature="e#31818#31819#0" expanded="false" />
+                <marker date="1463825924000" expanded="true" signature="1652:3025" placeholder="..." />
+                <marker date="1463825924000" expanded="true" signature="10069:10122" placeholder="//..." />
+                <marker date="1463825924000" expanded="true" signature="14822:16788" placeholder="{...}" />
+                <marker date="1463825924000" expanded="true" signature="16674:16743" placeholder="//..." />
+                <marker date="1463825924000" expanded="true" signature="16880:18398" placeholder="{...}" />
+                <marker date="1463825924000" expanded="true" signature="17024:18393" placeholder="{...}" />
+                <marker date="1463825924000" expanded="true" signature="17060:18389" placeholder="{...}" />
+                <marker date="1463825924000" expanded="true" signature="17838:17976" placeholder="//..." />
+                <marker date="1463825924000" expanded="true" signature="18456:18800" placeholder="{...}" />
+                <marker date="1463825924000" expanded="true" signature="18663:18795" placeholder="{...}" />
+                <marker date="1463825924000" expanded="true" signature="18699:18791" placeholder="{...}" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StarBirdActivity.java.bkup" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/giby/StarBird/StarBirdActivity.java.bkup">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="840" column="62" selection-start-line="840" selection-start-column="62" selection-end-line="840" selection-end-column="62" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -59,38 +91,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="7" column="44" selection-start-line="7" selection-start-column="42" selection-end-line="7" selection-end-column="44" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Activity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/app/android-sdk-macosx/sources/android-19/android/app/Activity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="1948" column="34" selection-start-line="1948" selection-start-column="20" selection-end-line="1948" selection-end-column="34" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Window.java" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/app/android-sdk-macosx/sources/android-19/android/view/Window.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="1156" column="39" selection-start-line="1156" selection-start-column="25" selection-end-line="1156" selection-end-column="39" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PopupWindow.java" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/app/android-sdk-macosx/sources/android-19/android/widget/PopupWindow.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="154" column="11" selection-start-line="154" selection-start-column="11" selection-end-line="154" selection-end-column="11" />
+            <state vertical-scroll-proportion="-5.172414">
+              <caret line="10" column="42" selection-start-line="10" selection-start-column="42" selection-end-line="10" selection-end-column="42" />
               <folding />
             </state>
           </provider>
@@ -99,11 +101,19 @@
       <file leaf-file-name="MainAndroid.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/MainAndroid.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="236" column="70" selection-start-line="236" selection-start-column="70" selection-end-line="236" selection-end-column="70" />
-              <folding>
-                <element signature="e#7577#7903#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="-5.8703704">
+              <caret line="219" column="39" selection-start-line="219" selection-start-column="25" selection-end-line="219" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="System.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/System.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-8.518518">
+              <caret line="172" column="36" selection-start-line="172" selection-start-column="36" selection-end-line="172" selection-end-column="36" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -111,8 +121,8 @@
       <file leaf-file-name="DrawEnd.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/DrawEnd.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="64" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+            <state vertical-scroll-proportion="-10.0">
+              <caret line="77" column="30" selection-start-line="77" selection-start-column="30" selection-end-line="77" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -121,7 +131,7 @@
       <file leaf-file-name="Draw.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/Draw.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
+            <state vertical-scroll-proportion="-5.4814816">
               <caret line="179" column="5" selection-start-line="179" selection-start-column="5" selection-end-line="179" selection-end-column="5" />
               <folding />
             </state>
@@ -131,10 +141,10 @@
       <file leaf-file-name="DrawInit.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/DrawInit.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="190" column="46" selection-start-line="190" selection-start-column="44" selection-end-line="190" selection-end-column="46" />
+            <state vertical-scroll-proportion="-3.8148148">
+              <caret line="494" column="18" selection-start-line="494" selection-start-column="4" selection-end-line="494" selection-end-column="18" />
               <folding>
-                <marker date="1462522980000" expanded="true" signature="4055:4231" placeholder="..." />
+                <marker date="1463824957000" expanded="true" signature="4055:4231" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -143,8 +153,8 @@
       <file leaf-file-name="DrawPlay.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/DrawPlay.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="368" column="2" selection-start-line="368" selection-start-column="2" selection-end-line="368" selection-end-column="2" />
+            <state vertical-scroll-proportion="-7.9259257">
+              <caret line="172" column="68" selection-start-line="172" selection-start-column="68" selection-end-line="172" selection-end-column="68" />
               <folding />
             </state>
           </provider>
@@ -6118,13 +6128,14 @@
         <option value="$PROJECT_DIR$/app/src/main/jni/sbSrc/Draw.cpp" />
         <option value="$PROJECT_DIR$/app/src/main/jni/sbSrc/System.cpp" />
         <option value="$PROJECT_DIR$/app/src/main/jni/sbSrc/Draw.h" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/popup_message.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/jni/sbSrc/MainAndroid.c" />
-        <option value="$PROJECT_DIR$/app/src/main/jni/sbSrc/DrawInit.cpp" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/popup_message.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/jni/sbSrc/DrawInit.cpp" />
         <option value="$PROJECT_DIR$/app/src/main/jni/sbSrc/DrawPlay.cpp" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/giby/StarBird/StarBirdActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/giby/StarBird/StarBirdActivity.java.bkup" />
       </list>
     </option>
   </component>
@@ -6196,8 +6207,7 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
@@ -6547,7 +6557,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -6882,7 +6893,9 @@
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297568" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3287841" sideWeight="0.4513591" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37965262" sideWeight="0.35550788" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297568" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33746898" sideWeight="0.36480686" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3287841" sideWeight="0.5171674" order="7" side_tool="true" content_ui="tabs" />
@@ -6902,9 +6915,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297568" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37965262" sideWeight="0.35550788" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -6935,13 +6946,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/local.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -7195,49 +7199,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/System.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1055" column="32" selection-start-line="1055" selection-start-column="20" selection-end-line="1055" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/DrawEnd.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="64" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/DrawInit.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="190" column="46" selection-start-line="190" selection-start-column="44" selection-end-line="190" selection-end-column="46" />
-          <folding>
-            <marker date="1462522980000" expanded="true" signature="4055:4231" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/Draw.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="179" column="5" selection-start-line="179" selection-start-column="5" selection-end-line="179" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/MainAndroid.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="236" column="70" selection-start-line="236" selection-start-column="70" selection-end-line="236" selection-end-column="70" />
-          <folding>
-            <element signature="e#7577#7903#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/misc.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4140625">
@@ -7246,39 +7207,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/popup_message.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3416149">
-          <caret line="11" column="24" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.24742268">
           <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/app/android-sdk-macosx/sources/android-19/android/widget/PopupWindow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="154" column="11" selection-start-line="154" selection-start-column="11" selection-end-line="154" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/main.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="44" selection-start-line="7" selection-start-column="42" selection-end-line="7" selection-end-column="44" />
           <folding />
         </state>
       </provider>
@@ -7299,25 +7231,131 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/popup_message.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/MainAndroid.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.8703704">
+          <caret line="219" column="39" selection-start-line="219" selection-start-column="25" selection-end-line="219" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/main.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.172414">
+          <caret line="10" column="42" selection-start-line="10" selection-start-column="42" selection-end-line="10" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/app/android-sdk-macosx/sources/android-19/android/widget/PopupWindow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.62660944">
+          <caret line="157" column="0" selection-start-line="157" selection-start-column="0" selection-end-line="157" selection-end-column="0" />
+          <folding>
+            <element signature="e#5572#5573#0" expanded="false" />
+            <element signature="e#5607#5608#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/System.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.518518">
+          <caret line="172" column="36" selection-start-line="172" selection-start-column="36" selection-end-line="172" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/DrawInit.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.8148148">
+          <caret line="494" column="18" selection-start-line="494" selection-start-column="4" selection-end-line="494" selection-end-column="18" />
+          <folding>
+            <marker date="1463824957000" expanded="true" signature="4055:4231" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/Draw.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.4814816">
+          <caret line="179" column="5" selection-start-line="179" selection-start-column="5" selection-end-line="179" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/DrawEnd.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.0">
+          <caret line="77" column="30" selection-start-line="77" selection-start-column="30" selection-end-line="77" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/DrawPlay.cpp">
       <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.9259257">
+          <caret line="172" column="68" selection-start-line="172" selection-start-column="68" selection-end-line="172" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/giby/StarBird/StarBirdActivity.java.bkup">
+      <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="368" column="2" selection-start-line="368" selection-start-column="2" selection-end-line="368" selection-end-column="2" />
+          <caret line="840" column="62" selection-start-line="840" selection-start-column="62" selection-end-line="840" selection-end-column="62" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/giby/StarBird/StarBirdActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.53758544">
-          <caret line="488" column="9" selection-start-line="488" selection-start-column="9" selection-end-line="488" selection-end-column="9" />
+        <state vertical-scroll-proportion="2.3485193">
+          <caret line="683" column="0" selection-start-line="683" selection-start-column="0" selection-end-line="683" selection-end-column="0" />
           <folding>
-            <marker date="1463802354000" expanded="true" signature="1652:3025" placeholder="..." />
-            <marker date="1463802354000" expanded="true" signature="10069:10122" placeholder="//..." />
-            <marker date="1463802354000" expanded="true" signature="14710:16580" placeholder="{...}" />
-            <marker date="1463802354000" expanded="true" signature="18242:18586" placeholder="{...}" />
-            <marker date="1463802354000" expanded="true" signature="18449:18581" placeholder="{...}" />
-            <marker date="1463802354000" expanded="true" signature="18485:18577" placeholder="{...}" />
+            <element signature="e#3371#3372#0" expanded="false" />
+            <element signature="e#3394#3395#0" expanded="false" />
+            <element signature="e#5587#5588#0" expanded="false" />
+            <element signature="e#5615#5616#0" expanded="false" />
+            <element signature="e#5995#5996#0" expanded="false" />
+            <element signature="e#6028#6029#0" expanded="false" />
+            <element signature="e#8689#8690#0" expanded="false" />
+            <element signature="e#8726#8727#0" expanded="false" />
+            <element signature="e#23125#23126#0" expanded="false" />
+            <element signature="e#23144#23145#0" expanded="false" />
+            <element signature="e#23229#23230#0" expanded="false" />
+            <element signature="e#23247#23248#0" expanded="false" />
+            <element signature="e#31170#31171#0" expanded="false" />
+            <element signature="e#31212#31213#0" expanded="false" />
+            <element signature="e#31245#31246#0" expanded="false" />
+            <element signature="e#31281#31282#0" expanded="false" />
+            <element signature="e#31795#31796#0" expanded="false" />
+            <element signature="e#31818#31819#0" expanded="false" />
+            <marker date="1463825924000" expanded="true" signature="1652:3025" placeholder="..." />
+            <marker date="1463825924000" expanded="true" signature="10069:10122" placeholder="//..." />
+            <marker date="1463825924000" expanded="true" signature="14822:16788" placeholder="{...}" />
+            <marker date="1463825924000" expanded="true" signature="16674:16743" placeholder="//..." />
+            <marker date="1463825924000" expanded="true" signature="16880:18398" placeholder="{...}" />
+            <marker date="1463825924000" expanded="true" signature="17024:18393" placeholder="{...}" />
+            <marker date="1463825924000" expanded="true" signature="17060:18389" placeholder="{...}" />
+            <marker date="1463825924000" expanded="true" signature="17838:17976" placeholder="//..." />
+            <marker date="1463825924000" expanded="true" signature="18456:18800" placeholder="{...}" />
+            <marker date="1463825924000" expanded="true" signature="18663:18795" placeholder="{...}" />
+            <marker date="1463825924000" expanded="true" signature="18699:18791" placeholder="{...}" />
           </folding>
         </state>
       </provider>
