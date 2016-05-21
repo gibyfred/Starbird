@@ -5,17 +5,26 @@
 
 <!-- Demonstrates changing view visibility. See corresponding Java code. -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@android:color/black"
+    >
 
     <!-- Here is where we put the SurfaceView, in a frame so that we can
          stack other views on top of it. -->
     <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0px"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="@android:color/black"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+        >
+
 
 <!--         <android.opengl.GLSurfaceView 
       -->
@@ -65,48 +74,86 @@
         
         
     </FrameLayout>
-<!-- 
+
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center">
 
-        <Button android:id="@+id/vis"
+        <Button android:id="@+id/vis1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="vis1"/>
 
-        <Button android:id="@+id/invis"
+        <Button android:id="@+id/invis1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="invis1"/>
 
-        <Button android:id="@+id/gone"
+        <Button android:id="@+id/gone1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="gone1"/>
 
     </LinearLayout>
+
+   <!--  my fixed textView at the bottom -->
+    <!--
+    <TextView
+        android:id="@+id/textViewPopUp"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="bottom"
+        android:text="@string/popup_windows"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:background="@android:color/white"
+        android:textColor="#ff0f0f0f"
+        />
+        -->
+
+    <!--  from Teapot -->
+<!--
+    <TextView
+        android:id="@+id/textViewPopUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:text="@string/popup_windows"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/white"
+        />
 -->
-</LinearLayout>
 
-<!--         
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
+    <!--
+        <TextView android:id="@+id/textViewPopUp"  android:layout_width="wrap_content"
+         android:layout_height="wrap_content" 
+                android:gravity="end"
+        android:text="@string/popup_windows"
+        android:textAppearance="?android:attr/textAppearanceMedium" 
+                android:textColor="@android:color/white" />
+        -->
+
+</RelativeLayout>
+
+    <!--
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        >
 
 
-  <TextView
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:text="Starting StarBird..."
-    />
-  
-  
-  </LinearLayout>
--->
+      <TextView
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:text="Starting StarBird..."
+        />
+
+
+      </LinearLayout>
+    -->
  
  

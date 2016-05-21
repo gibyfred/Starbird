@@ -324,8 +324,9 @@ void vDrawGameClearScene()
 
 	if ( Diffi - BABY < 0.1 || Passes <= Passes_Count*0.3  )
 	{
-			Dstrcpy(m1, "you're not a baby... Right?");
-			Dstrcpy(m2, "please try next difficulty level");
+		Dstrcpy(m1, "Thank you for playing!!!");
+		//Dstrcpy(m1, "you're not a baby! Right?");
+		Dstrcpy(m2, "please try next difficulty level");
 	}
 	else if ( Diffi - DIFF_NORMAL < 0.1 && Passes > Passes_Count*0.3 )
 	{

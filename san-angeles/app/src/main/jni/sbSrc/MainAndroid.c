@@ -30,6 +30,12 @@
 
 
 
+//--------------------------------------//
+void Engine_UpdateFPS( float );
+void Engine_UpdateMessage( char* );
+static void Engine_ShowUI();
+
+//--------------------------------------//
 int   gAppAlive   = 1;
 
 static int  sWindowWidth  = 320;
@@ -39,6 +45,11 @@ static long sTimeOffset   = 0;
 static int  sTimeOffsetInit = 0;
 static long sTimeStopped  = 0;
 
+static jobject* s_ActivityClass = NULL;
+static JavaVM* sJvm = NULL;
+static JNIEnv* s_jni = NULL;
+
+//--------------------------------------//
 static long
 _getTime(void)
 {
@@ -52,8 +63,15 @@ _getTime(void)
 jint JNI_OnLoad(JavaVM* vm, void* reserved)
 {
 	__android_log_print(ANDROID_LOG_INFO, "StarB:OnLoad:", "My JNI_OnLoad: %d, %d, %d" );
+	sJvm = vm;
 	SBInitApp();
-	return JNI_VERSION_1_2;
+
+	//
+//	JNIEnv* env;
+//	if (vm->GetEnv(reinterpret_cast<void**>(&env), JNI_VERSION_1_6) != JNI_OK) {
+//		return -1;
+//	}
+	return JNI_VERSION_1_2;     // use 1_6 instead?
 }
 
 
@@ -68,6 +86,18 @@ Java_com_giby_StarBird_DemoRenderer_nativeInit( JNIEnv* env )
     gAppAlive    = 1;
     sDemoStopped = 0;
     sTimeOffsetInit = 0;
+
+	//----// calling to Java side
+	jclass localClass = (*env)->FindClass( env, "com/giby/StarBird/StarBirdActivity");
+//	jclass localClass = (*env)->FindClass( env, "StarBirdActivity");
+	//jclass globalClass = reinterpret_cast<jclass>( env->NewGlobalRef(localClass));
+	s_ActivityClass = (*env)->NewGlobalRef(env, localClass);
+
+	//memo: teapot use GetObjectClass( activityClass )
+
+	//
+	Engine_ShowUI();
+//	Engine_UpdateFPS(10101.f);
 }
 
 void
@@ -77,6 +107,7 @@ Java_com_giby_StarBird_DemoRenderer_nativeResize( JNIEnv* env, jobject thiz, jin
     sWindowHeight = h;
 	SBOnResizeViewport(w,h);
     __android_log_print(ANDROID_LOG_INFO, "StarBNative:", "resize w=%d h=%d", w, h);
+	//Engine_ShowUI();
 }
 
 /* Call to finalize the graphics state */
@@ -84,6 +115,13 @@ void
 Java_com_giby_StarBird_DemoRenderer_nativeDone( JNIEnv* env )
 {
 	__android_log_print(ANDROID_LOG_INFO, "StarBNative:", "nativeDone()" );
+
+	//----// calling to Java side
+	s_ActivityClass = NULL;
+
+	//TODO?   FreeGlobalRef
+
+	//---//
     SBDeinit();
     //importGLDeinit();
 }
@@ -153,6 +191,7 @@ Java_com_giby_StarBird_DemoGLSurfaceView_nativePause( JNIEnv* env, jobject thiz,
 void
 Java_com_giby_StarBird_DemoRenderer_nativeRender( JNIEnv* env )
 {
+	//
     long   curTime;
 
     /* NOTE: if sDemoStopped is TRUE, then we re-render the same frame
@@ -171,6 +210,16 @@ Java_com_giby_StarBird_DemoRenderer_nativeRender( JNIEnv* env )
 
     //__android_log_print(ANDROID_LOG_INFO, "StarBX", "curTime=%ld", curTime);
 
+	//----//
+
+	// update message
+	//version 1
+	//Engine_UpdateFPS(getMainMessageF());
+
+	//version 2
+	Engine_UpdateMessage(getMainMessage());
+
+	// main "game loop"
     SBDrawMain(curTime);//, sWindowWidth, sWindowHeight);
 }
 
@@ -178,6 +227,131 @@ Java_com_giby_StarBird_DemoRenderer_nativeRender( JNIEnv* env )
 -g -I"O:\app\android-ndk\platforms\android-9\arch-arm\usr\include" -I"O:\app\android-ndk\sources\cxx-stl\gnu-libstdc++\include" -I"O:\app\android-ndk\sources\cxx-stl\gnu-libstdc++\libs\armeabi\include" -D"ANDROID_NDK" -D"ANDROID" -D"__ANDROID__" -D"__ARM_EABI__" -D"__ARM_ARCH_5__" -D"__ARM_ARCH_5T__" -D"__ARM_ARCH_5E__" -D"__ARM_ARCH_5TE__" -Wno-psabi -O0 -marm -fno-strict-aliasing -funswitch-loops -finline-limit=100 -fomit-frame-pointer -D"DISABLE_IMPORTGL" -fno-exceptions -fpic -fstack-protector -fno-rtti -fno-short-enums -o "Android\Debug\app-android.o" 
 */
 
+
+
+static JNIEnv* beginJNIEnv()
+{
+//	app_->activity->vm->AttachCurrentThread( &jni, NULL );
+
+	JNIEnv *env;
+	int status = (*sJvm)->GetEnv(sJvm, (void**)&env, JNI_VERSION_1_6);
+	if ( status < 0 )
+	{
+		status = (*sJvm)->AttachCurrentThread( sJvm, &env, NULL);
+		if(status < 0) {
+			return;
+		}
+	}
+
+	if ( s_jni != env )
+	{
+//		__android_log_print(ANDROID_LOG_INFO, "StarB: WTF", "status: %d", status );
+	}
+
+	s_jni = env;
+
+	return env;
+}
+
+static JNIEnv* endJNIEnv()
+{
+	//	app_->activity->vm->DetachCurrentThread();
+//	JNIEnv *env = s_jni;
+//	if ( env )
+	{
+//		(*sJvm)->DetachCurrentThread( sJvm );
+	}
+//	s_jni = NULL;
+}
+
+static jobject* sGetActivityClass()
+{
+	return s_ActivityClass;
+}
+
+/*
+ * for PopupWindow
+ */
+void Engine_ShowUI()
+{
+	beginJNIEnv();
+
+	if ( sGetActivityClass() == NULL || s_jni == NULL )
+	{
+		endJNIEnv();
+		return;
+	}
+
+	//Default class retrieval
+//	jclass clazz = (*s_jni)->GetObjectClass( s_jni, sGetActivityClass() );
+
+	// this part doesn't work now, because it calls the non-static method with class instead of class instance
+#if 0
+	jclass clazz = sGetActivityClass();
+	__android_log_print(ANDROID_LOG_INFO, "StarBX1", "clazz=%p", clazz);
+	jmethodID methodID = (*s_jni)->GetMethodID( s_jni, clazz, "showUI", "()V" );
+	__android_log_print(ANDROID_LOG_INFO, "StarBX2", "methodID=%p", methodID);
+	(*s_jni)->CallVoidMethod( s_jni, sGetActivityClass(), methodID );
+#endif
+
+	endJNIEnv();
+	return;
+}
+
+/*
+ * for PopupWindow
+ */
+void Engine_UpdateFPS( float fFPS )
+{
+	beginJNIEnv();
+
+	if ( sGetActivityClass() == NULL || s_jni == NULL )
+	{
+		endJNIEnv();
+		return;
+	}
+
+#if 1
+	// call the static method
+	jclass clazz = sGetActivityClass();
+	//__android_log_print(ANDROID_LOG_INFO, "StarBX1", "clazz=%p", clazz);
+	jmethodID methodID = (*s_jni)->GetStaticMethodID( s_jni, clazz, "updateFPS", "(F)V" );
+	//__android_log_print(ANDROID_LOG_INFO, "StarBX2", "methodID=%p", methodID);
+	(*s_jni)->CallStaticVoidMethod( s_jni, sGetActivityClass(), methodID, fFPS );
+#endif
+
+	endJNIEnv();
+	return;
+}
+
+
+void Engine_UpdateMessage( char* str )
+{
+	beginJNIEnv();
+
+	if ( sGetActivityClass() == NULL || s_jni == NULL )
+	{
+		endJNIEnv();
+		return;
+	}
+
+#if 1
+	//----// call the static method
+	jclass clazz = sGetActivityClass();
+
+	// Construct a String
+	jstring jstr = (*s_jni)->NewStringUTF( s_jni, str );
+
+	//__android_log_print(ANDROID_LOG_INFO, "StarCX1", "clazz=%p", clazz);
+	jmethodID methodID = (*s_jni)->GetStaticMethodID( s_jni, clazz, "updateMessage", "(Ljava/lang/String;)V" );
+//	__android_log_print(ANDROID_LOG_INFO, "StarCX2", "methodID=%p", methodID);
+	(*s_jni)->CallStaticVoidMethod( s_jni, sGetActivityClass(), methodID, jstr );
+
+#endif
+
+	endJNIEnv();
+	return;
+}
 
 #endif
 

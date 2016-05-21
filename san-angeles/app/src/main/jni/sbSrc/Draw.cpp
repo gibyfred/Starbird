@@ -100,7 +100,8 @@ DreamState Dream_State;
 // game state variables
 
 // message string holders
-char Main_Mesg[128] = "\0";				// the message centered on the screen
+char Main_Mesg[128] = "\0";				// the message is centered on the screen
+char Help_Mesg[128] = "\0";				// the message is shown on the bottom screen
 char Warning_Mesg[] = "WARNING";
 char GameOver_Mesg[] = "GAME OVER";
 char Ready_Mesg[] = "Get Ready!!";
@@ -173,6 +174,16 @@ void setMainMessage(const char* msg)
 	if (strlen(msg) < 127)
 	{
 		Dstrcpy(Main_Mesg, msg);
+	}
+}
+
+void setHelpMessage(const char* msg)
+{
+	assert(strlen(msg) < 127);
+
+	if (strlen(msg) < 127)
+	{
+		Dstrcpy(Help_Mesg, msg);
 	}
 }
 

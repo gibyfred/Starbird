@@ -5,6 +5,8 @@
 <string name="quit_game">Quit</string>
 <string name="back_to_game">Back To Game</string>
 <string name="back_to_title">Back To Title</string>
+<string name="popup_windows">loading...</string>
+<string name="popup_message"></string>
 
 <string name="toggle_debug_flag">Back To Title</string>
 

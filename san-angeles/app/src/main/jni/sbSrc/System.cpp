@@ -156,6 +156,16 @@ bool isGamePaused()
 	return game_paused;
 }
 
+float getMainMessageF()
+{
+	return Game_Time;
+//	return Energy;
+}
+
+char* getMainMessage()
+{
+	return Help_Mesg;
+}
 
 //---------------------------------------------------------------//
 // Section: glut callback functions and helper functions
@@ -944,7 +954,7 @@ static void onPauseChanged()
 		}
 
 //		setMainMessage("push 'p' to continue");
-		setMainMessage("touch to continue");
+		setMainMessage("Paused");
 	}
 	else
 	{

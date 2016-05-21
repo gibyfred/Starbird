@@ -86,6 +86,7 @@ extern void vDrawPrtMesg();
 extern void set_diffi(int deg);
 extern void set_light(int on);
 extern void setMainMessage(const char* s);
+extern void setHelpMessage(const char* s);
 extern void clearLastActions();
 extern void clearLastActionsAfterUpdate();
 
@@ -143,7 +144,7 @@ extern int Act_Turn;
 //--------------------
 // for DrawInit.c
 extern char Main_Mesg[128];
-
+extern char Help_Mesg[128];
 
 //--------------------
 // for DrawPlay.c

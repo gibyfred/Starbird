@@ -311,7 +311,7 @@ enum
 
 #define FIRE_NUM		7
 
-#define END_TIME		3000		// win95 ver // old=3500
+#define END_TIME		2500		// win95 ver // old=3500
 #define CHAN_Y2			15.0
 
 

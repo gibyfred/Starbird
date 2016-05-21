@@ -148,16 +148,40 @@ bool DrawEngine::drawPlayScene(int state)
 		if ( Energy <= 0 )
 		{
 			Is_GameOver = TRUE;
+			setHelpMessage("");
 			return false;
 		}
 		else if ( Game_Time >= END_TIME )
 		{
 			Is_GameCleared = TRUE;
+			setHelpMessage("");
 			return false;
 		}
 		else
 		{
-//			if (!game_paused)
+			// show simple message
+			if ( Game_Time > 50 && Game_Time < 180 )
+			{
+//				setMainMessage("use one finger to move");
+				setHelpMessage("use 2 fingers to rotate:  ↑↓ or ↓↑ ");
+			}
+			else if ( Game_Time > 310 && Game_Time < 450 )
+			{
+				setHelpMessage("use 3 fingers to speed down: ↓↓↓ ");
+			}
+			else if ( Game_Time > 470 && Game_Time < 600 )
+			{
+				setHelpMessage("(but you can only change speed when the speed gauge is full)");
+			}
+			else if ( Game_Time > 670 && Game_Time < 800 )
+			{
+				setHelpMessage("Enjoy flying!");
+			}
+			else
+			{
+				setHelpMessage("");
+			}
+
 			vDrawScene();
 
 			// w95 ver: in old ver, this clear loop is placed just before "Game_Time++;" below
@@ -342,7 +366,7 @@ void vDrawSparks(Vec3* pt, int time)
 		{
 			// initialize
 			re_time2 = SPARK_PERIOD;
-			dbg_msg("Sparks: init: (%f, %f, %f)   GameTime:%d  Energy:%d  chk:%d \n", pt[0],pt[1],pt[2], time, Energy, re_time2 );
+//			dbg_msg("Sparks: init: (%.2f, %.2f, %.2f)   GameTime:%d  Energy:%d  chk:%d \n", pt[0],pt[1],pt[2], time, Energy, re_time2 );
 
 			for ( j=0; j<SPARK_NUM; j+=4)
 			{

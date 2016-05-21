@@ -47,6 +47,8 @@ extern void mySysSwapBuffers();
 extern void reportError(const char * _Format, ...);
 extern void displayOnScreenMessage(const char* message);
 extern bool isGamePaused();
+extern float getMainMessageF();
+extern char* getMainMessage();
 
 #ifdef __cplusplus
 }

@@ -176,10 +176,12 @@ void vDrawPrtMesg()
 	if ( len >= 1 )
 	{
 		// print main message
+//#ifdef SB_WIN
 		Draw_Engine.beginDraw2D();
 		glColor3fv(fCyanVec);
 		Draw_Engine.drawMessage(-len*2.6f, -55, -1, 6, Main_Mesg);		// 2.6: half of estimated font width
 		Draw_Engine.endDraw2D();
+//#endif
 	}
 	else if ( !Is_GameOver )
 	{
