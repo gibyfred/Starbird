@@ -76,21 +76,15 @@ import android.util.Log;
 import android.graphics.Bitmap;
 
 // for PopupWindow
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.NativeActivity;
-import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup.MarginLayoutParams;
-import android.view.WindowManager.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.content.Context;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
+import android.view.ViewGroup;
 
 
 final class RotationGestureDetector {
@@ -294,7 +288,14 @@ public class StarBirdActivity extends Activity {
 		Log.d(TAG, "onAttachedToWindow");
 
 		//ref: http://stackoverflow.com/questions/4187673/problems-creating-a-popup-window-in-android-activity
-		showUI(true);
+
+		// create it and then hide it
+		showPopupWin(0, true);
+		showPopupWin(0, false);
+
+		showPopupWin(1, true);
+		showPopupWin(1, false);
+
 	}
 
 	@Override
@@ -302,8 +303,9 @@ public class StarBirdActivity extends Activity {
 		super.onDetachedFromWindow();
 		Log.d(TAG, "onDetachedFromWindow");
 
-		if (_popupWindow!=null)
-			_popupWindow.dismiss();
+		for ( int i=0; i<POPUP_COUNT; i++)
+			if (_popupWindows[i]!=null)
+				_popupWindows[i].dismiss();
 	}
 
     @Override
@@ -323,10 +325,11 @@ public class StarBirdActivity extends Activity {
 		}
 
 		//----// for Popup
-		if (_popupWindow != null) {
-			_popupWindow.dismiss();
-			_popupWindow = null;
-		}
+		for ( int i=0; i<POPUP_COUNT; i++)
+			if (_popupWindows[i] != null) {
+				_popupWindows[i].dismiss();
+		//		_popupWindows[i] = null;
+			}
     }
 
     @Override
@@ -337,7 +340,7 @@ public class StarBirdActivity extends Activity {
         
 //        if (mPauseViewVisibility)
         {
-    		setMenuVisibility(mPauseViewVisibility);
+    		setPauseMenuVisibility(mPauseViewVisibility);
 			DemoGLSurfaceView.nativePause(mPauseViewVisibility);
         }
 
@@ -384,10 +387,22 @@ public class StarBirdActivity extends Activity {
 		return super.onKeyDown(keyCode, event);
 	}
 
+
+	OnClickListener mPopupWindowListener = new OnClickListener()
+	{
+		public void onClick(View v)
+		{
+//			if ( v== || v== )
+			// unpause the core
+			Log.d(TAG, "createPopupMessageUI: onClick: ");
+			DemoGLSurfaceView.nativePause(false);
+		}
+	};
+
     OnClickListener mGoneListener = new OnClickListener() {
         public void onClick(View v)
         {
-    		setMenuVisibility(false);
+    		setPauseMenuVisibility(false);
 
         	if ( v==mVictim1 || v==mVictim2 )
         	{
@@ -419,10 +434,10 @@ public class StarBirdActivity extends Activity {
         DemoGLSurfaceView.nativePause(true);
 
         // show the PauseMenu
-        setMenuVisibility(true);
+        setPauseMenuVisibility(true);
     }
 
-    private void setMenuVisibility(boolean v)
+    private void setPauseMenuVisibility(boolean v)
     {
 		Log.d(TAG, "setMenuVIs: vis:" + v);
     	final int state = v ? View.VISIBLE : View.GONE;
@@ -433,8 +448,12 @@ public class StarBirdActivity extends Activity {
         mPauseViewVisibility = v;
 
 		//Popup
-		if (_popupWindow !=null)
-			_activity.showUI(!v);
+		for ( int i=0; i<POPUP_COUNT; i++)
+			if (_popupWindows[i] !=null)
+			{
+				_activity.showPopupWin(0, !v);
+				_activity.showPopupWin(1, !v);
+			}
 /*
 		if (_label!=null)
 		{
@@ -464,29 +483,52 @@ public class StarBirdActivity extends Activity {
 	}
 
 	public static StarBirdActivity _activity;		// make it and updateFPS() so that cpp side can call us via CallStaticVoidMethod
-	static PopupWindow _popupWindow;
+
+	static final int POPUP_COUNT = 1;
+	static PopupWindow _popupWindows[] = {null};
 	static TextView _label;
 
+	int herePosX = -10;
+	int herePosY = -10;
 //	static int countDismiss = 0;
 
-	void showUI(boolean isVis)
+	void showPopupWin(int id, boolean isVis)
 	{
+		if (id!=0)
+			return;
+
+		PopupWindow _popupWindow = _popupWindows[id];
+
 		if ( isVis )
 		{
 			if(_popupWindow !=null)
 			{
 				if (!_popupWindow.isShowing())
 				{
-					Log.d( TAG, "createPopupMessageUI: showAsDropDown: ");
+					Log.d(TAG, "createPopupMessageUI: showAsDropDown 1: ");
 
-					View view = getWindow().getDecorView();	// should we use it?
-					//View view = findViewById(R.layout.main);
-					_popupWindow.showAtLocation(view, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 0, 0);
+					LayoutInflater layoutInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+					View layout = layoutInflater.inflate(R.layout.popup_message, null);
+
+					//v1
+					//View view = getWindow().getDecorView();	// should we use it?????
+					//_popupWindow.showAtLocation(view, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 0, 0);
+
+					//v2
+					layout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+					int width = layout.getMeasuredWidth();
+					int height = layout.getMeasuredHeight();
+					_popupWindow.setWidth(width);
+					_popupWindow.setHeight(height);
+					_popupWindow.showAtLocation(layout, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 0, 0);
+
+					//pause the core - bad programming style?
+					DemoGLSurfaceView.nativePause(true);
 				}
 			}
 			else
 			{
-				createPopupMessageUI(this, new Point(0,0));
+				createPopupMessageUI(id, this, new Point(0,0));
 			}
 		}
 		else
@@ -496,8 +538,6 @@ public class StarBirdActivity extends Activity {
 //				countDismiss++;
 
 				Log.d( TAG, "createPopupMessageUI: dimiss: ");
-				//we dont do it because of an unknown bug!
-				// BUT, since we set empty stringin UpdateMessage(), we don't need to close the window...
 				_popupWindow.dismiss();
 			}
 		}
@@ -506,57 +546,88 @@ public class StarBirdActivity extends Activity {
 	// ref:
 	// http://stackoverflow.com/questions/15153651/set-own-layout-in-popup-window-in-android
 	// http://stackoverflow.com/questions/7498605/how-to-create-a-popup-window-in-android
-	private void createPopupMessageUI(final Activity context, Point p)
+	private void createPopupMessageUI(int id, final Activity context, Point p)
 	{
+		PopupWindow _popupWindow = _popupWindows[id];
+
 		if (_popupWindow != null)
 		{
-			Log.d( TAG, "showSortPopup: begin1: " + _activity);
+			Log.d( TAG, "showSortPopup: popup existed: " + _activity);
 			return;
 		}
 
 		Log.d( TAG, "createPopupMessageUI: begin: " + _activity);
+
+		//DIRTY
+		final int layoutId = id == 0 ? R.layout.popup_message : R.layout.popup_here;
 
 		// Inflate the popup_layout.xml
 //		LinearLayout viewGroup = (LinearLayout) context.findViewById(R.id.llSortChangePopup);
 		LinearLayout viewGroup = null;
 
 		LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View layout = layoutInflater.inflate(R.layout.popup_message, viewGroup);		// is null ok???
+		View layout = layoutInflater.inflate(layoutId, viewGroup);		// FH:  is null ok???
 
 		// Creating the PopupWindow
-		PopupWindow changeSortPopUp = new PopupWindow(context);
-		changeSortPopUp.setContentView(layout);		// is this correct?
-		changeSortPopUp.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
-		changeSortPopUp.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
-		changeSortPopUp.setTouchable(false);
-//FH: I don't need this!!!		changeSortPopUp.setFocusable(true);
 
-		// Some offset to align the popup a bit to the left, and a bit down, relative to button's position.
-//		int OFFSET_X = -20;
-//		int OFFSET_Y = 95;
+		//ver1
+//		PopupWindow changeSortPopUp = new PopupWindow(context);
+//		changeSortPopUp.setContentView(layout);		// FH: is this correct?
 
-		// Clear the default translucent background
-		changeSortPopUp.setBackgroundDrawable(new BitmapDrawable());
+		//ver2
+//		PopupWindow changeSortPopUp = new PopupWindow(layout, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true );
 
-		// Displaying the popup at the specified location, + offsets.
-//		changeSortPopUp.showAtLocation(layout, Gravity.NO_GRAVITY, p.x + OFFSET_X, p.y + OFFSET_Y);
-		changeSortPopUp.showAtLocation(layout, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 0, 0);
+		//v3
+		layout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+		int height = layout.getMeasuredHeight();
+		int width = layout.getMeasuredWidth();
+		PopupWindow changeSortPopUp = new PopupWindow(layout, layout.getMeasuredWidth(), layout.getMeasuredHeight(), true );
 
-		// Getting a reference to Close button, and close the popup when clicked.
-		/*
-		Button close = (Button) layout.findViewById(R.id.close);
-		close.setOnClickListener(new OnClickListener() {
+		//v4
+/*
+		PopupWindow changeSortPopUp = new PopupWindow(layout);
+		changeSortPopUp.setWindowLayoutMode(
+				ViewGroup.LayoutParams.WRAP_CONTENT,
+				ViewGroup.LayoutParams.WRAP_CONTENT);
+		changeSortPopUp.setHeight(1);
+		changeSortPopUp.setWidth(1);
+*/
+		//v4.1
+/*
+		PopupWindow changeSortPopUp = new PopupWindow(layout,1,1,true);
+		changeSortPopUp.setWindowLayoutMode(
+				ViewGroup.LayoutParams.WRAP_CONTENT,
+				ViewGroup.LayoutParams.WRAP_CONTENT);
+*/
 
-			@Override
-			public void onClick(View v) {
-				changeSortPopUp.dismiss();
-			}
-		});*/
+		//ver1
+//		changeSortPopUp.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
+//		changeSortPopUp.setWidth(1500);
+
+		//v2
+//bad
+// changeSortPopUp.setMinimumWidth(1200);
+
+		//v3
+
+		//if show as popup text only
+//		changeSortPopUp.setTouchable(false);
+
+		// if show as modal dialog
+		changeSortPopUp.setTouchable(true);
+//FH: I don't need this!!!??
+//		changeSortPopUp.setFocusable(true);
 
 
-		_popupWindow = changeSortPopUp;
+		//----// set UI inside
+
+		_popupWindows[id] = changeSortPopUp;
 		_label = (TextView) layout.findViewById(R.id.textViewPopUp);
-		_label.setMinimumWidth(300);
+//		_label.setMinimumWidth(1500);
+		_label.setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
+		//_label.setMaxWidth(1200);
+//		_label.setMaxLines(1);
+//		_label.setMaxEms(1000);
 
 		/*
 		//temp: try to call shoAsDropDown after create it
@@ -565,7 +636,40 @@ public class StarBirdActivity extends Activity {
 		//R.layout.popup_message
 		_popupWindow.showAsDropDown(view);
 		*/
+
+		//
+		View button = layout.findViewById(R.id.buttonContinue);
+		if ( button != null)
+			button.setOnClickListener( mPopupWindowListener );
+
+
+		//----// show it
+		if ( id == 0 ) {
+			// Some offset to align the popup a bit to the left, and a bit down, relative to button's position.
+//		int OFFSET_X = -20;
+//		int OFFSET_Y = 95;
+
+			// Clear the default translucent background - so that clicking outside of the popup can dismiss it (?)
+
+			//v1
+		changeSortPopUp.setBackgroundDrawable(new BitmapDrawable());
+
+			//v2
+//			changeSortPopUp.setBackgroundDrawable(getResources().getDrawable(R.drawable.popup_background));
+
+			// Displaying the popup at the specified location, + offsets.
+//		changeSortPopUp.showAtLocation(layout, Gravity.NO_GRAVITY, p.x + OFFSET_X, p.y + OFFSET_Y);
+			changeSortPopUp.showAtLocation(layout, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 0, 0);
+
+//		changeSortPopUp.showAsDropDown(layout, 0, 0);
+		}
+		else
+		{
+			changeSortPopUp.showAtLocation(layout, Gravity.BOTTOM | Gravity.RIGHT, herePosX, herePosY);
+		}
 	}
+
+
 /*
 	// copied from teapot sample
 	@SuppressLint("InflateParams")
@@ -575,13 +679,13 @@ public class StarBirdActivity extends Activity {
 			return;
 
 //			_activity = this;
-		Log.d(TAG, "showUI: begin: " + _activity);
+		Log.d(TAG, "showPopupWin: begin: " + _activity);
 
 
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				Log.d(TAG, "showUI: run: " + _activity);
+				Log.d(TAG, "showPopupWin: run: " + _activity);
 
 				LayoutInflater layoutInflater
 						= (LayoutInflater) getBaseContext()
@@ -595,25 +699,25 @@ public class StarBirdActivity extends Activity {
 				LinearLayout mainLayout = new LinearLayout(_activity);
 				MarginLayoutParams params = new MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 				params.setMargins(0, 0, 0, 0);
-				Log.d(TAG, "showUI: run 1: " + _activity + " " + _label + "");
+				Log.d(TAG, "showPopupWin: run 1: " + _activity + " " + _label + "");
 
 				setContentView(mainLayout, params);
-				Log.d(TAG, "showUI: run 2: " + _activity + " " + _label + "");
+				Log.d(TAG, "showPopupWin: run 2: " + _activity + " " + _label + "");
 
 				// Show our UI over NativeActivity window
 //                _popupWindow.showAtLocation(mainLayout, Gravity.TOP | Gravity.START, 100, 10);
 				_popupWindow.showAtLocation(mainLayout, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 0, 0);
 
-				Log.d(TAG, "showUI: run 3: " + _activity + " " + _label + "");
+				Log.d(TAG, "showPopupWin: run 3: " + _activity + " " + _label + "");
 
 				_popupWindow.update();
 
-				Log.d(TAG, "showUI: run 4: " + _activity + " " + _label + "");
+				Log.d(TAG, "showPopupWin: run 4: " + _activity + " " + _label + "");
 
 
 				_label = (TextView) popupView.findViewById(R.id.textViewPopUp);
 
-				Log.d(TAG, "showUI: run end: " + _activity + " " + _label + "");
+				Log.d(TAG, "showPopupWin: run end: " + _activity + " " + _label + "");
 			}
 		});
 	}
@@ -650,12 +754,14 @@ public class StarBirdActivity extends Activity {
 			if ( _activity !=null && !isMethod1 && !str.isEmpty() )
 			{
 		//		Log.d(TAG, "updateMessage: wtf: " + _activity + "" + "");
-			//	_activity.showUI();
+			//	_activity.showPopupWin();
 			} else {
 				return;
 			}
 		}
-
+		//debug only!
+		//else
+		//return;
 
 		//
 		_activity.runOnUiThread(new Runnable() {
@@ -675,7 +781,7 @@ public class StarBirdActivity extends Activity {
 //					_label.setBackgroundColor(0x0);
 
 					if (isMethod1)
-						_activity.showUI(false);
+						_activity.showPopupWin(0,false);
 					else {
 					}
 				} else {
@@ -683,9 +789,9 @@ public class StarBirdActivity extends Activity {
 						return;
 
 					if (isMethod1)
-						_activity.showUI(true);
+						_activity.showPopupWin(0,true);
 
-					_label.setText(String.format("    %s    ", str));
+					_label.setText(String.format(" %s ", str));
 					//				_label.setBackgroundColor(0x0F0F0F0F);
 					//_label.setVisibility(View.VISIBLE);
 				}
