@@ -50,6 +50,9 @@ extern bool isGamePaused();
 extern float getMainMessageF();
 extern char* getMainMessage();
 
+//
+extern void Engine_SetPopup( int type, bool isShow );
+
 #ifdef __cplusplus
 }
 #endif

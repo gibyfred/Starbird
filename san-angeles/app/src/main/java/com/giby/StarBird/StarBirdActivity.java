@@ -210,59 +210,56 @@ final class RotationGestureDetector {
 
  */
 public class StarBirdActivity extends Activity {
-    @Override
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		int SDK_INT = android.os.Build.VERSION.SDK_INT;
-    	Log.v( TAG, "Activity.onCreate(): SDK_INT:" + SDK_INT );
+		Log.v(TAG, "Activity.onCreate(): SDK_INT:" + SDK_INT);
 
 		_activity = this;
 
-    	//
-    	super.onCreate(savedInstanceState);
+		//
+		super.onCreate(savedInstanceState);
 
-    	//
-		if ( !requestWindowFeature(android.view.Window.FEATURE_NO_TITLE) )
-		{
+		//
+		if (!requestWindowFeature(android.view.Window.FEATURE_NO_TITLE)) {
 			//setFeatureInt(android.view.Window.FEATURE_NO_TITLE);
 			setTitle("Starbird (for Android 2.2 or above)");
-		    setTitleColor(0);
+			setTitleColor(0);
 		}
 		//if ( requestWindowFeature(android.view.Window.PROGRESS_VISIBILITY_OFF) )
 		{
 		}
-		if ( !this.getPackageManager().hasSystemFeature( android.content.pm.PackageManager.FEATURE_TOUCHSCREEN_MULTITOUCH_DISTINCT ) )
-		{
-			Log.e(TAG, "The device does not support multi-touch wtih support of distinct fingers!" );
+		if (!this.getPackageManager().hasSystemFeature(android.content.pm.PackageManager.FEATURE_TOUCHSCREEN_MULTITOUCH_DISTINCT)) {
+			Log.e(TAG, "The device does not support multi-touch wtih support of distinct fingers!");
 		}
 		//
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
- //       getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		//       getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-        // use onLoad() now
-        //nativeStartApp();
-        
-        // set layout
-        setContentView( R.layout.main );
+		// use onLoad() now
+		//nativeStartApp();
+
+		// set layout
+		setContentView(R.layout.main);
 //		mGLView = new DemoGLSurfaceView(this);
 //		setContentView(mGLView);
-    
-        mGLView =
-            (DemoGLSurfaceView) findViewById(R.id.glsurfaceview);
+
+		mGLView =
+				(DemoGLSurfaceView) findViewById(R.id.glsurfaceview);
 
 		// setup PauseMenu
-        mVictimContainer = findViewById(R.id.hidecontainer);
-        mVictim1 = findViewById(R.id.backtogame);
-        mVictim1.setOnClickListener( mGoneListener );
-        mVictim2 = findViewById(R.id.backtotitle);
-        mVictim2.setOnClickListener( mGoneListener );
-        mVictim3 = findViewById(R.id.quitgame);
-        mVictim3.setOnClickListener( mGoneListener );
+		mVictimContainer = findViewById(R.id.hidecontainer);
+		mVictim1 = findViewById(R.id.backtogame);
+		mVictim1.setOnClickListener(mGoneListener);
+		mVictim2 = findViewById(R.id.backtotitle);
+		mVictim2.setOnClickListener(mGoneListener);
+		mVictim3 = findViewById(R.id.quitgame);
+		mVictim3.setOnClickListener(mGoneListener);
 
 		//----//for Popup Window
 		//Hide toolbar
 		//int SDK_INT = android.os.Build.VERSION.SDK_INT;
-		if(SDK_INT >= 19)
-		{
+		if (SDK_INT >= 19) {
 			setImmersiveSticky();
 
 			View decorView = getWindow().getDecorView();
@@ -277,10 +274,10 @@ public class StarBirdActivity extends Activity {
 
 //
 		boolean isEnable1 = true;
-		if ( isEnable1 )
-		if ( findViewById(R.id.textViewPopUp) == null ) {
-			return;
-		}
+		if (isEnable1)
+			if (findViewById(R.id.textViewPopUp) == null) {
+				return;
+			}
 	}
 
 	@Override
@@ -303,22 +300,22 @@ public class StarBirdActivity extends Activity {
 	public void onDetachedFromWindow() {
 		super.onDetachedFromWindow();
 		Log.d(TAG, "onDetachedFromWindow: dismiss");
-		Log.d( TAG, "createPopupMessageUI: dismissOnDetach: ");
-		for ( int i=0; i<POPUP_COUNT; i++)
-			if (_popupWindows[i]!=null)
+		Log.d(TAG, "createPopupMessageUI: dismissOnDetach: ");
+		for (int i = 0; i < POPUP_COUNT; i++)
+			if (_popupWindows[i] != null)
 				_popupWindows[i].dismiss();
 	}
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-    	Log.v(TAG, "Activity.onRestart()");
-    }
+	@Override
+	protected void onRestart() {
+		super.onRestart();
+		Log.v(TAG, "Activity.onRestart()");
+	}
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-    	Log.v( TAG, "Activity.onPause():" );
+	@Override
+	protected void onPause() {
+		super.onPause();
+		Log.v(TAG, "Activity.onPause():");
 		mGLView.onPause();
 
 		if (!isFinishing()) {   // use this check when Quit button is pushed
@@ -327,59 +324,49 @@ public class StarBirdActivity extends Activity {
 
 		//----// for Popup
 //		Log.d( TAG, "createPopupMessageUI: dismissOnPause: ");
-		for ( int i=0; i<POPUP_COUNT; i++)
+		for (int i = 0; i < POPUP_COUNT; i++)
 			if (_popupWindows[i] != null) {
 				_popupWindows[i].dismiss();
-		//		_popupWindows[i] = null;
+				//		_popupWindows[i] = null;
 			}
-    }
+	}
 
-    @Override
-    protected void onResume() {
-    	super.onResume();
-    	Log.v( TAG, "Activity.onResume() " + mPauseViewVisibility );
-        mGLView.onResume();
-        
+	@Override
+	protected void onResume() {
+		super.onResume();
+		Log.v(TAG, "Activity.onResume() " + mPauseViewVisibility);
+		mGLView.onResume();
+
 //        if (mPauseViewVisibility)
-        {
-    		setPauseMenuVisibility(mPauseViewVisibility);
+		{
+			setPauseMenuVisibility(mPauseViewVisibility);
 			DemoGLSurfaceView.nativePause(mPauseViewVisibility);
-        }
+		}
 
 		//----// for handling full screen
 		//Hide toolbar
 		int SDK_INT = android.os.Build.VERSION.SDK_INT;
-		if(SDK_INT >= 11 && SDK_INT < 14)
-		{
+		if (SDK_INT >= 11 && SDK_INT < 14) {
 			getWindow().getDecorView().setSystemUiVisibility(View.STATUS_BAR_HIDDEN);
-		}
-		else if(SDK_INT >= 14 && SDK_INT < 19)
-		{
+		} else if (SDK_INT >= 14 && SDK_INT < 19) {
 			getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LOW_PROFILE);
-		}
-		else if(SDK_INT >= 19)
-		{
+		} else if (SDK_INT >= 19) {
 			setImmersiveSticky();
 		}
-    }
+	}
 
-    @Override
-    protected void onDestroy()
-    {
-    	//TODO call nativeOnQuit? on VirutalGameKey Quit
-    	Log.v( TAG, "Activity.OnDestroy(): isByUser: " + isFinishing() );
-    	super.onDestroy();
-    }
+	@Override
+	protected void onDestroy() {
+		//TODO call nativeOnQuit? on VirutalGameKey Quit
+		Log.v(TAG, "Activity.OnDestroy(): isByUser: " + isFinishing());
+		super.onDestroy();
+	}
 
-	public boolean onKeyDown(int keyCode, KeyEvent event)
-	{
-		if ( keyCode == KeyEvent.KEYCODE_BACK )
-		{
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			pauseAll();
 			return true;
-		}
-		else if ( keyCode == KeyEvent.KEYCODE_MENU )
-		{
+		} else if (keyCode == KeyEvent.KEYCODE_MENU) {
 			pauseAll();
 			//DEBUG: toggle light
 //			DemoGLSurfaceView.nativeOnVirtualGameKeyEvent( DemoGLSurfaceView.VirtualGameKey.TOGGLE_LIGHT.getValue(), (char)1 );
@@ -390,10 +377,8 @@ public class StarBirdActivity extends Activity {
 	}
 
 
-	OnClickListener mPopupWindowListener = new OnClickListener()
-	{
-		public void onClick(View v)
-		{
+	OnClickListener mPopupWindowListener = new OnClickListener() {
+		public void onClick(View v) {
 //			if ( v== || v== )
 			// unpause the core
 			Log.d(TAG, "createPopupMessageUI: onClick: ");
@@ -401,58 +386,52 @@ public class StarBirdActivity extends Activity {
 		}
 	};
 
-    OnClickListener mGoneListener = new OnClickListener() {
-        public void onClick(View v)
-        {
-    		setPauseMenuVisibility(false);
+	OnClickListener mGoneListener = new OnClickListener() {
+		public void onClick(View v) {
+			setPauseMenuVisibility(false);
 
-        	if ( v==mVictim1 || v==mVictim2 )
-        	{
-                if (v==mVictim1) // Back to current State
-                {
+			if (v == mVictim1 || v == mVictim2) {
+				if (v == mVictim1) // Back to current State
+				{
 					// unpause the core
-                	DemoGLSurfaceView.nativePause(false);
-                }
-                else // Move to Title
-                {
-                    DemoGLSurfaceView.nativeOnVirtualGameKeyEvent( DemoGLSurfaceView.VirtualGameKey.GO_TITLE.getValue(), (char)1 );   // 1: state
-                }
-                onResume();		//TODO FH: is it safe to do it here in this way?
-        	}
-        	else if (v==mVictim3) // Quit
-        	{
+					DemoGLSurfaceView.nativePause(false);
+				} else // Move to Title
+				{
+					DemoGLSurfaceView.nativeOnVirtualGameKeyEvent(DemoGLSurfaceView.VirtualGameKey.GO_TITLE.getValue(), (char) 1);   // 1: state
+				}
+				onResume();        //TODO FH: is it safe to do it here in this way?
+			} else if (v == mVictim3) // Quit
+			{
 				// unpause it
 				//DemoGLSurfaceView.nativePause(false);
 
 				// move to Title
-                DemoGLSurfaceView.nativeOnVirtualGameKeyEvent( DemoGLSurfaceView.VirtualGameKey.GO_TITLE.getValue(), (char)1 );
-        		finish();  // it just stops the activity! instead of killing the activity!
-        	}
-        }
-    };
+				DemoGLSurfaceView.nativeOnVirtualGameKeyEvent(DemoGLSurfaceView.VirtualGameKey.GO_TITLE.getValue(), (char) 1);
+				finish();  // it just stops the activity! instead of killing the activity!
+			}
+		}
+	};
 
-    private void pauseAll() {
-        // pause the core
-        DemoGLSurfaceView.nativePause(true);
+	private void pauseAll() {
+		// pause the core
+		DemoGLSurfaceView.nativePause(true);
 
-        // show the PauseMenu
-        setPauseMenuVisibility(true);
-    }
+		// show the PauseMenu
+		setPauseMenuVisibility(true);
+	}
 
-    private void setPauseMenuVisibility(boolean v)
-    {
+	private void setPauseMenuVisibility(boolean v) {
 		Log.d(TAG, "setMenuVIs: vis:" + v);
-    	final int state = v ? View.VISIBLE : View.GONE;
-		mVictim1.setVisibility( state );
-        mVictim2.setVisibility( state );
-        mVictim3.setVisibility( state );
-        mVictimContainer.setVisibility(state);
-        mPauseViewVisibility = v;
+		final int state = v ? View.VISIBLE : View.GONE;
+		mVictim1.setVisibility(state);
+		mVictim2.setVisibility(state);
+		mVictim3.setVisibility(state);
+		mVictimContainer.setVisibility(state);
+		mPauseViewVisibility = v;
 
 		//Popup
-		for ( int i=0; i<POPUP_COUNT; i++)
-			if (_popupWindows[i] !=null)
-			{
+		for (int i = 0; i < POPUP_COUNT; i++)
+			if (_popupWindows[i] != null) {
 				_activity.showPopupWin(0, !v);
 				_activity.showPopupWin(1, !v);
 			}
@@ -463,7 +442,7 @@ public class StarBirdActivity extends Activity {
 			_label.setVisibility(state2);
 		}
  */
-    }
+	}
 
 	/*
 		@Override
@@ -485,20 +464,20 @@ public class StarBirdActivity extends Activity {
 				| View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
 	}
 
-	public static StarBirdActivity _activity;		// make it and updateFPS() so that cpp side can call us via CallStaticVoidMethod
+	public static StarBirdActivity _activity;        // make it and updateFPS() so that cpp side can call us via CallStaticVoidMethod
 
 	static final int POPUP_COUNT = 2;
 	static PopupWindow _popupWindows[] = {null, null};
 	static TextView _label;
 
-	int herePosX = -10;
-	int herePosY = -10;
+	int herePosX = 400;
+	int herePosY = 160;
 //	static int countDismiss = 0;
 
-	void showPopupWin(int id, boolean isVis)
-	{
+	//
+	void showPopupWin(int id, boolean isVis) {
 		//----// for debugging
-		if ( POPUP_COUNT==1 && id!=0 )
+		if (POPUP_COUNT == 1 && id != 0)
 			return;
 
 //		if (id !=0)
@@ -507,31 +486,24 @@ public class StarBirdActivity extends Activity {
 		//----//
 		PopupWindow _popupWindow = _popupWindows[id];
 
-		if ( isVis )
-		{
-			if(_popupWindow !=null)
-			{
-				if (!_popupWindow.isShowing())
-				{
-					if ( id == 0 )
-					{
+		if (isVis) {
+			if (_popupWindow != null) {
+				if (!_popupWindow.isShowing()) {
+					if (id == 0) {
 						// try to recalculate the layout again
 						final int isMethods1 = 1;
-						if (isMethods1==1)
-						{
+						if (isMethods1 == 1) {
 							//v1
-							Log.d(TAG, "createPopupMessageUI: showAsDropDown 0: " );
+							Log.d(TAG, "createPopupMessageUI: showAsDropDown 0: ");
 
-							View view = getWindow().getDecorView();	// should we use it?????
+							View view = getWindow().getDecorView();    // should we use it?????
 							_popupWindow.showAtLocation(view, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 0, 0);
-						}
-						else
-						{
+						} else {
 							//
 							final int layoutId = id == 0 ? R.layout.popup_message : R.layout.popup_here;
 							LayoutInflater layoutInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-							Log.d(TAG, "createPopupMessageUI: showAsDropDown 0: " + layoutId + " "+ layoutInflater  );
+							Log.d(TAG, "createPopupMessageUI: showAsDropDown 0: " + layoutId + " " + layoutInflater);
 							View layout = layoutInflater.inflate(id, null);
 							Log.d(TAG, "createPopupMessageUI: showAsDropDown 0: " + layoutId + " " + layoutInflater + " " + layout);
 
@@ -543,61 +515,50 @@ public class StarBirdActivity extends Activity {
 							_popupWindow.setHeight(height);
 							_popupWindow.showAtLocation(layout, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 0, 0);
 						}
-					}
-					else
-					{
-						Log.d(TAG, "createPopupMessageUI: showAsDropDown 1: " );
+					} else {
+						Log.d(TAG, "createPopupMessageUI: showAsDropDown 1: ");
 						View view = getWindow().getDecorView();
 						_popupWindow.showAtLocation(view, Gravity.BOTTOM | Gravity.RIGHT, herePosX, herePosY);
 					}
 
 					//pause the core - bad programming style?
-					if ( id == 0 )
-					{
+					if (id == 0) {
 						DemoGLSurfaceView.nativePause(true);
 					}
 				}
+			} else {
+				createPopupMessageUI(id, this, new Point(0, 0));
 			}
-			else
-			{
-				createPopupMessageUI(id, this, new Point(0,0));
-			}
-		}
-		else
-		{
-			if(_popupWindow !=null && _popupWindow.isShowing())
-			{
+		} else {
+			if (_popupWindow != null && _popupWindow.isShowing()) {
 //				countDismiss++;
-				Log.d( TAG, "createPopupMessageUI: dismiss: ");
+				Log.d(TAG, "createPopupMessageUI: dismiss: ");
 				_popupWindow.dismiss();
 			}
 		}
 	}
 
 
-	static int popUpCount =0;
+	static int popUpCount = 0;
 
 	// ref:
 	// http://stackoverflow.com/questions/15153651/set-own-layout-in-popup-window-in-android
 	// http://stackoverflow.com/questions/7498605/how-to-create-a-popup-window-in-android
-	private void createPopupMessageUI(int id, final Activity context, Point p)
-	{
+	private void createPopupMessageUI(int id, final Activity context, Point p) {
 		PopupWindow _popupWindow = _popupWindows[id];
 
-		if (_popupWindow != null)
-		{
-			Log.d( TAG, "showSortPopup: popup existed: " + _activity);
+		if (_popupWindow != null) {
+			Log.d(TAG, "showSortPopup: popup existed: " + _activity);
 			return;
 		}
 
-		Log.d( TAG, "createPopupMessageUI: begin: " +  id + "" + _activity);
+		Log.d(TAG, "createPopupMessageUI: begin: " + id + "" + _activity);
 
 
 		//debug ONLY
-	//	static int popUpCount =0;
+		//	static int popUpCount =0;
 		popUpCount++;
-		if (popUpCount>=8)
-		{
+		if (popUpCount >= 8) {
 			return;
 		}
 
@@ -608,7 +569,7 @@ public class StarBirdActivity extends Activity {
 //		LinearLayout viewGroup = (LinearLayout) context.findViewById(R.id.llSortChangePopup);
 		LinearLayout viewGroup = null;
 		LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View layout = layoutInflater.inflate(layoutId, viewGroup);		// FH:  is null ok???
+		View layout = layoutInflater.inflate(layoutId, viewGroup);        // FH:  is null ok???
 
 		// Creating the PopupWindow
 
@@ -623,7 +584,7 @@ public class StarBirdActivity extends Activity {
 		layout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
 		int height = layout.getMeasuredHeight();
 		int width = layout.getMeasuredWidth();
-		PopupWindow changeSortPopUp = new PopupWindow(layout, layout.getMeasuredWidth(), layout.getMeasuredHeight(), true );
+		PopupWindow changeSortPopUp = new PopupWindow(layout, layout.getMeasuredWidth(), layout.getMeasuredHeight(), true);
 
 		//v4
 /*
@@ -651,13 +612,10 @@ public class StarBirdActivity extends Activity {
 // changeSortPopUp.setMinimumWidth(1200);
 
 		//v3
-		if ( id == 0 )
-		{
+		if (id == 0) {
 			// if show as modal dialog
 			changeSortPopUp.setTouchable(true);
-		}
-		else
-		{
+		} else {
 			//if show as popup text only
 			changeSortPopUp.setTouchable(false);
 		}
@@ -670,12 +628,11 @@ public class StarBirdActivity extends Activity {
 		//----// set UI inside
 		_popupWindows[id] = changeSortPopUp;
 
-		if (id == 0)
-		{
+		if (id == 0) {
 			_label = (TextView) layout.findViewById(R.id.textViewPopUp);
 //		_label.setMinimumWidth(1500);
 
-			if ( _label != null )
+			if (_label != null)
 				_label.setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
 			//_label.setMaxWidth(1200);
 //		_label.setMaxLines(1);
@@ -692,16 +649,14 @@ public class StarBirdActivity extends Activity {
 
 		//
 		View button = layout.findViewById(R.id.buttonContinue);
-		if ( button != null)
-		{
-			Log.d( TAG, "createPopupMessageUI: buttonContinue: " + _activity);
-			button.setOnClickListener(mPopupWindowListener );
+		if (button != null) {
+			Log.d(TAG, "createPopupMessageUI: buttonContinue: " + _activity);
+			button.setOnClickListener(mPopupWindowListener);
 		}
 
 
 		//----// show it
-		if ( id == 0 )
-		{
+		if (id == 0) {
 			// Some offset to align the popup a bit to the left, and a bit down, relative to button's position.
 //		int OFFSET_X = -20;
 //		int OFFSET_Y = 95;
@@ -719,9 +674,7 @@ public class StarBirdActivity extends Activity {
 			changeSortPopUp.showAtLocation(layout, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 0, 0);
 
 //		changeSortPopUp.showAsDropDown(layout, 0, 0);
-		}
-		else
-		{
+		} else {
 			changeSortPopUp.setBackgroundDrawable(new ColorDrawable());
 
 			changeSortPopUp.showAtLocation(layout, Gravity.BOTTOM | Gravity.RIGHT, herePosX, herePosY);
@@ -783,6 +736,7 @@ public class StarBirdActivity extends Activity {
 	*/
 
 /*
+	// DEBUG ONLY.  We use updateMessage now for Release.
 	public static void updateFPS(final float fFPS)
 	{
 //		Log.d(TAG, "updateFPS: begin: " + _activity + "" );
@@ -808,12 +762,10 @@ public class StarBirdActivity extends Activity {
 	{
 		final boolean isMethod1 = true;
 
-		if (_label == null)
-		{
-			if ( _activity !=null && !isMethod1 && !str.isEmpty() )
-			{
-		//		Log.d(TAG, "updateMessage: wtf: " + _activity + "" + "");
-			//	_activity.showPopupWin();
+		if (_label == null) {
+			if (_activity != null && !isMethod1 && !str.isEmpty()) {
+				//		Log.d(TAG, "updateMessage: wtf: " + _activity + "" + "");
+				//	_activity.showPopupWin();
 			} else {
 				return;
 			}
@@ -827,8 +779,7 @@ public class StarBirdActivity extends Activity {
 			@Override
 			public void run() {
 
-				if (mPauseViewVisibility)
-				{
+				if (mPauseViewVisibility) {
 					return;
 				}
 
@@ -839,27 +790,45 @@ public class StarBirdActivity extends Activity {
 					_label.setText("");
 //					_label.setBackgroundColor(0x0);
 
-					if (isMethod1)
-					{
-						_activity.showPopupWin(0,false);
-						_activity.showPopupWin(1,false);
-					}
-					else {
+					if (isMethod1) {
+						//shide
+						_activity.showPopupWin(0, false);
+						_activity.showPopupWin(1, false);
+					} else {
 					}
 				} else {
 					if (_label == null)
 						return;
 
-					if (isMethod1)
-					{
+					if (isMethod1) {
+						//show
 						_activity.showPopupWin(0, true);
-						_activity.showPopupWin(1, true);
+						//_activity.showPopupWin(1, true); //test only
 					}
 
 					_label.setText(String.format(" %s ", str));
 					//				_label.setBackgroundColor(0x0F0F0F0F);
 					//_label.setVisibility(View.VISIBLE);
 				}
+			}
+		});
+	}
+
+	//
+	public static void setPopup( final int isShow )
+	{
+		_activity.runOnUiThread(new Runnable()
+		{
+			@Override
+			public void run() {
+
+				if (mPauseViewVisibility) {
+					return;
+				}
+
+				boolean isVis = isShow != 0 ? true : false;
+//				Log.d(TAG, "setPopup: " + isVis + "" + "");
+				_activity.showPopupWin(1, isVis );
 			}
 		});
 	}
@@ -1187,7 +1156,7 @@ class DemoGLSurfaceView extends GLSurfaceView {
         		return;
         	}
 
-			Log.d(DEBUG_TAG, "onNoInput: " );
+//			Log.d(DEBUG_TAG, "onNoInput: " );
 
 			//TEMP: prevent bug
 			boolean isResetDone = true;

@@ -173,7 +173,7 @@ void vDrawPrtMesg()
 	assert(prev_mode == GL_MODELVIEW);
 #endif
 
-	if ( len >= 1 )
+	if ( len >= 1 && !isGamePaused() )
 	{
 		// print main message
 //#ifdef SB_WIN
@@ -237,8 +237,10 @@ void vDrawPrtMesg()
 		Draw_Engine.beginDraw2D();
 
 		if ( Energy > 20 )
+		{
    			glColor3fv(fWhiteVec);
-		else if ( i != i/25*25 )
+		}
+		else if ( i != i/25*25 )    // blink it
 		{
 			i++;
    			glColor3fv(fRedVec);
@@ -252,7 +254,7 @@ void vDrawPrtMesg()
 		Dsprintf(str, "Passes: %d/%d   Energy: %d \n", Passes, Passes_Count, Energy);
 		Draw_Engine.drawMessage(-60, -80, -1, 6, str);
 
-		Dsprintf(str, "Speed: %.3d    SpEng: %d/%d\n", int(Speed*100), Sp_Eng/FULL_SPENG*10, 10);
+		Dsprintf(str, "Speed: %.3d     Nitro: %d/%d\n", int(Speed*100), Sp_Eng/FULL_SPENG*10, 10);
 		Draw_Engine.drawMessage(-60, -87, -1, 6, str);
 
 #if 0
@@ -493,6 +495,7 @@ void DrawEngine::init()
 	Light_On = TRUE;
 	Diffi = BABY;
 	setHelpMessage("");
+	setPopup( 0, false );
 
 	for ( int i=UP; i <= SPDOWN; i++ )
 	{

@@ -19,7 +19,7 @@
  * LICENSE-LGPL.txt and LICENSE-BSD.txt for more details.
  */
 #include <jni.h>
-#include <sys/time.h>
+#include <sys/time.h>w
 #include <time.h>
 #include <android/log.h>
 #include <stdint.h>
@@ -33,6 +33,7 @@
 //--------------------------------------//
 void Engine_UpdateFPS( float );
 void Engine_UpdateMessage( char* );
+void Engine_SetPopup( int type, bool isShow );
 static void Engine_ShowUI();
 
 //--------------------------------------//
@@ -97,7 +98,7 @@ Java_com_giby_StarBird_DemoRenderer_nativeInit( JNIEnv* env )
 
 	//
 	Engine_ShowUI();
-//	Engine_UpdateFPS(10101.f);
+//	Engine_UpdateFPS(10101.f);  //Debug Only
 }
 
 void
@@ -213,7 +214,7 @@ Java_com_giby_StarBird_DemoRenderer_nativeRender( JNIEnv* env )
 	//----//
 
 	// update message
-	//version 1
+	//version 1 - good for debug ONLY
 	//Engine_UpdateFPS(getMainMessageF());
 
 	//version 2
@@ -324,6 +325,35 @@ void Engine_UpdateFPS( float fFPS )
 	return;
 }
 
+/*
+void Engine_UpdateMessage( char* str )
+{
+	beginJNIEnv();
+
+	if ( sGetActivityClass() == NULL || s_jni == NULL )
+	{
+		endJNIEnv();
+		return;
+	}
+
+#if 1
+	//----// call the static method
+	jclass clazz = sGetActivityClass();
+
+	// Construct a String
+	jstring jstr = (*s_jni)->NewStringUTF( s_jni, str );
+
+	//__android_log_print(ANDROID_LOG_INFO, "StarCX1", "clazz=%p", clazz);
+	jmethodID methodID = (*s_jni)->GetStaticMethodID( s_jni, clazz, "updateMessage", "(Ljava/lang/String;)V" );
+//	__android_log_print(ANDROID_LOG_INFO, "StarCX2", "methodID=%p", methodID);
+	(*s_jni)->CallStaticVoidMethod( s_jni, sGetActivityClass(), methodID, jstr );
+
+#endif
+
+	endJNIEnv();
+	return;
+}
+*/
 
 void Engine_UpdateMessage( char* str )
 {
@@ -346,6 +376,31 @@ void Engine_UpdateMessage( char* str )
 	jmethodID methodID = (*s_jni)->GetStaticMethodID( s_jni, clazz, "updateMessage", "(Ljava/lang/String;)V" );
 //	__android_log_print(ANDROID_LOG_INFO, "StarCX2", "methodID=%p", methodID);
 	(*s_jni)->CallStaticVoidMethod( s_jni, sGetActivityClass(), methodID, jstr );
+
+#endif
+
+	endJNIEnv();
+	return;
+}
+
+void Engine_SetPopup( int type, bool isShow )
+{
+	beginJNIEnv();
+
+	if ( sGetActivityClass() == NULL || s_jni == NULL )
+	{
+		endJNIEnv();
+		return;
+	}
+
+#if 1
+	//----// call the static method
+	jclass clazz = sGetActivityClass();
+
+	//__android_log_print(ANDROID_LOG_INFO, "StarDX1", "clazz=%p", clazz);
+	jmethodID methodID = (*s_jni)->GetStaticMethodID( s_jni, clazz, "setPopup", "(I)V" );
+	//__android_log_print(ANDROID_LOG_INFO, "StarDX2", "methodID=%p", methodID);
+	(*s_jni)->CallStaticVoidMethod( s_jni, sGetActivityClass(), methodID, (int)isShow );
 
 #endif
 

@@ -1,35 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:gravity="top"
-              android:orientation="vertical" >
-    <!--dummy-->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:background="#00000000"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@android:color/white" />
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+
+              android:background="@drawable/customborder"
+
+              android:orientation="horizontal"
+
+    >
+    <!--dummy
+              android:background="@drawable/popup_background"
+
+
+        android:gravity="top"
+    -->
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:layout_margin="20dp"
+        >
+<!--
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+-->
+
+            <!--dummy
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text=""
+            android:background="#90999999"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white" />
+            -->
+
     <!--main text-->
     <TextView
         android:id="@+id/textViewPopUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="end"
+        android:gravity="center"
         android:text="@string/popup_message"
-        android:background="#00000000"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:maxLength="400"
+        />
+            <!--
+                    android:background="@drawable/speech_background1"
+            -->
+
     <!--dummy-->
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text=""
-        android:background="#00000000"
+        android:gravity="center"
+        android:text="     "
+        android:background="#10333333"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@android:color/white" />
+<!--
+-->
+    <Button
+        android:id="@+id/buttonContinue"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text=" continue "
+        android:background="#30AA00AA"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/white" />
+
+
+    </LinearLayout>
 
 </LinearLayout>
     <!-- FH comment

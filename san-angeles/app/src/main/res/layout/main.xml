@@ -6,7 +6,7 @@
 <!-- Demonstrates changing view visibility. See corresponding Java code. -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/black"
@@ -26,7 +26,10 @@
         >
 
 
-<!--         <android.opengl.GLSurfaceView 
+<!--         <android.opengl.GLSurfaceView
+
+                android:background="@drawable/translucent_background"
+
       -->
         <com.giby.StarBird.DemoGLSurfaceView
             android:id="@+id/glsurfaceview"
@@ -36,7 +39,7 @@
         <LinearLayout android:id="@+id/hidecontainer"
                 android:orientation="vertical"
                 android:visibility="gone"
-                android:background="@drawable/translucent_background"
+
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">

@@ -105,6 +105,8 @@ int moving, begin;
 char isInitTrackball = 0;		// the reverse of "isTrackballDirty"
 #endif
 
+
+
 //-------------------------------------------------
 // variables for multiple windows
 long win_ids[2];		//TODOA remove it?
@@ -165,6 +167,11 @@ float getMainMessageF()
 char* getMainMessage()
 {
 	return Help_Mesg;
+}
+
+void setPopup( int puID, bool isShow )
+{
+	Engine_SetPopup( puID, isShow );
 }
 
 //---------------------------------------------------------------//
@@ -383,7 +390,7 @@ bool SBOnTouchEvent( unsigned short x, unsigned short y, unsigned short state )
 			s_isTouchDown = false;
 		}
 
-		dbg_msg("onTouch():  input:%d%d \n", Last_Actions[LTURN], Last_Actions[RTURN] );
+//		dbg_msg("onTouch():  input:%d%d \n", Last_Actions[LTURN], Last_Actions[RTURN] );
 	}
 #endif
 	return true;
