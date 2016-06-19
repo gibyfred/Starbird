@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:gravity="center"
+              android:background="@drawable/popup_background"
+
+              android:orientation="horizontal"
+
+    >
+    <!--dummy
+
+              android:background="@drawable/customborder"
+        android:gravity="top"
+    -->
+
+
+        <!--dummy
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:background="#90999999"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/white" />
+-->
+    <!--main text-->
+    <TextView
+        android:id="@+id/textViewPopUpHere"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Here"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/white"
+
+        />
+
+    <!--dummy -
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="     "
+        android:background="#10333333"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/white" />
+-->
+
+</LinearLayout>
