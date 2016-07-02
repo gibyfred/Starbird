@@ -153,6 +153,7 @@ float Eval_Angle;					// this is the angle of Dream to x-z plane
 
 int Scene_State = SCENE_END;		// SCENE_TITLE, SCENE_END
 int Sub_State = SUB_STATE1;			// SUB_STATE0, SUB_STATE1
+unsigned int Switch_Back_2_Title_Counter = 0;
 
 /*
 //TODOF2 put this in C++ class

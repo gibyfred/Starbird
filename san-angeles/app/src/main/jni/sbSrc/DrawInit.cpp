@@ -251,12 +251,19 @@ void vDrawPrtMesg()
 			glColor3fv(fYellowVec);
 		}
 
-		Dsprintf(str, "Passes: %d/%d   Energy: %d \n", Passes, Passes_Count, Energy);
+		//1st row
+		Dsprintf(str, "Passes: %d/%d   \n", Passes, Passes_Count );
 		Draw_Engine.drawMessage(-60, -80, -1, 6, str);
 
-		Dsprintf(str, "Speed: %.3d     Nitro: %d/%d\n", int(Speed*100), Sp_Eng/FULL_SPENG*10, 10);
+		Dsprintf(str, "Nitro: %d/%d\n", Sp_Eng/FULL_SPENG*10, 10);
+		Draw_Engine.drawMessage(10, -80, -1, 6, str);
+
+		//2nd row
+		Dsprintf(str, "Energy: %.3d    \n", Energy );
 		Draw_Engine.drawMessage(-60, -87, -1, 6, str);
 
+		Dsprintf(str, "Speed: %d \n", int(Speed*100) );
+		Draw_Engine.drawMessage(10, -87, -1, 6, str);
 #if 0
 //#ifdef SB_DEBUG
 		Dsprintf(str, "t: %.5d  p:%d  input:%d%d \n", Game_Time, isGamePaused(), Last_Actions[LTURN], Last_Actions[RTURN] );
@@ -479,6 +486,7 @@ void DrawEngine::init()
 	// without running the exe...
 	Scene_State = SCENE_TITLE;		// SCENE_TITLE, SCENE_END
 	Sub_State = SUB_STATE0;			// SUB_STATE0, SUB_STATE1
+	Switch_Back_2_Title_Counter = 0;
 
 	set_diffi(2);					// 2: 2nd entry to difficulty menu
 
@@ -488,8 +496,8 @@ void DrawEngine::init()
 	//
 	Game_Time = 0;
 	Energy = FULL_ENG;
-	Passes = 0;					// # of rings (checkpoints) passed
-	Passes_Count = NUM_CHK_PTS;				// total number of rings of the current stage
+	Passes = 0;					    // # of rings (checkpoints) passed
+	Passes_Count = NUM_CHK_PTS;		// total number of rings of the current stage
 	Speed  = NOR_SPEED;
 	Sp_Eng  = FULL_SPENG;
 	Light_On = TRUE;

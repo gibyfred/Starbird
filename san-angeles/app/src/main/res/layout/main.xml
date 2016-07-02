@@ -78,6 +78,7 @@
         
     </FrameLayout>
 
+    <!--
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
@@ -100,6 +101,7 @@
                 android:text="gone1"/>
 
     </LinearLayout>
+    -->
 
    <!--  my fixed textView at the bottom -->
     <!--

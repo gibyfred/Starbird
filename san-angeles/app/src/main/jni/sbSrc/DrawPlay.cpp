@@ -164,26 +164,33 @@ bool DrawEngine::drawPlayScene(int state)
 			{
 				//DIRTY actually, this should be done by mode changing instead of calling it everything
 				setHelpMessage("use ONE finger to move: ←　→");
-				setPopup( 0, true );    //test
 //test+				setHelpMessage("use THREE fingers to speed down:  ↓ ↓ ↓ ");
+				setPopup( 0, true );    //test
 			}
-			else if ( Game_Time > 310 && Game_Time < 320 )
+			else if ( Game_Time > 140 && Game_Time < 150 )
 			{
 				setHelpMessage("use TWO fingers to rotate:  ↑ ↓ or ↓ ↑ ");
 				setPopup( 0, false );   //test
 			}
-			else if ( Game_Time > 510 && Game_Time < 520 )
+			else if ( Game_Time > 320 && Game_Time < 330 )
+			{
+				setHelpMessage("pass through the red rings to get higher score");
+				setPopup( 1, true );
+			}
+			else if ( Game_Time > 590 && Game_Time < 600 )
 			{
 				setHelpMessage("use THREE fingers to speed down:  ↓ ↓ ↓ ");
+				setPopup( 1, false );
 			}
-			else if ( Game_Time > 670 && Game_Time < 680 )
+			else if ( Game_Time > 700 && Game_Time < 710 )
 			{
-				setHelpMessage("(but you can only change speed when the Nitro speed gauge is full)");
+				setHelpMessage("(but you can only change speed when the Nitro is full)");
 				setPopup( 0, true );
 			}
 			else if ( Game_Time > 870 && Game_Time < 880 )
 			{
-				setHelpMessage("< < <     Enjoy flying!     > > >");
+				setHelpMessage("    < Enjoy flying! >    ");
+				//setHelpMessage("< < <     Enjoy flying!     > > >");
 				setPopup( 0, false );
 			}
 			else

@@ -11,6 +11,7 @@
 
 =====================================*/
 
+#include <stdio.h>		// scanf, sprintf
 #include <string.h>		// scanf, sprintf
 #include <math.h>
 #include <assert.h>
@@ -67,7 +68,8 @@ void vDrawGameOverScene()
 //	if ( Game_Time > END_TIME + 100 )
 	{
 //		setMainMessage("touch the screen or push 'q' to quit");
-		Dstrcpy( m2, "please touch the MENU button to proceed");
+		//Dstrcpy( m2, "");
+		Dsprintf(m2, "please touch the MENU button to proceed: %d ", Switch_Back_2_Title_Counter);
 		Speed = 0;	// w95 ver
 	}
 

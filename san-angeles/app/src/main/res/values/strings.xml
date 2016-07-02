@@ -6,7 +6,9 @@
 <string name="back_to_game" >Back To Game </string>
 <string name="back_to_title"> Back To Title</string>
 <string name="popup_windows"> loading... </string>
-<string name="popup_message">START===========================END</string>
+
+    <string name="popup_message">START===========================END</string>
+    <string name="here_text"> ← HERE </string>
 
 <string name="toggle_debug_flag">Back To Title</string>
 

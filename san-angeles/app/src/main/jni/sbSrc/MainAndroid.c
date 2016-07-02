@@ -161,7 +161,7 @@ Java_com_giby_StarBird_DemoGLSurfaceView_nativeOnKeyEvent( JNIEnv* env, jobject 
 jboolean
 Java_com_giby_StarBird_DemoGLSurfaceView_nativeOnVirtualGameKeyEvent( JNIEnv* env, jobject thiz, jint key, jchar state )
 {
-	jboolean b = SBOnVirtualGameKeyEvent(key, state);
+	jboolean b = SBOnVirtualGameKeyEvent( key, state);
 	//__android_log_print(ANDROID_LOG_INFO, "StarBK:", "onKeyDown: ret=%d", b );
 	return b;
 }
@@ -383,7 +383,7 @@ void Engine_UpdateMessage( char* str )
 	return;
 }
 
-void Engine_SetPopup( int type, bool isShow )
+void Engine_SetPopup( int popUpType, bool isShow )
 {
 	beginJNIEnv();
 
@@ -398,9 +398,9 @@ void Engine_SetPopup( int type, bool isShow )
 	jclass clazz = sGetActivityClass();
 
 	//__android_log_print(ANDROID_LOG_INFO, "StarDX1", "clazz=%p", clazz);
-	jmethodID methodID = (*s_jni)->GetStaticMethodID( s_jni, clazz, "setPopup", "(I)V" );
+	jmethodID methodID = (*s_jni)->GetStaticMethodID( s_jni, clazz, "setPopup", "(II)V" );
 	//__android_log_print(ANDROID_LOG_INFO, "StarDX2", "methodID=%p", methodID);
-	(*s_jni)->CallStaticVoidMethod( s_jni, sGetActivityClass(), methodID, (int)isShow );
+	(*s_jni)->CallStaticVoidMethod( s_jni, sGetActivityClass(), methodID, popUpType, (int)isShow );
 
 #endif
 

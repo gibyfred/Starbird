@@ -537,19 +537,24 @@ bool SBOnKeyEvent( int key, unsigned short state )
  * key      key code of the VirtualGameKey
  * state    up or down
  */
+
+//dirty5: this enum is also on the Java side :(
+enum VirtualGameKey
+{
+	VirtualGameKey_MIN,
+	ROTATE_LEFT=0,
+	ROTATE_RIGHT,
+	GO_TITLE,
+	TOGGLE_LIGHT,
+	SPEED_DOWN,
+	VirtualGameKey_MAX,
+};
+
 bool SBOnVirtualGameKeyEvent( int key, unsigned short state )
 {
 //	dbg_msg("SBOnGameKeyEvent(): key:%d  %d \n", key, state);
 
-	//dirty5: this enum is also on the Java side :(
-	enum VirtualGameKey
-	{
-		ROTATE_LEFT=0,
-		ROTATE_RIGHT,
-		GO_TITLE,
-		TOGGLE_LIGHT,
-		SPEED_DOWN,
-	};
+	assert(key >= VirtualGameKey_MIN && VirtualGameKey_MIN < VirtualGameKey_MAX);
 
 	//----// Dream's action
 #ifdef SB_ANDROID
@@ -584,7 +589,7 @@ bool SBOnVirtualGameKeyEvent( int key, unsigned short state )
 		break;
 	}
 
-	// controller for dream
+	// key on controller for dream
 	if ( !game_paused )
 	{
 		switch (key)
@@ -1037,6 +1042,8 @@ void SBDrawMain(long tick) //, int width, int height)
 		if ( ! Draw_Engine.drawPlayScene(Sub_State) )
 		{
 			Scene_State = SCENE_END;
+			Switch_Back_2_Title_Counter = 300;
+			dbg_msg("SceneEnd: %d \n", Switch_Back_2_Title_Counter );
 		}
 
 		// The old design that this time depends on redraw rate is VERY bad!
@@ -1048,13 +1055,15 @@ void SBDrawMain(long tick) //, int width, int height)
 			Game_Time++;
 		}
 
-	    clearLastActionsAfterUpdate(); // reset those input after we referenced it
+	    clearLastActionsAfterUpdate();      // reset those input after we referenced it
 		break;
 
 	case SCENE_END:
 		//TODOA2 CLEAN: remove these two variables
 		if ( Is_GameOver )			// Game over
+		{
 			Sub_State = SUB_STATE0;
+		}
 		else if ( Is_GameCleared == TRUE )	// Game Clear
 		{
 			Sub_State = SUB_STATE1;
@@ -1063,10 +1072,17 @@ void SBDrawMain(long tick) //, int width, int height)
 		Draw_Engine.drawEndScene(Sub_State);
 
 		// need this for Android for showing sequence of on-screen message
+		// #ifdef SB_ANDROID?
 		if (!game_paused && Is_GameCleared == TRUE )
 		{
 			Game_Time++;
 		}
+
+        if ( --Switch_Back_2_Title_Counter == 0 )
+        {
+	        dbg_msg("SceneEnd: %d \n", Switch_Back_2_Title_Counter );
+	        SBOnVirtualGameKeyEvent( GO_TITLE, 1 );
+        }
 		break;
 	}
 

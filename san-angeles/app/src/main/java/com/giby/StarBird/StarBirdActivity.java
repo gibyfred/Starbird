@@ -474,8 +474,24 @@ public class StarBirdActivity extends Activity {
 	int herePosY = 160;
 //	static int countDismiss = 0;
 
+
+	//popupType: 0:onRight 1:onLeft
 	//
-	void showPopupWin(int id, boolean isVis) {
+	void showHerePopupWin(int popupType, boolean isVis)
+	{
+		if (popupType > 2)
+			return;
+
+		final int posX[] = {220, 870};
+		final int posY[] = {93, 93};
+
+		herePosX = posX[popupType]; herePosY = posY[popupType];
+		showPopupWin( 1, isVis );
+	}
+
+	//
+	void showPopupWin(int id, boolean isVis)
+	{
 		//----// for debugging
 		if (POPUP_COUNT == 1 && id != 0)
 			return;
@@ -815,7 +831,7 @@ public class StarBirdActivity extends Activity {
 	}
 
 	//
-	public static void setPopup( final int isShow )
+	public static void setPopup( final int popupType, final int isShow )
 	{
 		_activity.runOnUiThread(new Runnable()
 		{
@@ -828,7 +844,7 @@ public class StarBirdActivity extends Activity {
 
 				boolean isVis = isShow != 0 ? true : false;
 //				Log.d(TAG, "setPopup: " + isVis + "" + "");
-				_activity.showPopupWin(1, isVis );
+				_activity.showHerePopupWin(popupType, isVis );
 			}
 		});
 	}
