@@ -34,11 +34,12 @@
 global variables - shared to outside
 ----------------------------------------------------------------------*/
 
-float fBlackVec[]     = {0.0, 0.0, 0.0}, fRedVec[]        = {1.0, 0.0, 0.0},
-      fGreenVec[]     = {0.0, 1.0, 0.0}, fBlueVec[]       = {0.0, 0.0, 1.0},
-      fWhiteVec[]     = {1.0, 1.0, 1.0}, fGrayVec[]       = {0.5, 0.6, 0.5},
-      fYellowVec[]    = {1.0, 1.0, 0.0}, fCyanVec[]		  = {1.0, 0.0, 1.0},
-	   fLightBlueVec[] = {0.2, 0.2, 1.0};
+const GLfloat
+		fBlackVec[]     = {0.0, 0.0, 0.0}, fRedVec[]        = {1.0, 0.0, 0.0},
+		fGreenVec[]     = {0.0, 1.0, 0.0}, fBlueVec[]       = {0.0, 0.0, 1.0},
+		fWhiteVec[]     = {1.0, 1.0, 1.0}, fGrayVec[]       = {0.5, 0.6, 0.5},
+		fYellowVec[]    = {1.0, 1.0, 0.0}, fCyanVec[]	    = {0.8, 0.8, 1.0},
+		fLightBlueVec[] = {0.2, 0.2, 1.0};
 
 float fDeepGrassGreenVec[] = { 0.0, 0.4, 0.0 };
 float fGrassGreenVec[] = { 0.0, 0.6, 0.0 };

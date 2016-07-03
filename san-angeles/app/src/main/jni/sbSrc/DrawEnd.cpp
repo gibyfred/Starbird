@@ -69,7 +69,7 @@ void vDrawGameOverScene()
 	{
 //		setMainMessage("touch the screen or push 'q' to quit");
 		//Dstrcpy( m2, "");
-		Dsprintf(m2, "please touch the MENU button to proceed: %d ", Switch_Back_2_Title_Counter);
+		Dsprintf(m2, "touch the MENU button to proceed: %d ", Switch_Back_2_Title_Counter/30);
 		Speed = 0;	// w95 ver
 	}
 
@@ -79,9 +79,10 @@ void vDrawGameOverScene()
 	//
 	Draw_Engine.beginDraw2D();
 
-	glColor3fv(fBlueVec);
+	//glColor3fv(fBlueVec);
+	glColor3fv(fWhiteVec);
 	//len = strlen(m2);
-	Draw_Engine.drawMessage(-90, -90, -1, 5, m2);
+	Draw_Engine.drawMessage(-70, -90, -1, 5, m2);
 
 	Draw_Engine.endDraw2D();
 }
@@ -349,7 +350,7 @@ void vDrawGameClearScene()
 	{
 			Dstrcpy(m1, "Thanks for playing the alpha version!");
 	//		Dstrcpy(m2, "push 'q' to quit");
-			Dstrcpy(m2, "please touch the MENU button to proceed");
+			Dstrcpy(m2, "touch the MENU button to proceed");
     }
 //	else if ( Game_Time > END_TIME + 1400 )
 //			Dstrcpy(m1, "THE END");
@@ -420,12 +421,13 @@ void vDrawGameClearScene()
 
 	Draw_Engine.drawMessage(50, 40, -1, 7, m3);
 
-	glColor3fv(fRedVec);
+	//glColor3fv(fRedVec);
+	glColor3fv(fWhiteVec);
 	len = strlen(m1);
 	Draw_Engine.drawMessage(-len*2.6f, -20, -1, 6, m1);
 
 	//len = strlen(m2);
-	Draw_Engine.drawMessage(-90, -90, -1, 5, m2);
+	Draw_Engine.drawMessage(-50, -90, -1, 5, m2);
 
 	Draw_Engine.endDraw2D();
 #endif

@@ -163,28 +163,34 @@ bool DrawEngine::drawPlayScene(int state)
 			if ( Game_Time > 50 && Game_Time < 63 )
 			{
 				//DIRTY actually, this should be done by mode changing instead of calling it everything
-				setHelpMessage("use ONE finger to move: ←　→");
+				setHelpMessage("Use ONE finger to move: ←　→");
 //test+				setHelpMessage("use THREE fingers to speed down:  ↓ ↓ ↓ ");
-				setPopup( 0, true );    //test
+				//setPopup( 0, true );    //test
 			}
 			else if ( Game_Time > 140 && Game_Time < 150 )
 			{
-				setHelpMessage("use TWO fingers to rotate:  ↑ ↓ or ↓ ↑ ");
-				setPopup( 0, false );   //test
+				setHelpMessage("Use TWO fingers to rotate:  ↑ ↓ or ↓ ↑ ");
+				//setPopup( 0, false );   //test
 			}
 			else if ( Game_Time > 320 && Game_Time < 330 )
 			{
-				setHelpMessage("pass through the red rings to get higher score");
+				setHelpMessage("Pass through the red rings to get higher score");
 				setPopup( 1, true );
+			}
+			else if ( Game_Time > 500 && Game_Time < 510 )
+			{
+				setHelpMessage("If you hit any obstacle, your energy will be deducted...");
+				setPopup( 1, false );
+				setPopup( 2, true );
 			}
 			else if ( Game_Time > 590 && Game_Time < 600 )
 			{
-				setHelpMessage("use THREE fingers to speed down:  ↓ ↓ ↓ ");
-				setPopup( 1, false );
+				setHelpMessage("Use THREE fingers to speed down:  ↓ ↓ ↓ ");
+				setPopup( 2, false );
 			}
 			else if ( Game_Time > 700 && Game_Time < 710 )
 			{
-				setHelpMessage("(but you can only change speed when the Nitro is full)");
+				setHelpMessage("but you can only change speed when the Nitro is full");
 				setPopup( 0, true );
 			}
 			else if ( Game_Time > 870 && Game_Time < 880 )

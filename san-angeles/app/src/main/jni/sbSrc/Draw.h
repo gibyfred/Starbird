@@ -33,7 +33,7 @@ public:
 public:
 	void	init();
 
-	void	drawMessage(GLfloat x, GLfloat y, GLfloat z, float zoom, char *message);
+	void	drawMessage(GLfloat x, GLfloat y, GLfloat z, float zoom, const char *message);
 
 	bool	drawTitleScene(int state);
 	bool	drawPlayScene(int state);
@@ -159,7 +159,7 @@ extern float Eval_Angle;
 
 //--------------------
 // for DrawEnd.c
-extern char GameOver_Mesg[];
+extern char const GameOver_Mesg[];
 extern unsigned int T_w, T_h;					// texture size
-extern GLubyte Pixel_Arr[1000*1000][3];	// texture data
+extern GLubyte Pixel_Arr[1000*1000][3];	        // texture data //DIRTY code
 

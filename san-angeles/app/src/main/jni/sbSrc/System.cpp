@@ -971,6 +971,13 @@ static void onPauseChanged()
 	else
 	{
 		setMainMessage("");
+
+		//resetInput
+		for ( int i=UP; i <= RIGHT; i++ )
+		{
+			Last_Actions[i] = false;
+		}
+
 	}
 
 	{

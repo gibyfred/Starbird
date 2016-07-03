@@ -18,6 +18,7 @@
 
 #include "DLib/DGL.h"
 #include "DLib/DStr.h"
+#include "System.h"
 
 #include "Defines.h"
 #include "ObjMake.h"
@@ -102,9 +103,9 @@ DreamState Dream_State;
 // message string holders
 char Main_Mesg[128] = "\0";				// the message is centered on the screen
 char Help_Mesg[128] = "\0";				// the message is shown on the bottom screen
-char Warning_Mesg[] = "WARNING";
-char GameOver_Mesg[] = "GAME OVER";
-char Ready_Mesg[] = "Get Ready!!";
+const char Warning_Mesg[] = "WARNING";
+const char GameOver_Mesg[] = "GAME OVER";
+const char Ready_Mesg[] = "Get Ready!!";
 
 
 // game variables for Dream
@@ -402,23 +403,23 @@ void vDrawRect(float x, float y, float z)
 // Draw basic scene elements: 
 //    a list of yellow rectangles on floors
 //---------------------------------------------------------
-void vDrawRects()
-{
-	if (Light_On == TRUE)
-	{
+void vDrawRects() {
+	if (Light_On == TRUE) {
 		glDisable(GL_LIGHTING);
 	}
 
 	float i;
 	static float offset = 0.0;
 
-	for ( i=offset; i<CHAN_Z/2; i += RECT_LEN * 1.5 )
-	{
-		vDrawRect(CHAN_X/2.0-0.5, -CHAN_Y/2.0+OFFSET_FROM_WALL, i-CHAN_Z/2.0+2.0);
-		vDrawRect(-CHAN_X/2.0+0.5, -CHAN_Y/2.0+OFFSET_FROM_WALL, i-CHAN_Z/2.0+2.0);
+	for (i = offset; i < CHAN_Z / 2; i += RECT_LEN * 1.5) {
+		vDrawRect(CHAN_X / 2.0 - 0.5, -CHAN_Y / 2.0 + OFFSET_FROM_WALL, i - CHAN_Z / 2.0 + 2.0);
+		vDrawRect(-CHAN_X / 2.0 + 0.5, -CHAN_Y / 2.0 + OFFSET_FROM_WALL, i - CHAN_Z / 2.0 + 2.0);
 	}
-	//if (!game_pause)
+
+	if (!isGamePaused())
+	{
 		offset += Speed;
+	}
 
 	if ( offset >= 1.5 * RECT_LEN )
 		offset = 0.0;

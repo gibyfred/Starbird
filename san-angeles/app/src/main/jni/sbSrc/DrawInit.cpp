@@ -33,13 +33,14 @@
 void vDrawTitle(int state)
 {
 #ifdef SB_ANDROID
-	char mesg[] = "TOUCH TO START";
-	char mesg2[] = "use MENU button to change settings";
+	const char mesg[] = "TOUCH TO START";
+	const char mesg2[] = "use MENU button to change settings";
 #else
 	char mesg[] = "PUSH SPACE BAR TO START";
 	char mesg2[] = "use right mouse button to change settings";
 #endif
-	char title[] = "STAR BIRD";
+	const char title[] = "STAR BIRD";
+	const int len = strlen(title);
 
 	static float x = 0.0, y = 0.0, z = -10.0;
 	static float r_x = 0.0, r_y = 0.0, r_z = -10.0;
@@ -47,8 +48,6 @@ void vDrawTitle(int state)
 	static float wang = 0.0, bgang = 0.0;
 	static float lx = 0.0, ly = CHAN_Y/2.0 + 2, lz = -14.0;	// light
 	static int st_time, titxang = 0;
-
-	int len = strlen(title);
 
 	//----------------------------
 	// clear buffer
@@ -108,7 +107,6 @@ void vDrawTitle(int state)
 	if ( state == SUB_STATE0 )
 	{
 		//GLMatrix mat;
-
 #if 0
 		// init 2D draw
 		glPushMatrix();
@@ -132,8 +130,8 @@ void vDrawTitle(int state)
 		glColor3fv(fYellowVec);
 		Draw_Engine.drawMessage(-95,35,-1, 27, title);
 
-		glColor3fv(fBlackVec);
-		Draw_Engine.drawMessage(-85,-85,-1, 6, mesg2);
+		glColor3fv(fWhiteVec);
+		Draw_Engine.drawMessage(-55,-85,-1, 4, mesg2);
 
 		// deinit
 		//glLoadMatrixf(mat);
@@ -166,6 +164,9 @@ void vDrawPrtMesg()
 	char str[30];
 	int len = strlen(Main_Mesg);
 	static int i = 0;
+	const int BLINK_CYCLE = 80;
+	static int s_blink = BLINK_CYCLE;
+	static int s_blinkColorIndex = 0;
 
 #ifdef SB_DEBUG
 	int prev_mode;
@@ -175,15 +176,28 @@ void vDrawPrtMesg()
 
 	if ( len >= 1 && !isGamePaused() )
 	{
-		// print main message
-//#ifdef SB_WIN
-		Draw_Engine.beginDraw2D();
-		glColor3fv(fCyanVec);
-		Draw_Engine.drawMessage(-len*2.6f, -55, -1, 6, Main_Mesg);		// 2.6: half of estimated font width
-		Draw_Engine.endDraw2D();
-//#endif
+		if ( --s_blink == 0 )
+		{
+			//reset
+			s_blink = BLINK_CYCLE;
+			s_blinkColorIndex = (s_blinkColorIndex + 1)%2;
+		}
+		else if ( s_blink < 10 )
+		{
+			//skip
+		}
+		else
+		{
+			// draw main message
+	//#ifdef SB_WIN
+			Draw_Engine.beginDraw2D();
+			glColor3fv( s_blinkColorIndex == 0 ? fWhiteVec : fBlueVec);
+			Draw_Engine.drawMessage(-len*2.6f, -55, -1, 6, Main_Mesg);		// 2.6: half of estimated font width
+			Draw_Engine.endDraw2D();
+	//#endif
+		}
 	}
-	else if ( !Is_GameOver )
+//	else if ( !Is_GameOver && Scene_State != SCENE_TITLE )
 	{
 #ifdef SB_BUILD_VIRTUAL_PAD
 		if (s_touchPadMode == 1 && !s_isTouchDown)
@@ -231,9 +245,9 @@ void vDrawPrtMesg()
 			glDisable (GL_BLEND);
 			Draw_Engine.endDraw2D();
 		}
-#endif
+#endif // SB_BUILD_VIRTUAL_PAD
 
-		//----// draw game status on screen
+		//----// draw game status
 		Draw_Engine.beginDraw2D();
 
 		if ( Energy > 20 )
@@ -262,9 +276,13 @@ void vDrawPrtMesg()
 		Dsprintf(str, "Energy: %.3d    \n", Energy );
 		Draw_Engine.drawMessage(-60, -87, -1, 6, str);
 
-		Dsprintf(str, "Speed: %d \n", int(Speed*100) );
-		Draw_Engine.drawMessage(10, -87, -1, 6, str);
-#if 0
+		//dirty code
+		if (!isGamePaused())
+		{
+			Dsprintf(str, "Speed: %d \n", int(Speed*100) );
+			Draw_Engine.drawMessage(10, -87, -1, 6, str);
+		}
+#if 1
 //#ifdef SB_DEBUG
 		Dsprintf(str, "t: %.5d  p:%d  input:%d%d \n", Game_Time, isGamePaused(), Last_Actions[LTURN], Last_Actions[RTURN] );
 		Draw_Engine.drawMessage(-60, -94, -1, 6, str);
@@ -293,7 +311,7 @@ void vDrawPrtMesg()
 // Draw a text message on buffer
 // Assume that 2D drawing, i.e.: beginDraw2D() was called
 //---------------------------------------------------------
-void DrawEngine::drawMessage(GLfloat x, GLfloat y, GLfloat z, float zoom, char *message)
+void DrawEngine::drawMessage(GLfloat x, GLfloat y, GLfloat z, float zoom, const char *message)
 {
 	zoom *= 0.01f;
 
@@ -502,9 +520,14 @@ void DrawEngine::init()
 	Sp_Eng  = FULL_SPENG;
 	Light_On = TRUE;
 	Diffi = BABY;
+
+	//UI
 	setHelpMessage("");
 	setPopup( 0, false );
+	setPopup( 1, false );
+	setPopup( 2, false );
 
+	// reset input
 	for ( int i=UP; i <= SPDOWN; i++ )
 	{
 		Last_Actions[i] = false;

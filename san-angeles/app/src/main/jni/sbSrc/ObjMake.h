@@ -59,7 +59,7 @@ extern float e_mat2[];
 typedef float CGMaterial [MAT_COUNT][4];
 
 extern void vMakeAll(void);
-extern float fBlackVec[], fGreenVec[], fWhiteVec[],
+extern const float fBlackVec[], fGreenVec[], fWhiteVec[],
              fYellowVec[], fRedVec[], fBlueVec[], fGrayVec[], fCyanVec[];
 
 extern void vChangeMat(CGMaterial mat);

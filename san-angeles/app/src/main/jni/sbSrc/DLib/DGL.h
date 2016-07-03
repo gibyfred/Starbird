@@ -156,7 +156,7 @@ void glutStrokeCharacter( void* fontID, int character );
 #endif //SB_WIN
 
 
-inline void glColor3fv(DFloats v)
+inline void glColor3fv(const DFloats v)
 {
 #ifdef SB_GLES1
 	glColor4f(v[0], v[1], v[2], 1.0f );

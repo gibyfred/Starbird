@@ -479,11 +479,11 @@ public class StarBirdActivity extends Activity {
 	//
 	void showHerePopupWin(int popupType, boolean isVis)
 	{
-		if (popupType > 2)
+		if (popupType > 3)
 			return;
 
-		final int posX[] = {220, 870};
-		final int posY[] = {93, 93};
+		final int posX[] = {220, 870, 220};
+		final int posY[] = {93, 93, 93};
 
 		herePosX = posX[popupType]; herePosY = posY[popupType];
 		showPopupWin( 1, isVis );
