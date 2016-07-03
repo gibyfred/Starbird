@@ -131,7 +131,7 @@ void vDrawTitle(int state)
 		Draw_Engine.drawMessage(-95,35,-1, 27, title);
 
 		glColor3fv(fWhiteVec);
-		Draw_Engine.drawMessage(-55,-85,-1, 4, mesg2);
+		Draw_Engine.drawMessage(-48,-85,-1, 4, mesg2);
 
 		// deinit
 		//glLoadMatrixf(mat);
@@ -197,7 +197,7 @@ void vDrawPrtMesg()
 	//#endif
 		}
 	}
-//	else if ( !Is_GameOver && Scene_State != SCENE_TITLE )
+	else if ( !Is_GameOver && Scene_State != SCENE_TITLE )
 	{
 #ifdef SB_BUILD_VIRTUAL_PAD
 		if (s_touchPadMode == 1 && !s_isTouchDown)
@@ -276,13 +276,13 @@ void vDrawPrtMesg()
 		Dsprintf(str, "Energy: %.3d    \n", Energy );
 		Draw_Engine.drawMessage(-60, -87, -1, 6, str);
 
-		//dirty code
-		if (!isGamePaused())
+		//
+		if (!isGamePaused()) //dirty code
 		{
 			Dsprintf(str, "Speed: %d \n", int(Speed*100) );
 			Draw_Engine.drawMessage(10, -87, -1, 6, str);
 		}
-#if 1
+#if 0
 //#ifdef SB_DEBUG
 		Dsprintf(str, "t: %.5d  p:%d  input:%d%d \n", Game_Time, isGamePaused(), Last_Actions[LTURN], Last_Actions[RTURN] );
 		Draw_Engine.drawMessage(-60, -94, -1, 6, str);
