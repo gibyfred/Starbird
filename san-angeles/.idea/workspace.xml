@@ -62,7 +62,7 @@
       <file leaf-file-name="DrawEnd.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/DrawEnd.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.12963">
+            <state vertical-scroll-proportion="0.0">
               <caret line="429" column="31" selection-start-line="429" selection-start-column="31" selection-end-line="429" selection-end-column="31" />
               <folding>
                 <element signature="e#237#274#0" expanded="true" />
@@ -74,7 +74,7 @@
       <file leaf-file-name="ObjMake.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/ObjMake.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.037037">
+            <state vertical-scroll-proportion="0.0">
               <caret line="48" column="18" selection-start-line="48" selection-start-column="18" selection-end-line="48" selection-end-column="18" />
               <folding />
             </state>
@@ -84,7 +84,7 @@
       <file leaf-file-name="DrawInit.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/DrawInit.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.0">
+            <state vertical-scroll-proportion="0.0">
               <caret line="100" column="14" selection-start-line="100" selection-start-column="4" selection-end-line="100" selection-end-column="14" />
               <folding />
             </state>
@@ -94,7 +94,7 @@
       <file leaf-file-name="DGL.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/DLib/DGL.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.925926">
+            <state vertical-scroll-proportion="0.0">
               <caret line="170" column="18" selection-start-line="170" selection-start-column="18" selection-end-line="170" selection-end-column="18" />
               <folding />
             </state>
@@ -104,7 +104,7 @@
       <file leaf-file-name="Draw.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/Draw.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.796296">
+            <state vertical-scroll-proportion="0.0">
               <caret line="163" column="76" selection-start-line="163" selection-start-column="76" selection-end-line="163" selection-end-column="76" />
               <folding />
             </state>
@@ -114,7 +114,7 @@
       <file leaf-file-name="ObjMake.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/ObjMake.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.5925927">
+            <state vertical-scroll-proportion="0.0">
               <caret line="36" column="6" selection-start-line="36" selection-start-column="6" selection-end-line="36" selection-end-column="6" />
               <folding />
             </state>
@@ -124,7 +124,7 @@
       <file leaf-file-name="DrawPlay.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/DrawPlay.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="14.222222">
+            <state vertical-scroll-proportion="0.0">
               <caret line="88" column="5" selection-start-line="88" selection-start-column="5" selection-end-line="88" selection-end-column="5" />
               <folding />
             </state>
@@ -134,7 +134,7 @@
       <file leaf-file-name="Draw.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/Draw.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7092199">
+            <state vertical-scroll-proportion="0.0">
               <caret line="20" column="11" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
               <folding />
             </state>
@@ -144,7 +144,7 @@
       <file leaf-file-name="System.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/System.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.2222223">
+            <state vertical-scroll-proportion="0.0">
               <caret line="155" column="17" selection-start-line="155" selection-start-column="5" selection-end-line="155" selection-end-column="17" />
               <folding>
                 <element signature="e#639#656#0" expanded="true" />
@@ -6137,8 +6137,8 @@
         <option value="$PROJECT_DIR$/app/src/main/jni/sbSrc/DrawPlay.cpp" />
         <option value="$PROJECT_DIR$/app/src/main/jni/sbSrc/Draw.h" />
         <option value="$PROJECT_DIR$/app/src/main/jni/sbSrc/DrawEnd.cpp" />
-        <option value="$PROJECT_DIR$/app/src/main/jni/sbSrc/DrawInit.cpp" />
         <option value="$PROJECT_DIR$/app/src/main/jni/sbSrc/Draw.cpp" />
+        <option value="$PROJECT_DIR$/app/src/main/jni/sbSrc/DrawInit.cpp" />
       </list>
     </option>
   </component>
@@ -6210,6 +6210,9 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="AndroidView" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -6584,10 +6587,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="AndroidView" />
       <pane id="Scope" />
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -6923,12 +6923,12 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3287841" sideWeight="0.4513591" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29404467" sideWeight="0.35550788" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29404467" sideWeight="0.35550788" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297568" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33746898" sideWeight="0.36480686" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3287841" sideWeight="0.5171674" order="7" side_tool="true" content_ui="tabs" />
@@ -6984,7 +6984,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="38" column="21" selection-start-line="38" selection-start-column="12" selection-end-line="38" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -7096,7 +7095,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="23" column="42" selection-start-line="23" selection-start-column="20" selection-end-line="23" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -7104,7 +7102,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="3" column="32" selection-start-line="3" selection-start-column="32" selection-end-line="3" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -7192,7 +7189,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.24144869">
           <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -7203,7 +7199,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-11.379311">
           <caret line="22" column="37" selection-start-line="22" selection-start-column="37" selection-end-line="22" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -7211,7 +7206,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.31914893">
           <caret line="10" column="31" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -7219,7 +7213,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.30181086">
           <caret line="10" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -7230,7 +7223,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-12.413794">
           <caret line="24" column="32" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -7241,7 +7233,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="53" column="48" selection-start-line="53" selection-start-column="37" selection-end-line="53" selection-end-column="48" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -7270,7 +7261,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="187" column="13" selection-start-line="187" selection-start-column="4" selection-end-line="187" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -7278,13 +7268,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="38" column="21" selection-start-line="38" selection-start-column="12" selection-end-line="38" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/DLib/DGL.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.925926">
+        <state vertical-scroll-proportion="0.0">
           <caret line="170" column="18" selection-start-line="170" selection-start-column="18" selection-end-line="170" selection-end-column="18" />
           <folding />
         </state>
@@ -7292,7 +7281,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/ObjMake.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.037037">
+        <state vertical-scroll-proportion="0.0">
           <caret line="48" column="18" selection-start-line="48" selection-start-column="18" selection-end-line="48" selection-end-column="18" />
           <folding />
         </state>
@@ -7300,7 +7289,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/ObjMake.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.5925927">
+        <state vertical-scroll-proportion="0.0">
           <caret line="36" column="6" selection-start-line="36" selection-start-column="6" selection-end-line="36" selection-end-column="6" />
           <folding />
         </state>
@@ -7330,7 +7319,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/Draw.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.796296">
+        <state vertical-scroll-proportion="0.0">
           <caret line="163" column="76" selection-start-line="163" selection-start-column="76" selection-end-line="163" selection-end-column="76" />
           <folding />
         </state>
@@ -7338,7 +7327,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/DrawEnd.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.12963">
+        <state vertical-scroll-proportion="0.0">
           <caret line="429" column="31" selection-start-line="429" selection-start-column="31" selection-end-line="429" selection-end-column="31" />
           <folding>
             <element signature="e#237#274#0" expanded="true" />
@@ -7348,7 +7337,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/DrawPlay.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="14.222222">
+        <state vertical-scroll-proportion="0.0">
           <caret line="88" column="5" selection-start-line="88" selection-start-column="5" selection-end-line="88" selection-end-column="5" />
           <folding />
         </state>
@@ -7356,7 +7345,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/DrawInit.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.0">
+        <state vertical-scroll-proportion="0.0">
           <caret line="100" column="14" selection-start-line="100" selection-start-column="4" selection-end-line="100" selection-end-column="14" />
           <folding />
         </state>
@@ -7364,7 +7353,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/System.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.2222223">
+        <state vertical-scroll-proportion="0.0">
           <caret line="155" column="17" selection-start-line="155" selection-start-column="5" selection-end-line="155" selection-end-column="17" />
           <folding>
             <element signature="e#639#656#0" expanded="true" />
@@ -7378,7 +7367,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/jni/sbSrc/Draw.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7092199">
+        <state vertical-scroll-proportion="0.0">
           <caret line="20" column="11" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
           <folding />
         </state>
