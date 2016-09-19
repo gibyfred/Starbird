@@ -76,8 +76,8 @@ extern void vDrawScene();
 extern void	vDrawLight(int i, int j, float x, float y, float z);
 extern void vDrawLights();
 extern void vDrawBody(float v_z, float r_x, float r_y, float r_z, float x, float y, float z, float xang, float yang, float zang, float wang);
-extern void vDrawRects();
-extern void vDrawSqs();
+extern void vDrawRects( bool isUpdate = true );
+extern void vDrawSqs( bool isUpdate = true );
 extern void vDrawTunnel(int ligsOn);
 extern void vDrawPrtMesg();
 

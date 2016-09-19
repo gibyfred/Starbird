@@ -97,8 +97,8 @@ void vDrawTitle(int state)
 	Speed = 0.0;
 	glRotatef(bgang * 0.1f, 0,1,0);
 	vDrawTunnel(FALSE);			// FALSE: only one light is needed and vDrawLight is called above
-	vDrawSqs();
-	vDrawRects();
+	vDrawSqs(false);
+	vDrawRects(false);
 	Speed = NOR_SPEED;
 	glPopMatrix();
 
@@ -174,7 +174,8 @@ void vDrawPrtMesg()
 	assert(prev_mode == GL_MODELVIEW);
 #endif
 
-	if ( len >= 1 && !isGamePaused() )
+	if ( len >= 1 )
+//	if ( len >= 1 && !isGamePaused() )
 	{
 		if ( --s_blink == 0 )
 		{
@@ -197,7 +198,7 @@ void vDrawPrtMesg()
 	//#endif
 		}
 	}
-	else if ( !Is_GameOver && Scene_State != SCENE_TITLE )
+//	else if ( !Is_GameOver && Scene_State != SCENE_TITLE )
 	{
 #ifdef SB_BUILD_VIRTUAL_PAD
 		if (s_touchPadMode == 1 && !s_isTouchDown)
@@ -282,7 +283,7 @@ void vDrawPrtMesg()
 			Dsprintf(str, "Speed: %d \n", int(Speed*100) );
 			Draw_Engine.drawMessage(10, -87, -1, 6, str);
 		}
-#if 0
+#if 1
 //#ifdef SB_DEBUG
 		Dsprintf(str, "t: %.5d  p:%d  input:%d%d \n", Game_Time, isGamePaused(), Last_Actions[LTURN], Last_Actions[RTURN] );
 		Draw_Engine.drawMessage(-60, -94, -1, 6, str);

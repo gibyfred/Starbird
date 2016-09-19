@@ -367,7 +367,7 @@ void vDrawSq(float x, float y, float z)
 //---------------------------------------------------------
 // Draw basic scene elements: a list of black squares (line loop) surrounded the tunnel
 //---------------------------------------------------------
-void vDrawSqs()
+void vDrawSqs( bool isUpdate )
 {
     float i;
     static float offset = 0.0;
@@ -379,7 +379,7 @@ void vDrawSqs()
     }
 	glEnable(GL_LIGHTING);
 
-//	if ( !game_paused )
+	if ( isUpdate )
 		offset += Speed;
 
 	if ( offset >= SQ_DIST )
@@ -403,7 +403,7 @@ void vDrawRect(float x, float y, float z)
 // Draw basic scene elements: 
 //    a list of yellow rectangles on floors
 //---------------------------------------------------------
-void vDrawRects() {
+void vDrawRects( bool isUpdate ) {
 	if (Light_On == TRUE) {
 		glDisable(GL_LIGHTING);
 	}
@@ -416,13 +416,12 @@ void vDrawRects() {
 		vDrawRect(-CHAN_X / 2.0 + 0.5, -CHAN_Y / 2.0 + OFFSET_FROM_WALL, i - CHAN_Z / 2.0 + 2.0);
 	}
 
-	if (!isGamePaused())
+	if (isUpdate)
 	{
 		offset += Speed;
+		if ( offset >= 1.5 * RECT_LEN )
+			offset = 0.0;
 	}
-
-	if ( offset >= 1.5 * RECT_LEN )
-		offset = 0.0;
 
 	if (Light_On == TRUE )
 	{
