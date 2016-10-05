@@ -24,8 +24,7 @@
 #include "Bound.h"
 #include "Draw.h"
 
-
-//#define BUILD_START_TURN
+//#define BUILD_START_TURN  // draw corner or not f return
 
 //---------------------------------------
 // constants
@@ -40,10 +39,8 @@
 static int s_isChan2ndHalf=FALSE;
 
 
-
 //---------------------------------------
 // helpers methods
-
 
 static void vDrawBg();
 static void vDrawPillars1();
@@ -107,8 +104,9 @@ void initInternalStates()
 	}
 
 	// ChkPts states
-	int active_chkPts = 0;
-	int next_chkPts = 0;
+	active_chkPts = 0;
+	next_chkPts = 0;
+
 	for (int i=0; i<NUM_CHK_PTS; ++i )
 	{
 		z_chkPts[i]=NON;
@@ -159,17 +157,21 @@ bool DrawEngine::drawPlayScene(int state)
 		}
 		else
 		{
+			/*
+			 * test201609 blackslash: /
+			 * special character: ←
+			 */
 			// show simple message
 			if ( Game_Time > 50 && Game_Time < 63 )
 			{
 				//DIRTY actually, this should be done by mode changing instead of calling it everything
-				setHelpMessage("Use ONE finger to move: ←　→");
-//test+				setHelpMessage("use THREE fingers to speed down:  ↓ ↓ ↓ ");
+				setHelpMessage("Use ONE finger to move:  ←　→  ");
+//test+				setHelpMessage("use THREE fingers to speed down:  ??? ??? ??? ");
 				//setPopup( 0, true );    //test
 			}
 			else if ( Game_Time > 140 && Game_Time < 150 )
 			{
-				setHelpMessage("Use TWO fingers to rotate:  ↑ ↓ or ↓ ↑ ");
+				setHelpMessage("Use TWO fingers to rotate:   ↑ ↓ or ↓ ↑ ");
 				//setPopup( 0, false );   //test
 			}
 			else if ( Game_Time > 320 && Game_Time < 330 )
@@ -185,19 +187,32 @@ bool DrawEngine::drawPlayScene(int state)
 			}
 			else if ( Game_Time > 590 && Game_Time < 600 )
 			{
-				setHelpMessage("Use THREE fingers to speed down:  ↓ ↓ ↓ ");
+				setHelpMessage("Use THREE fingers to speed down:   ↓ ↓ ↓  ");
 				setPopup( 2, false );
 			}
 			else if ( Game_Time > 700 && Game_Time < 710 )
 			{
-				setHelpMessage("but you can only change speed when the Nitro is full");
+				setHelpMessage("but you can only change speed when the Nitro gauge is full");
 				setPopup( 0, true );
 			}
 			else if ( Game_Time > 870 && Game_Time < 880 )
 			{
-				setHelpMessage("    < Enjoy flying! >    ");
-				//setHelpMessage("< < <     Enjoy flying!     > > >");
-				setPopup( 0, false );
+				if ( Energy >= 0.9f * FULL_ENG )
+				{
+					setHelpMessage("    < Enjoy flying! >    ");
+					setPopup(0, false);
+				}
+				else if ( Game_Time < 875 )
+				{
+					setHelpMessage("FAIL!!!  Your energy is too low, please try the tutorial again...");
+					setPopup(0, false);
+				}
+				else
+				{
+					//reset by replaying the tutorial
+					Draw_Engine.init();
+					Scene_State = SCENE_PLAY;
+				}
 			}
 			else
 			{
@@ -642,6 +657,7 @@ void vDrawChan(float dis)
 	glPopMatrix();
 }
 
+//called by vDrawCorner
 void vDrawChans2(int ang)		/* assume ang > 0 */
 {
 	float b;
@@ -678,6 +694,7 @@ printf("Draw2:  obxz = %f %f   yang = %f\n",Obx[Act_Turn], Obz[Act_Turn],Ob_Yang
 	glPopMatrix();
 }
 
+// called by vDrawCorner
 void vDrawChans(int ang)		/* assume ang > 0 */
 {
 	float b;

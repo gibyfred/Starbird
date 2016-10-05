@@ -69,7 +69,7 @@ void vDrawGameOverScene()
 	{
 //		setMainMessage("touch the screen or push 'q' to quit");
 		//Dstrcpy( m2, "");
-		Dsprintf(m2, "touch the MENU button to proceed: %d ", Switch_Back_2_Title_Counter/30);
+		Dsprintf(m2, "   touch the MENU button to proceed: %d ", Switch_Back_2_Title_Counter/30);
 		Speed = 0;	// w95 ver
 	}
 
@@ -121,14 +121,17 @@ void vDrawEarths()
 	if ( offset >= 1.5 * RECT_LEN )
 		offset = 0.0;
 
-	// draw base
+#if 0
+	// draw earth base
 	glPushMatrix();
 	glRotatef(6.3f, 1,0,0);
-	glTranslatef(0.0, -0.5*CHAN_Y2-1, CHAN_Z);
+	glTranslatef(0.0, -10.5*CHAN_Y2-1, CHAN_Z);
+	//glTranslatef(0.0, -0.5*CHAN_Y2-1, CHAN_Z);
 	glScalef(CHAN_X*150.0, 0.0, CHAN_Z*2.0);
 	// lmdef(DEFMATERIAL, OBJ_DREAM, 5, e_mat2);
 	vDrawObj(OBJ_RECT_EARTH);
 	glPopMatrix();
+#endif
 }
 
 
@@ -168,28 +171,32 @@ void vDraw2DBackground()
 	offset = (int) (sign(Eval_Angle)*tan(deg2r(fabs(Eval_Angle))) * CHAN_Z*0.5 );
 	disy = 173+offset;
 
+
+	//--------------
+#ifdef SB_GLES
+	//TODOA1
+	//use  OES draw texture extensio??>
+		// draw base
+
+#else
 	//--------------
 	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
 	glLoadIdentity();
 	dglOrtho(0.0, T_w-1, 0.0f, T_h-1, -1.0f, 1.0f );
-	
+
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 	glLoadIdentity();
 
-	#if 0//def SB_DEBUG
+#if 0//def SB_DEBUG
 	GLboolean valid;
 	glGetBooleanv(GL_CURRENT_RASTER_POSITION_VALID, &valid);
 	if ( valid == GL_FALSE )
 		reportError("drawText: 2nd invalid pos\n");
-	#endif
-	
+#endif
+
 	//--------------
-#ifdef SB_GLES
-	//TODOA1
-	//use  OES draw texture extensio??>
-#else
 	glRasterPos2i(0, disy);
 
 	float zoomFactor = float(WIN_WIDTH) / T_w;
@@ -197,7 +204,6 @@ void vDraw2DBackground()
 	glDrawPixels(T_w, T_h, GL_RGB, GL_UNSIGNED_BYTE, Pixel_Arr);		// 1008 refer to porting guide about glDrawPixel
 	glPixelZoom (1, 1);
 	glClear(GL_DEPTH_BUFFER_BIT);		// make the image as background of the scene
-   
 
 	glMatrixMode(GL_PROJECTION);
 	glPopMatrix();
@@ -311,6 +317,53 @@ glDisable(GL_TEXTURE_2D);
 	  textOffset = 0;
 }
 
+void vDrawSkyDome()
+{
+	const float size = 45.0f;
+	const float earthOffsetY = -0.5*CHAN_Y2-1;
+
+	//TOoptimize: turn off z-test and z-write before drawing
+	//glDisable(GL_DEPTH_TEST);
+	//glDepthMask(false);
+
+	//
+	glPushMatrix();
+	glTranslatef(0.0, earthOffsetY + CHAN_Y*size*0.5f - 5, -CHAN_Z/2);
+	glScalef(CHAN_X*size*2, CHAN_Y*size, 1.0);
+	vDrawObj(OBJ_SKYDOME);   //which is like a unit cube/plane
+	glPopMatrix();
+
+	//
+	glPushMatrix();
+	glRotatef(90, 0, 1, 0);
+	glTranslatef(0.0, earthOffsetY + CHAN_Y*size*0.5f - 5, -CHAN_X*size);
+	glScalef(CHAN_X*size*4, CHAN_Y*size, 1.0);
+	vDrawObj(OBJ_SKYDOME);
+	glPopMatrix();
+
+	//
+	glPushMatrix();
+	glRotatef(-90, 0, 1, 0);
+	glTranslatef(0.0, earthOffsetY + CHAN_Y*size*0.5f - 5, -CHAN_X*size);
+	glScalef(CHAN_X*size*4, CHAN_Y*size, 1.0);
+	vDrawObj(OBJ_SKYDOME);
+	glPopMatrix();
+
+	//TOoptimize: turn it back to normal and, clear the depth, so that nothing can draw behind the sky
+	//glEnable(GL_DEPTH_TEST);
+	//glDepthMask(true);
+	//glClear(GL_DEPTH_BUFFER_BIT);
+
+	// draw earth base
+	glPushMatrix();
+	glRotatef(6.3f, 1, 0, 0);
+	glTranslatef(0.0, earthOffsetY, CHAN_Z);
+	glScalef(CHAN_X*150.0, 0.0, CHAN_Z*2.0);
+	// lmdef(DEFMATERIAL, OBJ_DREAM, 5, e_mat2);
+	vDrawObj(OBJ_RECT_EARTH);
+	glPopMatrix();
+}
+
 //---------------------------------------------------------
 // draw game clear scene
 //-------------------------------------------------------0--
@@ -357,7 +410,7 @@ void vDrawGameClearScene()
 
 	//---------------------------------
 	// init env
-	glClearColor(1,1,1,1);
+	glClearColor(0,191.f/255,1,1);  //SkyDeepColor
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glPushMatrix();
 	glLoadIdentity();
@@ -380,7 +433,7 @@ void vDrawGameClearScene()
 	glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, &spot_ang);
 #endif
 
-	// dont ligt up DREAM by ONLY turning off all lights
+	// dont light up DREAM by ONLY turning off all lights
 	setup_lig();
 	glEnable(GL_LIGHTING);
 	vDrawDREAM();			/* view trans is set here */
@@ -389,6 +442,7 @@ void vDrawGameClearScene()
 	if ( !Draw_Engine.isTexture )
 	{
 		glDisable(GL_LIGHTING);
+		vDrawSkyDome();
 		vDrawEarths();			// two layers without texture
 	}
 	else

@@ -148,7 +148,6 @@ GLubyte Pixel_Arr[1000*1000][3];	// texture data
 float Eval_Angle;					// this is the angle of Dream to x-z plane
 
 
-
 //-------------------------
 //
 
@@ -353,7 +352,7 @@ printf("  z = %f, z2 = %f\n", z, z2);
 }
 
 //---------------------------------------------------------
-// Draw basic scene elements: a black square (line loop) surrounded the tunnel
+// Draw basic scene element: a black square (line loop) surrounded the tunnel
 //---------------------------------------------------------
 void vDrawSq(float x, float y, float z)
 {

@@ -412,14 +412,16 @@ case _key: \
 #ifdef SB_DEBUG
 
 //TOREFACTOR input module
+const unsigned int SB_KEY_Y = 53;
+
 #ifdef SB_WIN
-const char sDebugKeyArr[] = { 't', 'v', };
+const char sDebugKeyArr[] = { 't', 'y', 'v' };
 #else
-const char sDebugKeyArr[] = { 48, 50 };
+const char sDebugKeyArr[] = { 48, SB_KEY_Y, 50 };
 #endif
 
-#define sIsDebugNextScene(_k_) (_k_ == sDebugKeyArr[0])
-#define sIsDebugStartScene(_k_) (_k_ == sDebugKeyArr[1])
+#define sIsDebugNextScene(_k_) (_k_ == sDebugKeyArr[1])
+#define sIsDebugStartScene(_k_) (_k_ == sDebugKeyArr[0])
 
 #endif
 
@@ -450,7 +452,8 @@ bool SBOnKeyEvent( int key, unsigned short state )
 		}
 		break;
 
-#ifdef SB_DEBUG
+#if 1
+//#ifdef SB_DEBUG
 	case SCENE_PLAY:
 		if ( sIsDebugStartScene(key) )
 		{
@@ -547,6 +550,7 @@ enum VirtualGameKey
 	GO_TITLE,
 	TOGGLE_LIGHT,
 	SPEED_DOWN,
+	DEBUG_SETTINGS,
 	VirtualGameKey_MAX,
 };
 
@@ -557,10 +561,11 @@ bool SBOnVirtualGameKeyEvent( int key, unsigned short state )
 	assert(key >= VirtualGameKey_MIN && VirtualGameKey_MIN < VirtualGameKey_MAX);
 
 	//----// Dream's action
-#ifdef SB_ANDROID
+//#ifdef SB_ANDROID
+#ifdef SB_DEBUG
 	bool oldActionVal = 2;	// DEBUGonly!
 
-	// map key input to game key (and toggle the other game key)
+	// map virtual key input to game key (and toggle the other game key)
 #define _CASE_ON_KEY2(_key, _action, _toResetAction) \
 	case _key: \
 		oldActionVal = Last_Actions[_action]; \
@@ -572,6 +577,10 @@ bool SBOnVirtualGameKeyEvent( int key, unsigned short state )
 	dbg_msg("SBOnVirtualGameKeyEvent():    _action:%d  %d -> %d   \n", _action, oldActionVal, Last_Actions[_action] );   \
 		break;
 
+#define _CASE_ON_KEY3(_key,_CBFUNC) \
+	case _key: \
+	_CBFUNC; \
+	break;
 
 	// special key
 	switch (key)
@@ -597,8 +606,9 @@ bool SBOnVirtualGameKeyEvent( int key, unsigned short state )
 		_CASE_ON_KEY2(ROTATE_LEFT, LTURN, RTURN );
 		_CASE_ON_KEY2(ROTATE_RIGHT, RTURN, LTURN );
 
-		//case SPEED_DOWN:
 		_CASE_ON_KEY(SPEED_DOWN, SPDOWN);
+
+		_CASE_ON_KEY3( DEBUG_SETTINGS, SBOnKeyEvent( SB_KEY_Y, 1 ) );    //debug only
 		}
 	}
 #endif

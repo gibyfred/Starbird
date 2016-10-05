@@ -130,7 +130,7 @@ final class RotationGestureDetector {
 
 	            if(ptrID1 != INVALID_POINTER_ID && ptrID2 != INVALID_POINTER_ID){
 	                float nfX, nfY, nsX, nsY;
-	                nsX = event.getX(event.findPointerIndex(ptrID1));
+	                nsX = event.getX(event.findPointerIndex(ptrID1));		// potential exception? pointerIndex out of range!?
 	                nsY = event.getY(event.findPointerIndex(ptrID1));
 	                nfX = event.getX(event.findPointerIndex(ptrID2));
 	                nfY = event.getY(event.findPointerIndex(ptrID2));
@@ -997,8 +997,15 @@ class DemoGLSurfaceView extends GLSurfaceView {
     	}
     	else if ( event.getPointerCount() >= 3 )
     	{
-    		//SPEED_DOWN
-    		DemoGLSurfaceView.nativeOnVirtualGameKeyEvent( VirtualGameKey.SPEED_DOWN.getValue(), (char)0 );	// 0:keydown
+//			Log.v(TAG,"onTouchEvent: count:" + event.getPointerCount() + ", " + event.getX() + ", " + event.getY() + ", " + event.getAction() );
+
+			if ( event.getPointerCount() == 3 )
+				//SPEED_DOWN
+				DemoGLSurfaceView.nativeOnVirtualGameKeyEvent( VirtualGameKey.SPEED_DOWN.getValue(), (char)0 );	// 0:keydown
+			else
+			{
+				DemoGLSurfaceView.nativeOnVirtualGameKeyEvent( VirtualGameKey.DEBUG_SETTINGS.getValue(), (char)0 );	// 0:keydown
+			}
     	}
 
     	//else
@@ -1183,6 +1190,7 @@ class DemoGLSurfaceView extends GLSurfaceView {
             DemoGLSurfaceView.nativeOnVirtualGameKeyEvent( VirtualGameKey.ROTATE_LEFT.getValue(), (char)1 );
             DemoGLSurfaceView.nativeOnVirtualGameKeyEvent( VirtualGameKey.ROTATE_RIGHT.getValue(), (char)1 );
             DemoGLSurfaceView.nativeOnVirtualGameKeyEvent( VirtualGameKey.SPEED_DOWN.getValue(), (char)1 );	// 0:keydown
+			DemoGLSurfaceView.nativeOnVirtualGameKeyEvent( VirtualGameKey.DEBUG_SETTINGS.getValue(), (char)1 );	// 0:keydown
 
 			//we reset m_NoInputCounter in onRotation()
         }
@@ -1201,9 +1209,13 @@ class DemoGLSurfaceView extends GLSurfaceView {
     	ROTATE_RIGHT(1),
     	GO_TITLE(2),
     	TOGGLE_LIGHT(3),
-    	SPEED_DOWN(4);
-    	//QUIT_APP
+    	SPEED_DOWN(4),
+		DEBUG_SETTINGS(5)
+		//QUIT_APP
+		;
 
+
+		
         private VirtualGameKey(int value) {
             this.value = value;
         }

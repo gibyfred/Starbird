@@ -45,6 +45,7 @@ float fDeepGrassGreenVec[] = { 0.0, 0.4, 0.0 };
 float fGrassGreenVec[] = { 0.0, 0.6, 0.0 };
 float fOrangeVec[] = { 1.0, 0.6, 0.0 };
 
+//float fBlueVec[]       = {0.0, 0.0, 1.0},
 
 
 /*----------------------------------------------------------------------
@@ -424,17 +425,9 @@ void vMakeChannel()
          {-0.5,  0.5,  0.5}, {-0.5,  0.5, -0.5},		//left roof
          { 0.5, -0.5, -0.5}, { 0.5, -0.5,  0.5},		//right floor
          { 0.5,  0.5,  0.5}, { 0.5,  0.5, -0.5} };		//right root
-	float n0321[3] = { 1.0, 0.0, 0.0 };
-	float n0154[3] = { 0.0, 1.0, 0.0 };
-	float n4567[3] = { -1.0, 0.0, 0.0 };
-	float n3762[3] = { 0.0, -1.0, 0.0 };
-	float n5126[3] = { 0.0, 0.0, -1.0 };
 
 
 #ifdef SB_GLES
-	GLubyte indicesOld[] = {
-		0, 3, 2, 1,		0, 1, 5, 4,
-		4, 5, 6, 7,		3, 7, 6, 2 };
 	GLubyte indices[] = {
 		0, 3, 2, 2, 1, 0,	0, 1, 5, 5, 4, 0,
 		4, 5, 6, 6, 7, 4, 	3, 7, 6, 6, 2, 3,
@@ -449,7 +442,13 @@ void vMakeChannel()
 	glDrawElements( GL_TRIANGLES, SIZEOFARR(indices), GL_UNSIGNED_BYTE, indices );
 	glDisableClientState( GL_VERTEX_ARRAY );
 #else
-    glNewList(OBJ_CHANNEL, GL_COMPILE);
+	float n0321[3] = { 1.0, 0.0, 0.0 };
+	float n0154[3] = { 0.0, 1.0, 0.0 };
+	float n4567[3] = { -1.0, 0.0, 0.0 };
+	float n3762[3] = { 0.0, -1.0, 0.0 };
+	float n5126[3] = { 0.0, 0.0, -1.0 };
+
+	glNewList(OBJ_CHANNEL, GL_COMPILE);
 
     glColor3fv(fBlueVec);
  	vChangeMat(wall_mat);
@@ -496,23 +495,91 @@ void vMakeChannel()
 #endif
 }
 
+
+/*----------------------------------------------------------------------
+----------------------------------------------------------------------*/
+void vMakeSkyDome()
+{
+	float v[4][3] = {{ 0.5, 0.5, 0.0},
+				{ -0.5, 0.5, 0.0},
+				{ -0.5, -0.5, 0},
+				{ 0.5, -0.5, 0}};
+
+	GLubyte indices[] = {
+		0, 1, 3,	1, 2, 3,
+	};
+
+#if 1
+	//----// with color gradation
+
+	unsigned char colors[]=
+//	float colors[]=
+			{
+					0,191,255,255,  // SkyDeepColor
+					0,191,255,255,
+					175,238,238,255,
+					175,238,238,255,
+
+//					0,191,255,255,
+//					175,238,238,255,
+//					175,238,238,255,
+
+			        /*
+					1.0f,0.0f,0.0f,1.0f,
+					0.0f,0.9f,0.0f,1.0f,
+					0.0f,0.0f,0.9f,1.0f,
+					1.0f,0.0f,0.0f,1.0f,
+			         */
+			};
+
+	glColor3fv(fBlueVec); //temp
+	vChangeMat(e_mat1);
+
+	//TODOA1d add normal
+
+	//
+	glVertexPointer( 3, GL_FLOAT, 0, v );
+	//glColorPointer( 4, GL_FLOAT, 0, colors );
+	glColorPointer( 4, GL_UNSIGNED_BYTE, 0, colors );
+
+	glEnableClientState(GL_COLOR_ARRAY);
+	glEnableClientState(GL_VERTEX_ARRAY);
+
+	glDrawElements( GL_TRIANGLES, SIZEOFARR(indices), GL_UNSIGNED_BYTE, indices );
+
+	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_COLOR_ARRAY);
+
+#else
+	//----// simple color for debug
+	glColor3fv(fBlueVec); //test only
+	vChangeMat(e_mat1);
+
+	//TODOA1d add normal
+	glVertexPointer( 3, GL_FLOAT, 0, v );
+	glEnableClientState( GL_VERTEX_ARRAY );
+	glDrawElements( GL_TRIANGLES, SIZEOFARR(indices), GL_UNSIGNED_BYTE, indices );
+	glDisableClientState( GL_VERTEX_ARRAY );
+#endif
+}
+
 /*----------------------------------------------------------------------
 draw a triangle; helper method for makeShadow
 ----------------------------------------------------------------------*/
 void vDrawPolygon2(float b[3][3])
 {
 #ifdef SB_GLES
-	//TODOA1b
+//TODOA1b
 #else
-    float n0[3] = {0.0, 1.0, 0.0};
+float n0[3] = {0.0, 1.0, 0.0};
 
-    glNormal3fv(n0);
-    glBegin(GL_POLYGON);
-    glVertex3fv(b[0]);
-    glVertex3fv(b[2]);
-    glVertex3fv(b[1]);
-    glVertex3fv(b[0]);
-    glEnd();
+glNormal3fv(n0);
+glBegin(GL_POLYGON);
+glVertex3fv(b[0]);
+glVertex3fv(b[2]);
+glVertex3fv(b[1]);
+glVertex3fv(b[0]);
+glEnd();
 #endif
 }
 
@@ -521,33 +588,33 @@ make a spark and put it into display list
 ----------------------------------------------------------------------*/
 void vMakeSpark()
 {
-   float v[4][3] = { {-0.5, -0.5, -0.5},
-         { 0.5, -0.5, -0.5},
-         { 0.5,  0.5,  -0.5},
-         {-0.5,  0.5, -0.5}};
+float v[4][3] = { {-0.5, -0.5, -0.5},
+	 { 0.5, -0.5, -0.5},
+	 { 0.5,  0.5,  -0.5},
+	 {-0.5,  0.5, -0.5}};
 
 #ifdef SB_GLES
-	GLubyte indices[] = {
-		0, 1, 2,  2, 3, 0 };
+GLubyte indices[] = {
+	0, 1, 2,  2, 3, 0 };
 
-	glColor3fv(fRedVec);
-	vChangeMat(red_mat);
+glColor3fv(fRedVec);
+vChangeMat(red_mat);
 
-	glVertexPointer( 3, GL_FLOAT, 0, v );
-	glEnableClientState( GL_VERTEX_ARRAY );
-	glDrawElements( GL_TRIANGLES, SIZEOFARR(indices), GL_UNSIGNED_BYTE, indices );
-	glDisableClientState( GL_VERTEX_ARRAY );
+glVertexPointer( 3, GL_FLOAT, 0, v );
+glEnableClientState( GL_VERTEX_ARRAY );
+glDrawElements( GL_TRIANGLES, SIZEOFARR(indices), GL_UNSIGNED_BYTE, indices );
+glDisableClientState( GL_VERTEX_ARRAY );
 #else
-    glNewList(OBJ_SPARK, GL_COMPILE);
-    glColor3fv(fRedVec);
+glNewList(OBJ_SPARK, GL_COMPILE);
+glColor3fv(fRedVec);
 
-    glBegin(GL_POLYGON);
-    glVertex3fv(v[0]);
-    glVertex3fv(v[1]);
-    glVertex3fv(v[2]);
-    glVertex3fv(v[3]);
-    glEnd();
-    glEndList();
+glBegin(GL_POLYGON);
+glVertex3fv(v[0]);
+glVertex3fv(v[1]);
+glVertex3fv(v[2]);
+glVertex3fv(v[3]);
+glEnd();
+glEndList();
 #endif
 }
 
@@ -556,50 +623,50 @@ make a yellow rectangle for for generic use and put it into display list
 ----------------------------------------------------------------------*/
 void vMakeRect()
 {
-	const float UNIT =  0.5;	// these 0.01 offsets are not necessary for iris version.
+const float UNIT =  0.5;	// these 0.01 offsets are not necessary for iris version.
 
 #ifdef SB_GLES
-	float v[4][3] =	{
-		{ -UNIT, 0.0, 0.0 },
-		{ UNIT, 0.0, 0.0 },
-		{ UNIT, 0.0, -RECT_LEN },
-		{ -UNIT, 0.0, -RECT_LEN } };
+float v[4][3] =	{
+	{ -UNIT, 0.0, 0.0 },
+	{ UNIT, 0.0, 0.0 },
+	{ UNIT, 0.0, -RECT_LEN },
+	{ -UNIT, 0.0, -RECT_LEN } };
 
-	GLubyte indices[] = {
-		0, 1, 3, 2, 3, 1 };
+GLubyte indices[] = {
+	0, 1, 3, 2, 3, 1 };
 
-	glColor3fv(fYellowVec);
-	vChangeMat(rect_mat);
+glColor3fv(fYellowVec);
+vChangeMat(rect_mat);
 
-	glVertexPointer( 3, GL_FLOAT, 0, v );
-	glEnableClientState( GL_VERTEX_ARRAY );
-	glDrawElements( GL_TRIANGLES, SIZEOFARR(indices), GL_UNSIGNED_BYTE, indices );
-	glDisableClientState( GL_VERTEX_ARRAY );
+glVertexPointer( 3, GL_FLOAT, 0, v );
+glEnableClientState( GL_VERTEX_ARRAY );
+glDrawElements( GL_TRIANGLES, SIZEOFARR(indices), GL_UNSIGNED_BYTE, indices );
+glDisableClientState( GL_VERTEX_ARRAY );
 #else
-	float v1[3] = { -0.5, 0.0, 0.0 };
-    float v2[3] = { 0.5, 0.0, 0.0 };
-    float v3[3], v4[3];
+float v1[3] = { -0.5, 0.0, 0.0 };
+float v2[3] = { 0.5, 0.0, 0.0 };
+float v3[3], v4[3];
 //    float n[3] = { 0.0, 1.0, 0.0 };
 
-    v3[0] = v1[0];
-    v3[1] = v1[1];
-    v3[2] = -RECT_LEN;
-    v4[0] = v2[0];
-    v4[1] = v2[1];
-    v4[2] = -RECT_LEN;
+v3[0] = v1[0];
+v3[1] = v1[1];
+v3[2] = -RECT_LEN;
+v4[0] = v2[0];
+v4[1] = v2[1];
+v4[2] = -RECT_LEN;
 
-	glNewList(OBJ_RECT, GL_COMPILE);
+glNewList(OBJ_RECT, GL_COMPILE);
 
-	glColor3fv(fYellowVec);
-	vChangeMat(rect_mat);
-    glBegin(GL_POLYGON);
-    glVertex3fv(v1);
-    glVertex3fv(v2);
-    glVertex3fv(v4);
-    glVertex3fv(v3);
-    glEnd();
+glColor3fv(fYellowVec);
+vChangeMat(rect_mat);
+glBegin(GL_POLYGON);
+glVertex3fv(v1);
+glVertex3fv(v2);
+glVertex3fv(v4);
+glVertex3fv(v3);
+glEnd();
 
-    glEndList();
+glEndList();
 #endif
 }
 
@@ -610,66 +677,68 @@ for ending scene
 void vMakeRect2(int objId)
 {
 #ifdef SB_GLES
-	
-    float v[4][3] = {{ -0.5, 0.0, 0.0},
-					{ 0.5, 0.0, 0.0},
-					{ -0.5, 0.0, -1.0},
-					{ 0.5, 0.0, -1.0}};
 
-	GLubyte indices[] = {
-		0, 1, 3,	3, 2, 0,
-	};
+float v[4][3] = {{ -0.5, 0.0, 0.0},
+				{ 0.5, 0.0, 0.0},
+				{ -0.5, 0.0, -1.0},
+				{ 0.5, 0.0, -1.0}};
 
-	if ( objId == OBJ_SMALL_EARTH )
-	{
-		glColor3fv(fGrassGreenVec);
-		vChangeMat(e_mat1);
-	}
-	else
-	{
-		glColor3fv(fDeepGrassGreenVec);
-		vChangeMat(e_mat2);
-	}
+GLubyte indices[] = {
+	0, 1, 3,	3, 2, 0,
+};
 
-//TODO A1d add normal
-	glVertexPointer( 3, GL_FLOAT, 0, v );
-	glEnableClientState( GL_VERTEX_ARRAY );
-	glDrawElements( GL_TRIANGLES, SIZEOFARR(indices), GL_UNSIGNED_BYTE, indices );
-	glDisableClientState( GL_VERTEX_ARRAY );
+if ( objId == OBJ_SMALL_EARTH )
+{
+	glColor3fv(fGrassGreenVec);
+	vChangeMat(e_mat1);
+}
+else
+{
+	glColor3fv(fDeepGrassGreenVec);
+	vChangeMat(e_mat2);
+}
+
+//TODOA1d add normal
+glVertexPointer( 3, GL_FLOAT, 0, v );
+glEnableClientState( GL_VERTEX_ARRAY );
+glDrawElements( GL_TRIANGLES, SIZEOFARR(indices), GL_UNSIGNED_BYTE, indices );
+glDisableClientState( GL_VERTEX_ARRAY );
+
 #else
-	float v1[3] = { -0.5, 0.0, 0.0 };
-    float v2[3] = { 0.5, 0.0, 0.0 };
-    float v3[3], v4[3];
-    float n[3] = { 0.0, 1.0, 0.0 };
 
-    v3[0] = v1[0];
-    v3[1] = v1[1];
-    v3[2] = -1.0;
-    v4[0] = v2[0];
-    v4[1] = v2[1];
-    v4[2] = -1.0;
+float v1[3] = { -0.5, 0.0, 0.0 };
+float v2[3] = { 0.5, 0.0, 0.0 };
+float v3[3], v4[3];
+float n[3] = { 0.0, 1.0, 0.0 };
 
-    glNewList(objId, GL_COMPILE);
-	
-	 if ( objId == OBJ_SMALL_EARTH )
-	 {
-		glColor3fv(fGrassGreenVec);
-		vChangeMat(e_mat1);
-	 }
-	 else
-	 {
-		glColor3fv(fDeepGrassGreenVec);
-		vChangeMat(e_mat2);
-	 }
-	
-	glNormal3fv(n);
-    glBegin(GL_POLYGON);
-    glVertex3fv(v1);
-    glVertex3fv(v2);
-    glVertex3fv(v4);
-    glVertex3fv(v3);
-    glEnd();
-    glEndList();
+v3[0] = v1[0];
+v3[1] = v1[1];
+v3[2] = -1.0;
+v4[0] = v2[0];
+v4[1] = v2[1];
+v4[2] = -1.0;
+
+glNewList(objId, GL_COMPILE);
+
+ if ( objId == OBJ_SMALL_EARTH )
+ {
+	glColor3fv(fGrassGreenVec);
+	vChangeMat(e_mat1);
+ }
+ else
+ {
+	glColor3fv(fDeepGrassGreenVec);
+	vChangeMat(e_mat2);
+ }
+
+glNormal3fv(n);
+glBegin(GL_POLYGON);
+glVertex3fv(v1);
+glVertex3fv(v2);
+glVertex3fv(v4);
+glVertex3fv(v3);
+glEnd();
+glEndList();
 #endif
 }
 
@@ -679,34 +748,34 @@ make a vertical plane and put it into display list
 ----------------------------------------------------------------------*/
 void vMakeVPlane()
 {
-    float v[4][3] = {{ 0.0, 0.5, 0.5},
-					{ 0.0, -0.5, 0.5},
-					{ 0.0, -0.5, -0.5},
-					{ 0.0, 0.5, -0.5}};
+float v[4][3] = {{ 0.0, 0.5, 0.5},
+				{ 0.0, -0.5, 0.5},
+				{ 0.0, -0.5, -0.5},
+				{ 0.0, 0.5, -0.5}};
 #ifdef SB_GLES
-	GLubyte indices[] = {
-		0, 1, 2,	2, 3, 0,
-	};
+GLubyte indices[] = {
+	0, 1, 2,	2, 3, 0,
+};
 
-	vChangeMat(wall_mat);
-    glColor3fv(fGreenVec);
+vChangeMat(wall_mat);
+glColor3fv(fGreenVec);
 
-	glVertexPointer( 3, GL_FLOAT, 0, v );
-	glEnableClientState( GL_VERTEX_ARRAY );
-	glDrawElements( GL_TRIANGLES, SIZEOFARR(indices), GL_UNSIGNED_BYTE, indices );
-	glDisableClientState( GL_VERTEX_ARRAY );
+glVertexPointer( 3, GL_FLOAT, 0, v );
+glEnableClientState( GL_VERTEX_ARRAY );
+glDrawElements( GL_TRIANGLES, SIZEOFARR(indices), GL_UNSIGNED_BYTE, indices );
+glDisableClientState( GL_VERTEX_ARRAY );
 #else
-	glNewList(OBJ_VPLANE, GL_COMPILE);
-	vChangeMat(wall_mat);
-    glColor3fv(fGreenVec);
-    glBegin(GL_POLYGON);
-    glVertex3fv(v[0]);
-    glVertex3fv(v[1]);
-    glVertex3fv(v[2]);
-    glVertex3fv(v[3]);
-    glVertex3fv(v[0]);
-    glEnd();
-	glEndList();
+glNewList(OBJ_VPLANE, GL_COMPILE);
+vChangeMat(wall_mat);
+glColor3fv(fGreenVec);
+glBegin(GL_POLYGON);
+glVertex3fv(v[0]);
+glVertex3fv(v[1]);
+glVertex3fv(v[2]);
+glVertex3fv(v[3]);
+glVertex3fv(v[0]);
+glEnd();
+glEndList();
 #endif
 }
 
@@ -717,37 +786,37 @@ make a ring plane and put it into display list
 void vDrawRingPlane(float v1[3], float v2[3])
 {
 #ifdef SB_GLES
-	float v[4][3] = { 
-		v1[0], v1[1], v1[2], 
-		v2[0], v2[1], v2[2], 
-		v1[0], v1[1], RING_Z, 
-		v2[0], v2[1], RING_Z,
-	};
-	GLubyte indices[] = {
-		0, 2, 3,	3, 1, 0,
-	};
+float v[4][3] = {
+	v1[0], v1[1], v1[2],
+	v2[0], v2[1], v2[2],
+	v1[0], v1[1], RING_Z,
+	v2[0], v2[1], RING_Z,
+};
+GLubyte indices[] = {
+	0, 2, 3,	3, 1, 0,
+};
 
-	glVertexPointer( 3, GL_FLOAT, 0, v );
-	glEnableClientState( GL_VERTEX_ARRAY );
-	glDrawElements( GL_TRIANGLES, SIZEOFARR(indices), GL_UNSIGNED_BYTE, indices );
-	glDisableClientState( GL_VERTEX_ARRAY );
+glVertexPointer( 3, GL_FLOAT, 0, v );
+glEnableClientState( GL_VERTEX_ARRAY );
+glDrawElements( GL_TRIANGLES, SIZEOFARR(indices), GL_UNSIGNED_BYTE, indices );
+glDisableClientState( GL_VERTEX_ARRAY );
 #else
-    float v3[3];
-    float v4[3];
+float v3[3];
+float v4[3];
 
-    v3[0] = v1[0];
-    v3[1] = v1[1];
-    v3[2] = RING_Z;
-    v4[0] = v2[0];
-    v4[1] = v2[1];
-    v4[2] = RING_Z;
+v3[0] = v1[0];
+v3[1] = v1[1];
+v3[2] = RING_Z;
+v4[0] = v2[0];
+v4[1] = v2[1];
+v4[2] = RING_Z;
 
-	glBegin(GL_POLYGON);
-    glVertex3fv(v1);
-    glVertex3fv(v3);
-    glVertex3fv(v4);
-    glVertex3fv(v2);
-    glEnd();
+glBegin(GL_POLYGON);
+glVertex3fv(v1);
+glVertex3fv(v3);
+glVertex3fv(v4);
+glVertex3fv(v2);
+glEnd();
 #endif
 }
 
@@ -757,36 +826,36 @@ make a ring and put it into display list
 ----------------------------------------------------------------------*/
 void vMakeRing()
 {
-    float v[8][3] = {{ 5.0, 0.0, 0.0 },
-                    { 3.53553, 3.53553, 0.0},
-                    { 0.0, 5.0, 0.0 },
-                    { -3.53553, 3.53553, 0.0},
-                    { -5.0, 0.0, 0.0 },
-                    { -3.53553, -3.53553, 0.0},
-                    { 0.0, -5.0, 0.0 },
-                    { 3.53553, -3.53553, 0.0}};
+float v[8][3] = {{ 5.0, 0.0, 0.0 },
+				{ 3.53553, 3.53553, 0.0},
+				{ 0.0, 5.0, 0.0 },
+				{ -3.53553, 3.53553, 0.0},
+				{ -5.0, 0.0, 0.0 },
+				{ -3.53553, -3.53553, 0.0},
+				{ 0.0, -5.0, 0.0 },
+				{ 3.53553, -3.53553, 0.0}};
 
 #ifdef SB_GLES
-	//TOSPEEDUP replace this 8 calls by one call to glDrawElements()
-	//TODOA1d?  try double faces?
+//TOSPEEDUP replace this 8 calls by one call to glDrawElements()
+//TODOA1d?  try double faces?
 #else
-	glNewList(OBJ_RING, GL_COMPILE);
+glNewList(OBJ_RING, GL_COMPILE);
 #endif
 
-	vChangeMat(red_mat);
-    glColor3fv(fRedVec);
-    vDrawRingPlane(v[0], v[1]);
-    vDrawRingPlane(v[1], v[2]);
-    vDrawRingPlane(v[2], v[3]);
-    vDrawRingPlane(v[3], v[4]);
-    vDrawRingPlane(v[4], v[5]);
-    vDrawRingPlane(v[5], v[6]);
-    vDrawRingPlane(v[6], v[7]);
-    vDrawRingPlane(v[7], v[0]);
+vChangeMat(red_mat);
+glColor3fv(fRedVec);
+vDrawRingPlane(v[0], v[1]);
+vDrawRingPlane(v[1], v[2]);
+vDrawRingPlane(v[2], v[3]);
+vDrawRingPlane(v[3], v[4]);
+vDrawRingPlane(v[4], v[5]);
+vDrawRingPlane(v[5], v[6]);
+vDrawRingPlane(v[6], v[7]);
+vDrawRingPlane(v[7], v[0]);
 
 #ifdef SB_GLES
 #else
-	glEndList();
+glEndList();
 #endif
 }
 
@@ -796,49 +865,49 @@ make a square using line and put it into display list
 ----------------------------------------------------------------------*/
 void vMakeSq()
 {
-	const float UNIT =  0.5 - OFFSET_FROM_WALL;	// these 0.01 offsets are not necessary for iris version.
+const float UNIT =  0.5 - OFFSET_FROM_WALL;	// these 0.01 offsets are not necessary for iris version.
 
 #ifdef SB_GLES
-	float v[4][3] =	{
-		{ -UNIT, -UNIT, 0.0 },
-		{ UNIT, -UNIT, 0.0 },
-		{ UNIT, UNIT, 0.0 },
-		{ -UNIT, UNIT, 0.0 } };
+float v[4][3] =	{
+	{ -UNIT, -UNIT, 0.0 },
+	{ UNIT, -UNIT, 0.0 },
+	{ UNIT, UNIT, 0.0 },
+	{ -UNIT, UNIT, 0.0 } };
 
-	glColor3fv(fBlackVec);
-	glLineWidth(1);
+glColor3fv(fBlackVec);
+glLineWidth(1);
 
-	glVertexPointer( 3, GL_FLOAT, 0, v );
-	glEnableClientState( GL_VERTEX_ARRAY );
-	glDrawArrays( GL_LINE_LOOP, 0, SIZEOFARR(v) );
-	glDisableClientState( GL_VERTEX_ARRAY );
+glVertexPointer( 3, GL_FLOAT, 0, v );
+glEnableClientState( GL_VERTEX_ARRAY );
+glDrawArrays( GL_LINE_LOOP, 0, SIZEOFARR(v) );
+glDisableClientState( GL_VERTEX_ARRAY );
 #else
-	float v1[3] = { -UNIT, -UNIT, 0.0 };
-	float v2[3] = { UNIT, -UNIT, 0.0 };
-	float v3[3], v4[3];
+float v1[3] = { -UNIT, -UNIT, 0.0 };
+float v2[3] = { UNIT, -UNIT, 0.0 };
+float v3[3], v4[3];
 
-	v3[0] = v1[0];
-	v3[1] = UNIT;
-	v3[2] = v1[2];
-	v4[0] = v2[0];
-	v4[1] = UNIT;
-	v4[2] = v2[2];
+v3[0] = v1[0];
+v3[1] = UNIT;
+v3[2] = v1[2];
+v4[0] = v2[0];
+v4[1] = UNIT;
+v4[2] = v2[2];
 
-	glNewList(OBJ_SQUARE, GL_COMPILE);
+glNewList(OBJ_SQUARE, GL_COMPILE);
 
-	glColor3fv(fBlackVec);
-	vChangeMat(black_mat);
-	glLineWidth(1);
+glColor3fv(fBlackVec);
+vChangeMat(black_mat);
+glLineWidth(1);
 
-	glBegin(GL_LINE_STRIP);
-	glVertex3fv(v1);
-	glVertex3fv(v2);
-	glVertex3fv(v4);
-	glVertex3fv(v3);
-	glVertex3fv(v1);
-	glEnd();
+glBegin(GL_LINE_STRIP);
+glVertex3fv(v1);
+glVertex3fv(v2);
+glVertex3fv(v4);
+glVertex3fv(v3);
+glVertex3fv(v1);
+glEnd();
 
-	glEndList();
+glEndList();
 #endif
 }
 
@@ -849,45 +918,45 @@ make a bullet and put it into display list
 void vMakeFire()
 {
 #ifdef SB_GLES
-	float v[4][3] = { 
-		-0.5, 0.0, 0.0,
-		0.5, 0.0, 0.0,
-		0.5, 0.0, -0.5, 
-		0.5, 0.0, -0.5,
-	};
-	GLubyte indices[] = {
-		0, 1, 3,	3, 2, 0,
-	};
+float v[4][3] = {
+	-0.5, 0.0, 0.0,
+	0.5, 0.0, 0.0,
+	0.5, 0.0, -0.5,
+	0.5, 0.0, -0.5,
+};
+GLubyte indices[] = {
+	0, 1, 3,	3, 2, 0,
+};
 
-	glColor3fv(fOrangeVec);
+glColor3fv(fOrangeVec);
 
-	glVertexPointer( 3, GL_FLOAT, 0, v );
-	glEnableClientState( GL_VERTEX_ARRAY );
-	glDrawElements( GL_TRIANGLES, SIZEOFARR(indices), GL_UNSIGNED_BYTE, indices );
-	glDisableClientState( GL_VERTEX_ARRAY );
+glVertexPointer( 3, GL_FLOAT, 0, v );
+glEnableClientState( GL_VERTEX_ARRAY );
+glDrawElements( GL_TRIANGLES, SIZEOFARR(indices), GL_UNSIGNED_BYTE, indices );
+glDisableClientState( GL_VERTEX_ARRAY );
 #else
-    float v1[3] = { -0.5, 0.0, 0.0 };
-    float v2[3] = { 0.5, 0.0, 0.0 };
+float v1[3] = { -0.5, 0.0, 0.0 };
+float v2[3] = { 0.5, 0.0, 0.0 };
 //    float n[3] = { 0.0, 1.0, 0.0 };
 
-	float v3[3], v4[3];
-    v3[0] = v1[0];
-    v3[1] = v1[1];
-    v3[2] = -0.5;
-    v4[0] = v2[0];
-    v4[1] = v2[1];
-    v4[2] = -0.5;
+float v3[3], v4[3];
+v3[0] = v1[0];
+v3[1] = v1[1];
+v3[2] = -0.5;
+v4[0] = v2[0];
+v4[1] = v2[1];
+v4[2] = -0.5;
 
-    glNewList(OBJ_FIRE, GL_COMPILE);
-    glColor3fv(fOrangeVec);
-	 //vChangeMat();
-    glBegin(GL_POLYGON);
-    glVertex3fv(v1);
-    glVertex3fv(v2);
-    glVertex3fv(v4);
-    glVertex3fv(v3);
-    glEnd();
-    glEndList();
+glNewList(OBJ_FIRE, GL_COMPILE);
+glColor3fv(fOrangeVec);
+ //vChangeMat();
+glBegin(GL_POLYGON);
+glVertex3fv(v1);
+glVertex3fv(v2);
+glVertex3fv(v4);
+glVertex3fv(v3);
+glEnd();
+glEndList();
 #endif
 }
 
@@ -897,44 +966,44 @@ draw four polygons with normal well set
 ----------------------------------------------------------------------*/
 void vDrawPolygon(float b[4][3], float n[4][3])
 {
-	//TODOF?  use GL Buffer Objects (which is the only way in OpenGL 3.0 and OpengGLES 2.0???)
+//TODOF?  use GL Buffer Objects (which is the only way in OpenGL 3.0 and OpengGLES 2.0???)
 #ifdef SB_GLES
-	GLubyte indices[] = {
-		1, 2, 0,	3, 2, 1,
-		0 ,2 ,3,	0, 3, 1 };
+GLubyte indices[] = {
+	1, 2, 0,	3, 2, 1,
+	0 ,2 ,3,	0, 3, 1 };
 //TODOA1? use normal!?
-	glVertexPointer( 3, GL_FLOAT, 0, b );
-	glEnableClientState( GL_VERTEX_ARRAY );
-	glDrawElements( GL_TRIANGLES, SIZEOFARR(indices), GL_UNSIGNED_BYTE, indices );
-	glDisableClientState( GL_VERTEX_ARRAY );
+glVertexPointer( 3, GL_FLOAT, 0, b );
+glEnableClientState( GL_VERTEX_ARRAY );
+glDrawElements( GL_TRIANGLES, SIZEOFARR(indices), GL_UNSIGNED_BYTE, indices );
+glDisableClientState( GL_VERTEX_ARRAY );
 #else
-	glNormal3fv(n[0]);
-    glBegin(GL_POLYGON);
-    glVertex3fv(b[1]);
-    glVertex3fv(b[2]);
-    glVertex3fv(b[0]);
-    glEnd();
+glNormal3fv(n[0]);
+glBegin(GL_POLYGON);
+glVertex3fv(b[1]);
+glVertex3fv(b[2]);
+glVertex3fv(b[0]);
+glEnd();
 
-    glNormal3fv(n[1]);
-    glBegin(GL_POLYGON);
-    glVertex3fv(b[3]);
-    glVertex3fv(b[2]);
-    glVertex3fv(b[1]);
-    glEnd();
+glNormal3fv(n[1]);
+glBegin(GL_POLYGON);
+glVertex3fv(b[3]);
+glVertex3fv(b[2]);
+glVertex3fv(b[1]);
+glEnd();
 
-    glNormal3fv(n[2]);
-    glBegin(GL_POLYGON);
-    glVertex3fv(b[0]);
-    glVertex3fv(b[2]);
-    glVertex3fv(b[3]);
-    glEnd();
+glNormal3fv(n[2]);
+glBegin(GL_POLYGON);
+glVertex3fv(b[0]);
+glVertex3fv(b[2]);
+glVertex3fv(b[3]);
+glEnd();
 
-    glNormal3fv(n[3]);
-    glBegin(GL_POLYGON);
-    glVertex3fv(b[0]);
-    glVertex3fv(b[3]);
-    glVertex3fv(b[1]);
-    glEnd();
+glNormal3fv(n[3]);
+glBegin(GL_POLYGON);
+glVertex3fv(b[0]);
+glVertex3fv(b[3]);
+glVertex3fv(b[1]);
+glEnd();
 #endif
 }
 
@@ -947,124 +1016,128 @@ static int stencilReflection = 1, stencilShadow = 1, offsetShadow = 1;
 static int linearFiltering = 0, useMipmaps = 1;
 
 static char *circles[] = {
-  "....xxxx........",
-  "..xxxxxxxx......",
-  ".xxxxxxxxxx.....",
-  ".xxx....xxx.....",
-  "xxx......xxx....",
-  "xxx......xxx....",
-  "xxx......xxx....",
-  "xxx......xxx....",
-  ".xxx....xxx.....",
-  ".xxxxxxxxxx.....",
-  "..xxxxxxxx......",
-  "....xxxx........",
-  "................",
-  "................",
-  "................",
-  "................",
+"....xxxx........",
+"..xxxxxxxx......",
+".xxxxxxxxxx.....",
+".xxx....xxx.....",
+"xxx......xxx....",
+"xxx......xxx....",
+"xxx......xxx....",
+"xxx......xxx....",
+".xxx....xxx.....",
+".xxxxxxxxxx.....",
+"..xxxxxxxx......",
+"....xxxx........",
+"................",
+"................",
+"................",
+"................",
 };
 
 /*----------------------------------------------------------------------
-make 2D texture 
+make 2D texture
 ----------------------------------------------------------------------*/
 static void vMakeFloorTexture(void)
 {
-	if ( ! Draw_Engine.isTexture )
-		return;
+if ( ! Draw_Engine.isTexture )
+	return;
 
-	GLubyte floorTexture[16][16][3];
-	GLubyte *loc;
-	int s, t;
+GLubyte floorTexture[16][16][3];
+GLubyte *loc;
+int s, t;
 
-	/* Setup RGB image for the texture. */
-	loc = (GLubyte*) floorTexture;
-	for (t = 0; t < 16; t++) {
-	 for (s = 0; s < 16; s++) {
-		if (circles[t][s] == 'x') {
-	/* Nice green. */
-		  loc[0] = 0x1f;
-		  loc[1] = 0x8f;
-		  loc[2] = 0x1f;
-		} else {
-	/* Light gray. */
-		  loc[0] = 0xaa;
-		  loc[1] = 0xaa;
-		  loc[2] = 0xaa;
-		}
-		loc += 3;
-	 }
+/* Setup RGB image for the texture. */
+loc = (GLubyte*) floorTexture;
+for (t = 0; t < 16; t++) {
+ for (s = 0; s < 16; s++) {
+	if (circles[t][s] == 'x') {
+/* Nice green. */
+	  loc[0] = 0x1f;
+	  loc[1] = 0x8f;
+	  loc[2] = 0x1f;
+	} else {
+/* Light gray. */
+	  loc[0] = 0xaa;
+	  loc[1] = 0xaa;
+	  loc[2] = 0xaa;
 	}
+	loc += 3;
+ }
+}
 
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
-	if (useMipmaps)
-	{
-		 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
-			GL_LINEAR_MIPMAP_LINEAR);
+if (useMipmaps)
+{
+	 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
+		GL_LINEAR_MIPMAP_LINEAR);
 #ifdef SB_GLES
-		 //TODOA1c
-		 //ref: glhBuild2DMipmaps OR glues
+	 //TODOA1c
+	 //ref: glhBuild2DMipmaps OR glues
 #else
 
-		 gluBuild2DMipmaps(GL_TEXTURE_2D, 3, 16, 16,
-			GL_RGB, GL_UNSIGNED_BYTE, floorTexture);
+	 gluBuild2DMipmaps(GL_TEXTURE_2D, 3, 16, 16,
+		GL_RGB, GL_UNSIGNED_BYTE, floorTexture);
 #endif
-	}
-	else 
-	{
-		 if (linearFiltering) {
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		 } else {
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		 }
-		 glTexImage2D(GL_TEXTURE_2D, 0, 3, 16, 16, 0,
-			GL_RGB, GL_UNSIGNED_BYTE, floorTexture);
-	}
+}
+else
+{
+	 if (linearFiltering) {
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	 } else {
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	 }
+	 glTexImage2D(GL_TEXTURE_2D, 0, 3, 16, 16, 0,
+		GL_RGB, GL_UNSIGNED_BYTE, floorTexture);
+}
 }
 
 void vDrawObj(unsigned short id)
 {
 #ifdef SB_GLES
-	switch(id)
-	{
-	case OBJ_SQUARE:
-		vMakeSq();
-		break;
-	case OBJ_RING:
-		vMakeRing();
-		break;
-	case OBJ_VPLANE:
-		vMakeVPlane();
-		break;
-	case OBJ_SPARK:
-		vMakeSpark();
-		break;
-	case OBJ_RECT:
-		vMakeRect();
-		break;
-	case OBJ_FIRE:
-		vMakeFire();
-		break;
-	case OBJ_SMALL_EARTH:
-	case OBJ_RECT_EARTH:
-		vMakeRect2(id);
-		break;
-	case OBJ_CUBE1:
-	case OBJ_CUBE2:
-	case OBJ_CUBE3:
-	case OBJ_CUBE4:
-		vMakeCube(id);
-		break;
-	case OBJ_CHANNEL:
-		vMakeChannel();
-		break;
-	default:
-		assert(0);
-		break;
-	}
+switch(id)
+{
+case OBJ_SQUARE:
+	vMakeSq();
+	break;
+case OBJ_RING:
+	vMakeRing();
+	break;
+case OBJ_VPLANE:
+	vMakeVPlane();
+	break;
+case OBJ_SPARK:
+	vMakeSpark();
+	break;
+case OBJ_RECT:
+	vMakeRect();
+	break;
+case OBJ_FIRE:
+	vMakeFire();
+	break;
+case OBJ_SMALL_EARTH:
+case OBJ_RECT_EARTH:
+	vMakeRect2(id);
+	break;
+case OBJ_CUBE1:
+case OBJ_CUBE2:
+case OBJ_CUBE3:
+case OBJ_CUBE4:
+	vMakeCube(id);
+	break;
+case OBJ_CHANNEL:
+	vMakeChannel();
+	break;
+case OBJ_SKYDOME:
+	vMakeSkyDome();
+	break;
+
+default:
+	assert(0);
+	break;
+}
 #else
-	glCallList(id);
+glCallList(id);
 #endif
 //	dbg_msg("vDrawObj(): end");
 }
@@ -1074,38 +1147,38 @@ make all objects into display list
 ----------------------------------------------------------------------*/
 void vMakeAll(void)
 {
-	glPushMatrix();
+glPushMatrix();
 
 #ifdef SB_GLES
 #else
-	dream::vMakeDREAM();
-	vMakePlane();
-	vMakeChannel();
-	vMakeCube(OBJ_CUBE1);
-	vMakeCube(OBJ_CUBE2);
-	vMakeCube(OBJ_CUBE3);
-	vMakeCube(OBJ_CUBE4);
-	vMakeSq();
-	vMakeRing();
-	vMakeVPlane();
-	vMakeSpark();
-	vMakeRect();
-	vMakeRect2(OBJ_SMALL_EARTH);
-	vMakeRect2(OBJ_RECT_EARTH);
-	dream::vMakeDRSha();
-	vMakeFire();
+dream::vMakeDREAM();
+vMakePlane();
+vMakeChannel();
+vMakeCube(OBJ_CUBE1);
+vMakeCube(OBJ_CUBE2);
+vMakeCube(OBJ_CUBE3);
+vMakeCube(OBJ_CUBE4);
+vMakeSq();
+vMakeRing();
+vMakeVPlane();
+vMakeSpark();
+vMakeRect();
+vMakeRect2(OBJ_SMALL_EARTH);
+vMakeRect2(OBJ_RECT_EARTH);
+dream::vMakeDRSha();
+vMakeFire();
 #endif
 
-	//glRotated(90,1,1,1);
+//glRotated(90,1,1,1);
 
-	vMakeLights();
-	glLineWidth(2.0f);
+vMakeLights();
+glLineWidth(2.0f);
 
 #ifdef SB_ANDROID
-	//TODOA2? for ANdroid!?
+//TODOA2? for ANdroid!?
 #else
-	vMakeFloorTexture();
+vMakeFloorTexture();
 #endif
 
-	glPopMatrix();
+glPopMatrix();
 }

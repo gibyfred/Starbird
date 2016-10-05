@@ -236,6 +236,8 @@
 #define OBJ_DRSHA		26
 #define OBJ_RECT_EARTH	27
 
+#define OBJ_SKYDOME		100
+
 
 /* key button id for struct Device_Ids */
 #define DR_NUM_BUT	13
